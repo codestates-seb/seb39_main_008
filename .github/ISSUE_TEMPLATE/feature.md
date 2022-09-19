@@ -1,7 +1,7 @@
 ---
 name: Feature
 about: Feature 작업 사항을 기입해주세요
-title: "[FEATURE]"
+title: "[Feature]"
 labels: Feature
 assignees: ''
 
