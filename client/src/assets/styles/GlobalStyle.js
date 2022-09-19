@@ -3,7 +3,6 @@ import { reset } from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
 ${reset};
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@1,100&family=Gowun+Batang:wght@400;700&display=swap');
 * {
   box-sizing: border-box;
 }
