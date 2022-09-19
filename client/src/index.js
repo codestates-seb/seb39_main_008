@@ -8,7 +8,12 @@ import { Provider } from 'react-redux';
 import { worker } from './mocks/browser';
 import App from './App';
 const container = document.getElementById('root');
-worker.start();
+worker.start({
+  // quiet: true,
+  onUnhandledRequest: () => {
+    return;
+  },
+});
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
