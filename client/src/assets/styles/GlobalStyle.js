@@ -3,6 +3,7 @@ import { reset } from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
 ${reset};
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@1,100&family=Gowun+Batang:wght@400;700&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -12,9 +13,8 @@ html,
     width: 100%;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: 'Fira Sans Extra Condensed', sans-serif;
+font-family: 'Gowun Batang', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   }

@@ -1,10 +1,7 @@
-import { DefaultTheme } from 'styled-components';
-
-export const theme: DefaultTheme = {
+export const theme = {
   colors: {
     white: '#ffffff',
     black: '#0c0d0e',
-    orange: '#f48225',
     yellow: '#fbf3d5',
     green: '#5eba7d',
     blue: '#0074cc',
@@ -25,14 +22,5 @@ export const theme: DefaultTheme = {
     black750: '#2f3337',
     black800: '#232629',
     black900: '#0c0d0e',
-    orange050: '#fff7f0',
-    orange100: '#fee3cd',
-    orange200: '#fbd0ad',
-    orange300: '#f7ac6e',
-    orange400: '#f48225',
-    orange500: '#f2740d',
-    orange600: '#da680b',
-    orange700: '#bd5a0a',
-    orange800: '#a7510c',
   },
 };
