@@ -4,13 +4,17 @@ import { reset } from 'styled-reset';
 export const GlobalStyle = createGlobalStyle`
 ${reset};
 * {
-  box-sizing: border-box;  
   font-family: 'Gowun Batang', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;  
+
 }
 html,
-  body {
+  body {  
+    font-family: 'Gowun Batang', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -35,4 +39,5 @@ html,
     outline: 0;
     cursor: pointer;
   }
+  
 `;
