@@ -1,6 +1,8 @@
 import React, { Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Loading from './components/common/Loading';
+import axios from 'axios';
+import Layout from './pages/Layout';
 const Root = React.lazy(() => import('./pages/Root'));
 const Error = React.lazy(() => import('./pages/Error'));
 const Landing = React.lazy(() => import('./pages/Landing'));
@@ -13,7 +15,7 @@ const MakeBook = React.lazy(() => import('./pages/MakeBook'));
 const WriteDiary = React.lazy(() => import('./pages/WriteDiary'));
 const Userpage = React.lazy(() => import('./pages/Userpage'));
 const People = React.lazy(() => import('./pages/People'));
-import axios from 'axios';
+
 function App() {
   useEffect(() => {
     axios.get('/api/v1/members', {
@@ -23,24 +25,91 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route path="*" element={<Error />}></Route>
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <Error />
+            </Layout>
+          }
+        ></Route>
         <Route
           path="/"
           element={
             <Root>
-              <Main />
-              <Landing />
+              <Layout>
+                <Main />
+              </Layout>
+              <Layout hasCommon={false}>
+                <Landing />
+              </Layout>
             </Root>
           }
         ></Route>
-        <Route path="/signin" element={<Signin />}></Route>
-        <Route path="/book/:bookId" element={<Book />}></Route>
-        <Route path="/books/:memberId" element={<BookList />}></Route>
-        <Route path="/book/:bookId/:diaryId" element={<Diary />}></Route>
-        <Route path="/makebook" element={<MakeBook />}></Route>
-        <Route path="/writediary" element={<WriteDiary />}></Route>
-        <Route path="/user/:memberId" element={<Userpage />}></Route>
-        <Route path="/people" element={<People />}></Route>
+        <Route
+          path="/signin"
+          element={
+            <Layout hasCommon={false}>
+              <Signin />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/book/:bookId"
+          element={
+            <Layout>
+              <Book />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/books/:memberId"
+          element={
+            <Layout>
+              <BookList />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/book/:bookId/:diaryId"
+          element={
+            <Layout>
+              <Diary />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/makebook"
+          element={
+            <Layout>
+              <MakeBook />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/writediary"
+          element={
+            <Layout>
+              <WriteDiary />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/user/:memberId"
+          element={
+            <Layout>
+              <Userpage />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/people"
+          element={
+            <Layout>
+              <People />
+            </Layout>
+          }
+        ></Route>
       </Routes>
     </Suspense>
   );
