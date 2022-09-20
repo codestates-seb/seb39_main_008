@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-
+import { theme } from '../../assets/styles/theme';
 const Button = styled.button`
-  height: ${(props) => props.height || 'auto'};
   width: ${(props) => props.width || 'auto'};
   color: ${({ theme }) => theme.colors.text1};
-  font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+  font-size: ${(props) => props.fontSize || theme.fontSize.fontSizeS};
+  /* box-shadow: ${({ theme }) => theme.boxShadow.shadowS}; */
   margin: 0;
   padding: 0;
   border: none;
@@ -17,12 +17,13 @@ const Button = styled.button`
     transition: transform 300ms ease-in-out;
   }
   &:hover:after {
-    transform: scaleX(0.95);
+    transform: scaleX(0.97);
   }
   &:hover {
     color: ${({ theme }) => theme.colors.text2};
   }
   .container {
+    height: ${(props) => props.height || 'auto'};
     border: 1.2px solid ${({ theme }) => theme.colors.black050};
     padding: 2px;
     border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
@@ -49,7 +50,12 @@ const Button = styled.button`
 
 const TextButton = ({ text, onClick, ...props }) => {
   return (
-    <Button onClick={onClick} width={props.width} height={props.height}>
+    <Button
+      onClick={onClick}
+      width={props.width}
+      height={props.height}
+      fontSize={props.fontSize}
+    >
       <div className="container">
         {props.icon && <div className="icon">{props.icon}</div>}
         <p className="text">{text}</p>
