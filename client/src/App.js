@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Loading from './components/common/Loading';
 const Root = React.lazy(() => import('./pages/Root'));
@@ -13,13 +13,8 @@ const MakeBook = React.lazy(() => import('./pages/MakeBook'));
 const WriteDiary = React.lazy(() => import('./pages/WriteDiary'));
 const Userpage = React.lazy(() => import('./pages/Userpage'));
 const People = React.lazy(() => import('./pages/People'));
-import axios from 'axios';
+
 function App() {
-  useEffect(() => {
-    axios.get('/api/v1/members', {
-      headers: { msg: 'hello world!', aa: 'aaaa' },
-    });
-  }, []);
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
