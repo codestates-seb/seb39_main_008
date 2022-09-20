@@ -1,4 +1,5 @@
 const colors = {
+  dimGrey: '#babfc47d',
   white: '#ffffff',
   black: '#0c0d0e',
   grey: '#c8ccd0',
