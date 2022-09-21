@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Loading from './components/common/Loading';
-import axios from 'axios';
 import Layout from './pages/Layout';
 const Root = React.lazy(() => import('./pages/Root'));
 const Error = React.lazy(() => import('./pages/Error'));
