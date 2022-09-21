@@ -16,25 +16,30 @@ import { IoColorPaletteOutline } from 'react-icons/io5';
 const Wraper = styled.div`
   * {
     font-size: ${theme.fontSize.fontSizeM};
-    box-sizing: border-box;
   }
-  display: ${(props) => (props.hasSidebar ? 'block' : 'none')};
+  display: flex;
   padding: ${theme.space.spaceM};
   max-width: 223px;
   height: 100vh;
   border-right: 2px solid ${colors.grey};
   position: sticky;
   top: 0;
-  display: flex;
   flex-direction: column;
+  .auto {
+    margin-top: auto;
+  }
+  .auto + div {
+    margin-top: ${theme.space.spaceS};
+  }
 `;
 const UserBox = styled.div`
+  margin-top: 20px;
   & > button {
-    padding: 0;
     width: 100%;
     position: relative;
     margin-top: ${theme.space.spaceM};
-    & > p {
+
+    & > div {
       color: ${colors.text2};
       text-align: left;
     }
@@ -42,13 +47,36 @@ const UserBox = styled.div`
       color: ${colors.text4};
     }
     & > svg {
+      color: ${colors.text4};
       position: absolute;
       bottom: 0;
       right: 0;
     }
   }
+  & > button:hover {
+    & > svg {
+      color: ${colors.text3};
+    }
+  }
 `;
+const List = styled.div`
+  margin-top: ${theme.space.spaceL};
+  & > button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: ${colors.text2};
+    & > svg {
+      color: ${colors.text4};
+    }
+  }
 
+  & > button:hover {
+    & > svg {
+      color: ${colors.text3};
+    }
+  }
+`;
 const Sidebar = ({ hasSidebar }) => {
   const listdata = {
     newDiary: {
@@ -82,6 +110,7 @@ const Sidebar = ({ hasSidebar }) => {
     logout: {
       text: '로그아웃',
       icon: <FiLogOut size={20} />,
+      className: 'auto',
       onClick: () => {
         console.log('logout');
       },
@@ -94,7 +123,7 @@ const Sidebar = ({ hasSidebar }) => {
       },
     },
   };
-
+  const list = Object.values(listdata);
   const userData = {
     name: '김코딩',
     profileURL:
@@ -112,64 +141,32 @@ const Sidebar = ({ hasSidebar }) => {
         <Logo />
         <UserBox>
           <Avatar
+            isShadow={true}
             height="197px"
             imageURL={userData.profileURL}
             borderRadius={theme.borderRadius.borderRadiusL}
           />
           <button onClick={userData.onClick}>
-            <p>{userData.name}</p>
-            <p>{userData.nickname}</p>
+            <div>
+              <p>{userData.name}</p>
+              <p>{userData.nickname}</p>
+            </div>
             {userData.icon}
           </button>
         </UserBox>
-        <SidebarList listdata={listdata}></SidebarList>
+        {list.map((el, idx) => {
+          return (
+            <List key={idx} className={el.className || 'item'}>
+              <button onClick={el.onClick}>
+                <p>{el.text}</p>
+                {el.icon}
+              </button>
+            </List>
+          );
+        })}
       </Wraper>
     </>
   );
 };
 
 export default Sidebar;
-
-const SidebarList = ({ listdata }) => {
-  const list = Object.values(listdata);
-  const List = styled.div`
-    width: 100%;
-    height: 100%;
-    margin-bottom: 0;
-    position: relative;
-    div:nth-child(5) {
-      width: 100%;
-      position: absolute;
-      bottom: 36px;
-    }
-    div:nth-child(6) {
-      width: 100%;
-      bottom: 0;
-      position: absolute;
-    }
-  `;
-  const Item = styled.div`
-    margin-top: ${theme.space.spaceL};
-    & > button {
-      padding: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      color: ${colors.text2};
-    }
-  `;
-  return (
-    <List>
-      {list.map((el, idx) => {
-        return (
-          <Item key={idx}>
-            <button onClick={el.onClick}>
-              <p>{el.text}</p>
-              {el.icon}
-            </button>
-          </Item>
-        );
-      })}
-    </List>
-  );
-};
