@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { theme } from '../../assets/styles/theme';
 const Button = styled.button`
+  box-sizing: border-box;
   width: ${(props) => props.width || 'auto'};
   color: ${({ theme }) => theme.colors.text1};
   font-size: ${(props) => props.fontSize || theme.fontSize.fontSizeS};
-  /* box-shadow: ${({ theme }) => theme.boxShadow.shadowS}; */
-  margin: 0;
+  margin: 0px;
   padding: 0;
   border: none;
 
@@ -32,7 +32,7 @@ const Button = styled.button`
     ${({ theme }) => theme.layout.flexCenter};
   }
   .container:hover {
-    border: none;
+    border: 1.2px solid transparent;
     transition: 0.5s ease-out;
     background-color: ${({ theme }) => theme.colors.black050};
   }
