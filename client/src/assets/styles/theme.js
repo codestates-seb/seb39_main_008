@@ -27,13 +27,13 @@ const fontSize = {
 };
 
 const boxShadow = {
-  shadowXS: '0px 1px 4px -1px rgba(28, 48, 74, 0.5)',
-  shadowS: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
-  shadowM:
-    '0px 8px 24px -4px rgba(28, 50, 79, 0.38), 0px 2px 6px 0px rgba(28, 55, 90, 0.16)',
+  shadowXS: 'rgba(0, 0, 0, 0.3) 0px 3px 6px, rgba(0, 0, 0, 0.22) 0px 3px 4px',
+  shadowS: 'rgba(0, 0, 0, 0.3) 0px 7px 14px, rgba(0, 0, 0, 0.22) 0px 6px 6px',
+  shadowM: 'rgba(0, 0, 0, 0.3) 0px 11px 22px, rgba(0, 0, 0, 0.22) 0px 9px 8px',
   shadowL:
-    '0px 12px 48px -6px rgba(28, 50, 79, 0.38), 0px 3px 18px -2px rgba(28, 55, 90, 0.16)',
-  shadowXL: 'rgba(33, 35, 38, 0.1) 0px 10px 10px -10px',
+    'rgba(0, 0, 0, 0.3) 0px 15px 30px, rgba(0, 0, 0, 0.22) 0px 12px 10px',
+  shadowXL:
+    'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
 };
 const borderRadius = {
   borderRadiusL: '12px',
@@ -47,8 +47,8 @@ const space = {
 };
 const screen = {
   mobile: `(max-width: 576px)`,
-  tablet: `(min-width: 768px) and (max-width: 991.98px)`,
-  desctop: `(min-width: 992)`,
+  tablet: `(min-width: 576px) and (max-width: 991.98px)`,
+  desktop: `(min-width: 992px)`,
 };
 
 const layout = {
