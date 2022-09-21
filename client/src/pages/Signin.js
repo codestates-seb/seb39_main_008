@@ -21,11 +21,12 @@ const Signin = () => {
             icon={<FcGoogle size={'1.4rem'} />}
             text={'Sign in with Google'}
             onClick={() => {
-              // eslint-disable-next-line no-undef
-              window.open(`${process.env.REACT_APP_GITHUB_AUTH_URL}`, '_blank');
+              window.open(
+                // eslint-disable-next-line no-undef
+                `${process.env.REACT_APP_GOOGLE_AUTH_URL}`
+              );
             }}
           />
-
           <TextButton
             width={'15rem'}
             height={'3rem'}
@@ -33,8 +34,10 @@ const Signin = () => {
             icon={<RiKakaoTalkFill size={'1.4rem'} />}
             text={'Sign in with Kakao'}
             onClick={() => {
-              // eslint-disable-next-line no-undef
-              window.open(`${process.env.REACT_APP_KAKAO_AUTH_URL}`, '_blank');
+              window.open(
+                // eslint-disable-next-line no-undef
+                `${process.env.REACT_APP_KAKAO_AUTH_URL}`
+              );
             }}
           />
         </ButtonBox>
@@ -46,6 +49,7 @@ const Signin = () => {
 export default Signin;
 
 const Container = styled.div`
+  box-sizing: border-box;
   width: 100vw;
   height: 100vh;
   ${theme.layout.flexCenter};
@@ -85,7 +89,6 @@ const ImageBox = styled.div`
   background-image: url(${signinImg});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
   padding: ${theme.space.spaceL};
   display: flex;
   flex-direction: column;
