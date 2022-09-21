@@ -3,7 +3,7 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import { theme } from '../assets/styles/theme';
 import TextButton from '../components/common/TextButton';
 import styled from 'styled-components';
-import signinImg from '../assets/Img/signinImg.png';
+import signinImg from '../assets/img/signinImg.png';
 
 const Signin = () => {
   return (
