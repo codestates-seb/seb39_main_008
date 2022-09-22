@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-const Padding40Container = styled.div`
-  display: ${(props) => (props.hasHeader ? 'block' : 'none')};
+const Container = styled.div`
+  display: block;
   padding: ${({ theme }) => theme.space.spaceL};
   max-width: 954px;
 `;
@@ -18,9 +18,9 @@ const Description = styled.p`
   margin: ${({ theme }) => theme.space.spaceS};
   margin-top: 0;
 `;
-const Header = ({ hasHeader, ...props }) => {
+const Header = (props) => {
   return (
-    <Padding40Container hasHeader={hasHeader}>
+    <Container>
       <Wraper>
         {props.header && (
           <>
@@ -29,7 +29,7 @@ const Header = ({ hasHeader, ...props }) => {
           </>
         )}
       </Wraper>
-    </Padding40Container>
+    </Container>
   );
 };
 

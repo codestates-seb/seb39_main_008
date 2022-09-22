@@ -50,7 +50,7 @@ export default Signin;
 
 const Container = styled.div`
   box-sizing: border-box;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   ${theme.layout.flexCenter};
   @media ${theme.screen.mobile} {
