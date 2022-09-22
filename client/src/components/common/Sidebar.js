@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Logo from './Logo';
 import Avatar from './Avatar';
@@ -12,6 +13,7 @@ import {
 } from 'react-icons/fi';
 import { RiUserSettingsLine } from 'react-icons/ri';
 import { IoColorPaletteOutline } from 'react-icons/io5';
+import ComfirmModal from './ComfirmModal';
 
 const Wraper = styled.div`
   * {
@@ -78,6 +80,23 @@ const List = styled.div`
   }
 `;
 const Sidebar = ({ hasSidebar }) => {
+  const [confirm, setConfirm] = useState(false);
+  const onLogout = () => {
+    setConfirm(!confirm);
+  };
+  const logOut = async () => {
+    //todo 로그아웃 구현
+    navigate('/');
+  };
+
+  const confirmLogout = (res) => {
+    if (res) {
+      onLogout();
+      logOut();
+    } else {
+      onLogout();
+    }
+  };
   const listdata = {
     newDiary: {
       text: '새 기록 남기기',
@@ -112,7 +131,7 @@ const Sidebar = ({ hasSidebar }) => {
       icon: <FiLogOut size={20} />,
       className: 'auto',
       onClick: () => {
-        console.log('logout');
+        setConfirm(!confirm);
       },
     },
     setTheme: {
@@ -138,6 +157,13 @@ const Sidebar = ({ hasSidebar }) => {
   return (
     <>
       <Wraper hasSidebar={hasSidebar}>
+        {confirm && (
+          <ComfirmModal
+            message={'로그아웃 하시겠습니까?'}
+            onComfirm={confirmLogout}
+            target={`${userData.nickname} 님`}
+          />
+        )}
         <Logo />
         <UserBox>
           <Avatar
