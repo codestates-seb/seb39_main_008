@@ -7,20 +7,18 @@ import Avatar from './Avatar';
 
 const UserCardContainer = styled.div`
   width: 150px;
-  height: 175px;
+  height: auto;
   padding: ${theme.space.spaceS};
   border-radius: ${theme.borderRadius.borderRadiusS};
   box-shadow: ${theme.boxShadow.shadowS};
 `;
 
 const UserCardContent = styled.div`
-  display: flex;
-  justify-content: space-between;
   font-size: ${theme.fontSize.fontSizeS};
-  padding: ${theme.space.spaceS} 0;
 
   > p {
     color: ${theme.colors.text4};
+    padding: ${theme.space.spaceS} 0;
   }
 
   > p:hover {
@@ -29,6 +27,7 @@ const UserCardContent = styled.div`
 
   > div {
     display: flex;
+    justify-content: flex-end;
   }
 
   > div > p {
