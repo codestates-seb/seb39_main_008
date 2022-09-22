@@ -1,16 +1,17 @@
 import styled from 'styled-components';
-
+import { boxShadow } from '../../assets/styles/theme';
 const ProfileURL = styled.img`
   width: ${(props) => props.width || '100%'};
   height: ${(props) => props.height || '100%'};
   border-radius: ${(props) => props.borderRadius || 0};
-  box-shadow: 0px 18px 64px -8px rgba(28, 50, 79, 0.38),
-    0px 4px 24px -3px rgba(28, 55, 90, 0.16);
   object-fit: cover;
+  box-shadow: ${(props) => (props.isShadow ? boxShadow.shadowXS : 'none')};
 `;
-const Avatar = ({ imageURL, ...props }) => {
+
+const Avatar = ({ imageURL, isShadow = false, ...props }) => {
   return (
     <ProfileURL
+      isShadow={isShadow}
       src={imageURL}
       width={props.width}
       height={props.height}

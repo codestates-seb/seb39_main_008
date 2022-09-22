@@ -2,21 +2,27 @@ import Sidebar from '../components/common/Sidebar';
 import Header from '../components/common/Header';
 import styled from 'styled-components';
 
-const Body = styled.div`
-  width: 100vw;
-  height: 100vh;
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
 `;
-const Main = styled.section``;
-const Layout = ({ hasCommon = true, ...props }) => {
+const Content = styled.section`
+  background-color: aliceblue;
+  margin-left: 20px;
+  width: 100%;
+  max-width: calc(1200px - 223px);
+`;
+function Layout({ hasCommon = true, ...props }) {
   return (
-    <Body>
-      <Sidebar hasSidebar={hasCommon} user={props.user} />
-      <Main>
-        <Header hasHeader={hasCommon} header={props.header} />
+    <Container>
+      <Sidebar hasSidebar={hasCommon} />
+      <Content>
+        <Header hasHeader={hasCommon} />
         {props.children}
-      </Main>
-    </Body>
+      </Content>
+    </Container>
   );
-};
+}
 
 export default Layout;
