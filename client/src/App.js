@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Loading from './components/common/Loading';
 import Layout from './pages/Layout';
+import OAuth2Redirect from './pages/OAuth2Redirect';
 const Root = React.lazy(() => import('./pages/Root'));
 const Error = React.lazy(() => import('./pages/Error'));
 const Landing = React.lazy(() => import('./pages/Landing'));
@@ -104,6 +105,7 @@ function App() {
             </Layout>
           }
         ></Route>
+        <Route path="/oauth2/redirect" element={<OAuth2Redirect />}></Route>
       </Routes>
     </Suspense>
   );
