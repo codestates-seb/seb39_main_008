@@ -59,9 +59,9 @@ export const layout = {
 `,
   flexCenterColumn: `
 display: flex;
-flex-direction: column;
-justify-contents: center;
-align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `,
 };
 
