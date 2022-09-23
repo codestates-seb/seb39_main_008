@@ -1,8 +1,10 @@
-import axios from 'axios';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import UserCard from '../components/common/UserCard';
-import { space, fontSize, colors } from '../assets/styles/theme';
+import { space } from '../assets/styles/theme';
+import { getMembers } from '../lib/axios';
+import PeopleFilter from '../components/People/PeopleFilter';
+import LoadingUnit from '../components/common/LoadingUnit';
 
 const PeopleContainer = styled.div`
   width: 100%;
@@ -21,32 +23,6 @@ const PeopleContainer = styled.div`
   > div > div {
     justify-self: center;
   }
-`;
-
-const PeopleFilterContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding-right: calc(${space.spaceL} + ${space.spaceM});
-  position: relative;
-
-  > button {
-    color: ${colors.text4};
-    font-size: ${fontSize.fontSizeS};
-    padding-left: ${space.spaceS};
-  }
-
-  > button.active {
-    color: ${colors.text2};
-  }
-`;
-
-const FilterModal = styled.div`
-  position: absolute;
-  z-index: 1;
-  bottom: -110px;
-  width: 300px;
-  height: 100px;
-  background: tomato;
 `;
 
 const NoticeContainer = styled.div`
@@ -68,6 +44,7 @@ const People = ({ setHeaderData }) => {
   const preventRef = useRef(true);
   const endRef = useRef(false);
   const isFilterModal = useRef();
+  const isButtonModal = useRef();
 
   useEffect(async () => {
     setHeaderData({
@@ -78,11 +55,14 @@ const People = ({ setHeaderData }) => {
     const handleModal = (e) => {
       if (
         !filterModal &&
-        (!isFilterModal.current || !isFilterModal.current.contains(e.target))
+        isFilterModal.current &&
+        !isFilterModal.current.contains(e.target) &&
+        !isButtonModal.current.contains(e.target)
       ) {
         setFilterModal(false);
       }
     };
+
     const observer = new IntersectionObserver(obsHandler, { threshold: 0.5 });
     if (obsRef.current) observer.observe(obsRef.current);
     window.addEventListener('mousedown', handleModal);
@@ -94,8 +74,8 @@ const People = ({ setHeaderData }) => {
   }, []);
 
   useEffect(() => {
-    getPost();
-  }, [page, size, sortby]);
+    getUserData();
+  }, [page, size]);
 
   const obsHandler = (entries) => {
     const target = entries[0];
@@ -127,89 +107,35 @@ const People = ({ setHeaderData }) => {
     }
   };
 
-  const getPost = useCallback(async () => {
+  const getUserData = useCallback(async () => {
+    console.log(sortby);
     setLoading(true);
-    // api호출 방법 변경하기
-    const res = await axios.get(
-      `/api/v1/members?page=${page}&size=${size}&filterby=${sortby}`
-    );
+    const res = await getMembers(page, size, sortby);
+    console.log(res.data);
+    setLoading(false);
     if (res.data) {
-      setUserDatas((prev) => [...prev, ...res.data.data]);
+      setUserDatas((prev) => [...prev, ...res.data]);
       preventRef.current = true;
-      if (res.data.data.length === 0) {
+      if (res.data.length === 0) {
         preventRef.current = false;
         setEndPage(true);
       }
     } else {
       console.log(res);
     }
-
-    setLoading(false);
-  }, [page, size, sortby]);
+  }, [page, size]);
   return (
     <div>
-      <PeopleFilterContainer>
-        <button
-          className={active === 0 ? 'active' : ''}
-          onClick={() => {
-            setActive(0);
-            handleFilter(10, 'followdesc');
-          }}
-        >
-          팔로우 순
-        </button>
-        <button
-          className={active === 1 ? 'active' : ''}
-          onClick={() => {
-            setActive(1);
-            handleFilter(10, 'totalwritedesc');
-          }}
-        >
-          작성글 순
-        </button>
-        <button
-          className={active === 2 ? 'active' : ''}
-          onClick={() => {
-            setActive(2);
-            setFilterModal(!filterModal);
-          }}
-        >
-          필터
-        </button>
-        {/* 필터 디자인 및 기능구현하기 */}
-        {filterModal && (
-          <FilterModal ref={isFilterModal}>
-            <div>필터링 기준</div>
-            <div>
-              <label htmlFor="follow">팔로우</label>
-              <input
-                id="follow"
-                name="chk_info"
-                type="radio"
-                value="follow"
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="write">작성글</label>
-              <input
-                id="write"
-                name="chk_info"
-                type="radio"
-                value="totalwrite"
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="joined">가입일</label>
-              <input
-                id="joined"
-                name="chk_info"
-                type="radio"
-                value="recent"
-              ></input>
-            </div>
-          </FilterModal>
-        )}
-      </PeopleFilterContainer>
+      <PeopleFilter
+        active={active}
+        setActive={setActive}
+        setSortby={setSortby}
+        handleFilter={handleFilter}
+        filterModal={filterModal}
+        setFilterModal={setFilterModal}
+        isFilterModal={isFilterModal}
+        isButtonModal={isButtonModal}
+      />
       <PeopleContainer>
         <div>
           {userDatas.map((e) => (
@@ -227,8 +153,7 @@ const People = ({ setHeaderData }) => {
         {endPage && (
           <NoticeContainer>더 이상 불러올 유저가 없습니다.</NoticeContainer>
         )}
-        {/* <div>로딩중</div> 자리에 로딩 컴포넌트 불러오기 */}
-        <div ref={obsRef}>{isLoading && <div>로딩중</div>}</div>
+        <div ref={obsRef}>{isLoading && <LoadingUnit />}</div>
       </PeopleContainer>
     </div>
   );
