@@ -15,10 +15,10 @@ export const handlers = [
     const reqUrl = req.url.searchParams;
     const page = Number(reqUrl.get('page')) || 1;
     const size = Number(reqUrl.get('size')) || 10;
-    const filterby = reqUrl.get('filterby') || 'recentdesc';
+    const sortby = reqUrl.get('sortby') || 'recentdesc';
     let filterdData = [];
 
-    switch (filterby) {
+    switch (sortby) {
       case 'recentdesc':
         filterdData = memberData.sort(
           (a, b) =>
