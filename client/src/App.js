@@ -6,7 +6,8 @@ import OAuth2Redirect from './pages/OAuth2Redirect';
 const Root = React.lazy(() => import('./pages/Root'));
 const Error = React.lazy(() => import('./pages/Error'));
 const Landing = React.lazy(() => import('./pages/Landing'));
-const Signin = React.lazy(() => import('./pages/Signin'));
+const Signup = React.lazy(() => import('./pages/Signup'));
+const Login = React.lazy(() => import('./pages/Login'));
 const Main = React.lazy(() => import('./pages/Main'));
 const Book = React.lazy(() => import('./pages/Book'));
 const BookList = React.lazy(() => import('./pages/BookList'));
@@ -42,10 +43,18 @@ function App() {
           }
         ></Route>
         <Route
-          path="/signin"
+          path="/signup"
           element={
             <Layout hasCommon={false}>
-              <Signin />
+              <Signup />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/login"
+          element={
+            <Layout hasCommon={false}>
+              <Login />
             </Layout>
           }
         ></Route>
