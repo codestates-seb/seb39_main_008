@@ -35,7 +35,7 @@ const People = ({ setHeaderData }) => {
   const [userDatas, setUserDatas] = useState([]);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
-  const [sortby, setSortby] = useState('followdesc');
+  const [sortby, setSortby] = useState({ head: 'follow', tail: 'desc' });
   const [endPage, setEndPage] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [active, setActive] = useState(0);
@@ -63,7 +63,7 @@ const People = ({ setHeaderData }) => {
       }
     };
 
-    const observer = new IntersectionObserver(obsHandler, { threshold: 0.5 });
+    const observer = new IntersectionObserver(handlerObs, { threshold: 0.5 });
     if (obsRef.current) observer.observe(obsRef.current);
     window.addEventListener('mousedown', handleModal);
 
@@ -77,7 +77,7 @@ const People = ({ setHeaderData }) => {
     getUserData();
   }, [page, size]);
 
-  const obsHandler = (entries) => {
+  const handlerObs = (entries) => {
     const target = entries[0];
     if (!endRef.current && target.isIntersecting && preventRef.current) {
       preventRef.current = false;
@@ -86,32 +86,15 @@ const People = ({ setHeaderData }) => {
   };
 
   const handleFilter = (size, sortby) => {
-    if (userDatas) {
-      switch (sortby) {
-        case 'followdesc':
-          setUserDatas((prev) => [
-            ...prev.sort((a, b) => b.follower - a.follower),
-          ]);
-          break;
-        case 'totalwritedesc':
-          setUserDatas((prev) => [
-            ...prev.sort((a, b) => b.total_content - a.total_content),
-          ]);
-          break;
-      }
-    } else {
-      setPage(1);
-      setSize(size);
-      setSortby(sortby);
-      setUserDatas([]);
-    }
+    setPage(1);
+    setSize(size);
+    setSortby(sortby);
+    setUserDatas([]);
   };
 
   const getUserData = useCallback(async () => {
-    console.log(sortby);
     setLoading(true);
-    const res = await getMembers(page, size, sortby);
-    console.log(res.data);
+    const res = await getMembers(page, size, sortby.head + sortby.tail);
     setLoading(false);
     if (res.data) {
       setUserDatas((prev) => [...prev, ...res.data]);
@@ -129,6 +112,7 @@ const People = ({ setHeaderData }) => {
       <PeopleFilter
         active={active}
         setActive={setActive}
+        sortby={sortby}
         setSortby={setSortby}
         handleFilter={handleFilter}
         filterModal={filterModal}

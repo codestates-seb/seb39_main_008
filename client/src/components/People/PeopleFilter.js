@@ -22,6 +22,7 @@ const PeopleFilterContainer = styled.div`
 const PeopleFilter = ({
   active,
   setActive,
+  sortby,
   setSortby,
   handleFilter,
   filterModal,
@@ -35,7 +36,7 @@ const PeopleFilter = ({
         className={active === 0 ? 'active' : ''}
         onClick={() => {
           setActive(0);
-          handleFilter(10, 'followdesc');
+          handleFilter(10, { head: 'follow', tail: 'desc' });
         }}
       >
         팔로우 순
@@ -44,7 +45,7 @@ const PeopleFilter = ({
         className={active === 1 ? 'active' : ''}
         onClick={() => {
           setActive(1);
-          handleFilter(10, 'totalwritedesc');
+          handleFilter(10, { head: 'totalwrite', tail: 'desc' });
         }}
       >
         작성글 순
@@ -59,12 +60,12 @@ const PeopleFilter = ({
       >
         필터
       </button>
-      {/* 필터 디자인 및 기능구현하기 */}
       {filterModal && (
         <FilterModal
           innerRef={isFilterModal}
           setFilterModal={setFilterModal}
           handleFilter={handleFilter}
+          sortby={sortby}
           setSortby={setSortby}
         />
       )}
