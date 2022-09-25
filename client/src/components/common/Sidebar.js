@@ -19,6 +19,7 @@ const Wraper = styled.div`
   * {
     font-size: ${theme.fontSize.fontSizeM};
   }
+  z-index: 1000;
   display: flex;
   padding: ${theme.space.spaceM};
   max-width: 223px;
