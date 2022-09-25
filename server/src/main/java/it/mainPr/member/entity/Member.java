@@ -5,35 +5,51 @@ import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
-@Table(name = "MEMBERS")
 public class Member {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-    private String img;
 
-    @Column(nullable = false)
-    private String introduction;
-
-    @Column(unique = true)
+    @Column
     private String email;
-    private String name;
-    private String nickname;
-
-    @JsonIgnore
+    @Column
     private String password;
 
-    @Builder
-    public Member(String img, String introduction, String email, String name, String nickname, String password) {
-        this.img = img;
-        this.introduction = introduction;
+    @Column
+    private String name;
+    @Column
+    private String nickname;
+    @Column
+    private String information;
+    @Column
+    private String imgUrl;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    public Member(String email) {
+        this.email = email;
+    }
+
+    public Member(String email, String name, String nickname, String information, String imgUrl) {
         this.email = email;
         this.name = name;
         this.nickname = nickname;
-        this.password = password;
+        this.information = information;
+        this.imgUrl = imgUrl;
     }
+
 }

@@ -9,3 +9,10 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  secret-key: "dasnafdsafasfasfasfasfasfsdfkandfklanddasfwweq"
+  access-token-expiration-minutes: 1
+  refresh-token-expiration-minutes: 420
