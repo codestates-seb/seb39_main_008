@@ -4,8 +4,7 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
-    UNAUTHORIZATIONED(401, "Access Denied"),
-    NoSuchElementException(500, "Server error");
+    MEMBER_EXISTS(409, "Member exists");
 
     @Getter
     private int status;
@@ -13,8 +12,8 @@ public enum ExceptionCode {
     @Getter
     private String message;
 
-    ExceptionCode(int status, String message) {
-        this.status = status;
+    ExceptionCode(int code, String message) {
+        this.status = code;
         this.message = message;
     }
 }
