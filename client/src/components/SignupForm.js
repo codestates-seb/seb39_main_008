@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Input from './common/Input';
+import SiginupInput from './SiginupInput';
 import BorderButton from './common/BorderButton';
 import TextButton from './common/TextButton';
 import { theme } from '../assets/styles/theme';
@@ -89,7 +89,14 @@ const SigninForm = () => {
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       {Object.values(data).map((e, i) => {
-        return <Input key={i} option={e} register={register} errors={errors} />;
+        return (
+          <SiginupInput
+            key={i}
+            option={e}
+            register={register}
+            errors={errors}
+          />
+        );
       })}
       <BorderButton
         width={'100%'}

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors, fontSize, space } from '../../assets/styles/theme';
+import { colors, fontSize, space } from '../assets/styles/theme';
 const InputBox = styled.div`
   width: 100%;
   height: 80px;
@@ -47,7 +47,7 @@ const InputBox = styled.div`
     font-size: ${fontSize.fontSizeS};
   }
 `;
-const Input = ({ option, ...props }) => {
+const SiginupInput = ({ option, ...props }) => {
   return (
     <InputBox>
       <input
@@ -65,4 +65,4 @@ const Input = ({ option, ...props }) => {
   );
 };
 
-export default Input;
+export default SiginupInput;
