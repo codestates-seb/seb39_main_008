@@ -43,8 +43,8 @@ const UserCard = ({
   nickname,
   userImage,
   total_content,
+  total_follower,
   isFollow,
-  follower,
   memberId,
 }) => {
   const [isCurrnetFollow, setIsFollow] = useState(null);
@@ -52,7 +52,7 @@ const UserCard = ({
 
   useEffect(() => {
     setIsFollow(isFollow);
-    setCurrnetFollower(follower);
+    setCurrnetFollower(total_follower);
   }, [isFollow]);
 
   const handleFollow = async () => {
