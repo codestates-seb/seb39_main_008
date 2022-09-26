@@ -31,7 +31,7 @@ public class MemberController {
         this.memberService = memberService;
         this.mapper = mapper;
     }
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "*")
     @PostMapping("/v1/auth/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
 
