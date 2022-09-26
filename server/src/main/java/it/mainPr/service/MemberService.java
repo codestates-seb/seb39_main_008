@@ -3,10 +3,10 @@ package it.mainPr.service;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
-import it.mainPr.helper.MemberRegistrationApplicationEvent;
+
 import it.mainPr.model.Member;
 import it.mainPr.repository.MemberRepository;
-import org.springframework.context.ApplicationEventPublisher;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,14 +23,11 @@ import java.util.Optional;
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
-    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher,
-                         PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
-        this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
     }
@@ -46,8 +43,6 @@ public class MemberService {
 
         Member savedMember = memberRepository.save(member);
 
-
-        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
         return savedMember;
     }
 
