@@ -55,13 +55,15 @@ public class SecurityConfig {
                 .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
-                .authorizeRequests()
-                    .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                    .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
-                    .anyRequest().hasRole("USER");
+                .authorizeRequests(authorize -> authorize
+                        .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
+                        .anyRequest().hasRole("USER"));
+
 //                .authorizeHttpRequests(authorize -> authorize
 //                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
-//                        .anyRequest().hasRole("USER")
+//                        .anyRequest().hasRole("USER"));
+
         return http.build();
     }
 
