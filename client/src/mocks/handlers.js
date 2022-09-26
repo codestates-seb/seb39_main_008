@@ -16,49 +16,69 @@ export const handlers = [
     const page = Number(reqUrl.get('page')) || 1;
     const size = Number(reqUrl.get('size')) || 10;
     const sortby = reqUrl.get('sortby') || 'recentdesc';
-    let filterdData = [];
+    let temp = memberData.map((e) =>
+      diarylist.filter((el) => el.member_id === e.id)
+    );
+    let filteredData = memberData.reduce((acc, cur, i) => {
+      cur.total_content = temp[i].length;
+      acc = [...acc, cur];
+      return acc;
+    }, []);
 
     switch (sortby) {
       case 'recentdesc':
-        filterdData = memberData.sort(
+        filteredData = filteredData.sort(
           (a, b) =>
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
         break;
       case 'recentasc':
-        filterdData = memberData.sort(
+        filteredData = filteredData.sort(
           (a, b) =>
             new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         );
         break;
       case 'followdesc':
-        filterdData = memberData.sort((a, b) => b.follower - a.follower);
+        filteredData = filteredData.sort(
+          (a, b) => b.total_follower - a.total_follower
+        );
         break;
       case 'followasc':
-        filterdData = memberData.sort((a, b) => a.follower - b.follower);
+        filteredData = filteredData.sort(
+          (a, b) => a.total_follower - b.total_follower
+        );
         break;
       case 'totalwritedesc':
-        filterdData = memberData.sort(
+        filteredData = filteredData.sort(
           (a, b) => b.total_content - a.total_content
         );
         break;
       case 'totalwriteasc':
-        filterdData = memberData.sort(
+        filteredData = filteredData.sort(
           (a, b) => a.total_content - b.total_content
         );
         break;
       default:
-        filterdData = memberData.sort(
-          (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        filteredData = filteredData.sort(
+          (a, b) => a.total_follower - b.total_follower
         );
         break;
     }
 
-    const resData =
+    let resData =
       page <= 1
-        ? filterdData.slice(0, size)
-        : filterdData.slice((page - 1) * size, (page - 1) * size + size);
+        ? filteredData.slice(0, size)
+        : filteredData.slice((page - 1) * size, (page - 1) * size + size);
+
+    resData = resData.map((e) => {
+      return {
+        memberId: e.id,
+        name: e.nickname,
+        profile: e.image,
+        total_content: e.total_content,
+        total_follower: e.total_follower,
+      };
+    });
 
     return res(
       ctx.json({
@@ -86,10 +106,21 @@ export const handlers = [
 
   rest.get('/api/v1/members/:memberId', (req, res, ctx) => {
     const { memberId } = req.params;
+    const filteredData = memberData.filter((e) => e.id === Number(memberId));
+    const resData = filteredData.map((e) => {
+      return {
+        memberId: e.id,
+        name: e.name,
+        nickname: e.nickname,
+        imfomation: e.nickname,
+        profile: e.image,
+        isFollow: e.isFollow,
+      };
+    });
 
     return res(
       ctx.json({
-        data: memberData.filter((e) => e.id === Number(memberId)),
+        data: resData[0],
         ok: true,
       })
     );
@@ -97,14 +128,28 @@ export const handlers = [
 
   rest.get('/api/v1/books/:book_id', (req, res, ctx) => {
     const { book_id } = req.params;
-    let filterdData = diarylist.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    let filteredData = diarylist.filter((e) => e.book_id === Number(book_id));
+    let filterdMemberData = filteredData.map((e) => e.member_id);
+    filterdMemberData = memberData.filter((e) =>
+      filterdMemberData.includes(e.id)
     );
+
+    const resData = filteredData.reduce((acc, cur, i) => {
+      const temp = {
+        diariesid: cur.id,
+        memberid: cur.member_id,
+        bookimage: cur.image,
+        title: cur.title,
+        createdAt: cur.created_at,
+        nickname: filterdMemberData[i].nickname,
+        profile: filterdMemberData[i].image,
+      };
+      return [...acc, { ...temp }];
+    }, []);
 
     return res(
       ctx.json({
-        data: filterdData.filter((e) => Number(book_id) === e.bookId),
+        data: resData,
         ok: true,
       })
     );
@@ -113,14 +158,11 @@ export const handlers = [
   rest.get('/api/v1/books', (req, res, ctx) => {
     const reqUrl = req.url.searchParams;
     const memberid = reqUrl.get('memberid');
-    let filterdData = booklist.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+    let filteredData = booklist.filter((e) => Number(memberid) === e.member_id);
 
     return res(
       ctx.json({
-        data: filterdData.filter((e) => Number(memberid) === e.memberid),
+        data: filteredData,
         ok: true,
       })
     );
@@ -131,56 +173,67 @@ export const handlers = [
     const page = Number(reqUrl.get('page')) || 1;
     const size = Number(reqUrl.get('size')) || 10;
     const filterby = reqUrl.get('filterby') || 'recentdesc';
-    let filterdData = [];
+    let filteredData = diarylist.reduce((acc, cur) => {
+      const filteredMember = memberData.filter(
+        (e) => e.id === cur.member_id
+      )[0];
+      const temp = {
+        diaryId: cur.id,
+        title: cur.title,
+        subtitle: cur.subtitle,
+        diaryimage: cur.image,
+        totalLike: cur.total_like,
+        totalComment: cur.total_comment,
+        createdAt: cur.created_at,
+        profile: filteredMember.image,
+        memberId: filteredMember.id,
+        nickname: filteredMember.nickname,
+        isFollow: filteredMember.isFollow,
+      };
+      return [...acc, { ...temp }];
+    }, []);
 
     switch (filterby) {
       case 'recentdesc':
-        filterdData = diarylist.sort(
+        filteredData = filteredData.sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
         break;
       case 'recentasc':
-        filterdData = diarylist.sort(
+        filteredData = filteredData.sort(
           (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         );
         break;
       case 'likedesc':
-        filterdData = diarylist.sort((a, b) => b.totalLike - a.totalLike);
+        filteredData = filteredData.sort((a, b) => b.total_like - a.total_like);
         break;
       case 'likeasc':
-        filterdData = diarylist.sort((a, b) => a.totalLike - b.totalLike);
+        filteredData = filteredData.sort((a, b) => a.total_like - b.total_like);
         break;
       case 'commentdesc':
-        filterdData = diarylist.sort((a, b) => b.totalComment - a.totalComment);
+        filteredData = filteredData.sort(
+          (a, b) => b.total_comment - a.total_comment
+        );
         break;
       case 'commentasc':
-        filterdData = diarylist.sort((a, b) => a.totalComment - b.totalComment);
+        filteredData = filteredData.sort(
+          (a, b) => a.total_comment - b.total_comment
+        );
         break;
       default:
-        filterdData = diarylist.sort(
+        filteredData = filteredData.sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
         break;
     }
 
-    filterdData = filterdData.map((e) => {
-      delete e.bookId;
-      const result = {
-        ...memberData.filter((el) => e.memberId === el.id)[0],
-        ...e,
-      };
-      delete result.id;
-
-      return result;
-    });
-
     const resData =
       page <= 1
-        ? filterdData.slice(0, size)
-        : filterdData.slice((page - 1) * size, (page - 1) * size + size);
+        ? filteredData.slice(0, size)
+        : filteredData.slice((page - 1) * size, (page - 1) * size + size);
 
     return res(
       ctx.json({
@@ -192,22 +245,29 @@ export const handlers = [
 
   rest.get('/api/v1/diaries/:diaries_id', (req, res, ctx) => {
     const { diaries_id } = req.params;
-    let filterdData = diarylist.filter((e) => Number(diaries_id) === e.diaryId);
-
-    filterdData = filterdData.map((e) => {
-      delete e.bookId;
-      const result = {
-        ...memberData.filter((el) => e.memberId === el.id)[0],
-        ...e,
+    let filteredData = diarylist.filter((e) => Number(diaries_id) === e.id);
+    filteredData = filteredData.map((e) => {
+      const filteredMember = memberData.filter(
+        (el) => el.id === e.member_id
+      )[0];
+      return {
+        diaryId: e.id,
+        title: e.title,
+        subtitle: e.subtitle,
+        diaryimage: e.image,
+        totalLike: e.total_like,
+        totalComment: e.total_comment,
+        createdAt: e.created_at,
+        profile: filteredMember.image,
+        memberId: filteredMember.id,
+        nickname: filteredMember.nickname,
+        isFollow: filteredMember.isFollow,
       };
-      delete result.id;
-
-      return result;
     });
 
     return res(
       ctx.json({
-        data: { ...filterdData[0] },
+        data: { ...filteredData[0] },
         ok: true,
       })
     );

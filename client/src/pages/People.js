@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import UserCard from '../components/common/UserCard';
 import { space } from '../assets/styles/theme';
@@ -75,7 +75,7 @@ const People = ({ setHeaderData }) => {
 
   useEffect(() => {
     getUserData();
-  }, [page, size]);
+  }, [page, sortby]);
 
   const handlerObs = (entries) => {
     const target = entries[0];
@@ -86,13 +86,13 @@ const People = ({ setHeaderData }) => {
   };
 
   const handleFilter = (size, sortby) => {
+    setUserDatas([]);
     setPage(1);
     setSize(size);
     setSortby(sortby);
-    setUserDatas([]);
   };
 
-  const getUserData = useCallback(async () => {
+  const getUserData = async () => {
     setLoading(true);
     const res = await getMembers(page, size, sortby.head + sortby.tail);
     setLoading(false);
@@ -106,7 +106,8 @@ const People = ({ setHeaderData }) => {
     } else {
       console.log(res);
     }
-  }, [page, size]);
+  };
+
   return (
     <div>
       <PeopleFilter
@@ -124,13 +125,13 @@ const People = ({ setHeaderData }) => {
         <div>
           {userDatas.map((e) => (
             <UserCard
-              key={e.id}
-              nickname={e.nickname}
-              userImage={e.userPicture}
+              key={e.memberId}
+              nickname={e.name}
+              userImage={e.profile}
               total_content={e.total_content}
+              total_follower={e.total_follower}
               isFollow={e.isFollow}
-              follower={e.follower}
-              memberId={e.id}
+              memberId={e.memberId}
             ></UserCard>
           ))}
         </div>
