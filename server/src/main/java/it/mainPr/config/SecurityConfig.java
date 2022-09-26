@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/v1/auth/signin", "/v1/auth/signup", "/h2").permitAll()
+                        .antMatchers("api/v1/auth/signin", "api/v1/auth/signup", "/h2").permitAll()
                         .anyRequest().hasRole("USER")
                 );
         return http.build();
@@ -84,7 +84,7 @@ public class SecurityConfig {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/v1/auth/signin");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/auth/signin");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 

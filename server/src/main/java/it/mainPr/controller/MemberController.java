@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 @Validated
 @Slf4j
 public class MemberController {
@@ -63,7 +63,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponse(member)), HttpStatus.OK);
     }
 
-    @GetMapping("v1/members")
+    @GetMapping("/v1/members")
     public ResponseEntity getMembers(@RequestParam int page,
                                      @RequestParam int size) {
 
@@ -73,7 +73,7 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.membersToMemberResponses(members), pageMembers), HttpStatus.OK);
     }
 
-    @DeleteMapping("v1/members/{member-id}")
+    @DeleteMapping("/v1/members/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") long memberId) {
 
         memberService.deleteMember(memberId);
