@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("api/v1/auth/signin", "api/v1/auth/signup", "/h2").permitAll()
+                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
                         .anyRequest().hasRole("USER")
                 );
         return http.build();
