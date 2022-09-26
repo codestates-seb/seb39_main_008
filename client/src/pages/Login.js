@@ -5,7 +5,7 @@ const Login = () => {
     <Container>
       <ImageBox>
         <HeaderBox>
-          <p>Welcom back to&nbsp;</p>
+          <p>Welcome back to&nbsp;</p>
           <p>the DUSKHOUR</p>
         </HeaderBox>
       </ImageBox>
