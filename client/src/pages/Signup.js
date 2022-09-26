@@ -9,7 +9,7 @@ const Signup = () => {
     <Container>
       <ImageBox>
         <HeaderBox>
-          <p>Welcom to&nbsp;</p>
+          <p>Welcome to&nbsp;</p>
           <p>the DUSKHOUR</p>
         </HeaderBox>
       </ImageBox>
@@ -35,7 +35,10 @@ export const Container = styled.div`
   box-shadow: ${theme.boxShadow.shadowS};
   border-radius: ${theme.borderRadius.borderRadiusM};
   display: flex;
-
+  @media ${theme.screen.tablet} {
+    width: 100%;
+    height: 100%;
+  }
   @media ${theme.screen.mobile} {
     ${theme.layout.flexColumnCenter};
     width: 100%;
@@ -53,22 +56,18 @@ export const HeaderBox = styled.div`
     margin: 0;
     width: 100%;
     height: 100%;
-    text-align: center;
-    margin: auto;
     background-color: ${colors.dimGrey};
     ${layout.flexCenter}
     & > p {
-      display: inline;
       font-size: ${fontSize.fontSizeL};
     }
   }
 `;
 export const ImageBox = styled.div`
   width: 25rem;
-  background-image: url(${signinImg});
-  background-repeat: no-repeat;
-  background-position: center;
+  background: url(${signinImg}) no-repeat center;
   @media ${theme.screen.mobile} {
+    min-width: 400px;
     width: 100%;
     height: 10%;
   }
@@ -89,11 +88,19 @@ export const FormBox = styled.div`
     width: 90%;
     margin: auto;
   }
-  & > form > button + p {
-    font-size: ${fontSize.fontSizeS};
-    margin-top: ${space.spaceS};
+  & > form > .checkKeepLogin {
+    width: ${fontSize.fontSizeS};
+    height: ${fontSize.fontSizeS};
+    margin-right: calc(${fontSize.fontSizeS} / 2);
+    cursor: pointer;
   }
 
+  & > form > button + p,
+  & > form > .checkKeepLogin + span {
+    display: inline-block;
+    font-size: ${fontSize.fontSizeS};
+    margin: ${space.spaceS} 0;
+  }
   @media ${theme.screen.mobile} {
     width: 100%;
     height: 100%;
