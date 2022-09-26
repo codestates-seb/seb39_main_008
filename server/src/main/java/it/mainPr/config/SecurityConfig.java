@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
@@ -54,10 +55,13 @@ public class SecurityConfig {
                 .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
-                .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
-                        .anyRequest().hasRole("USER")
-                );
+                .authorizeRequests()
+                    .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                    .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
+                    .anyRequest().hasRole("USER");
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
+//                        .anyRequest().hasRole("USER")
         return http.build();
     }
 
