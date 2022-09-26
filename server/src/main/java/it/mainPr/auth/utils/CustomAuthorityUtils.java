@@ -1,5 +1,4 @@
 package it.mainPr.auth.utils;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -18,7 +17,6 @@ public class CustomAuthorityUtils {
     private final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER");
     private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN", "USER");
     private final List<String> USER_ROLES_STRING = List.of("USER");
-
     public List<GrantedAuthority> createAuthorities(String email) {
         if (email.equals(adminMailAddress)) {
             return ADMIN_ROLES;

@@ -1,6 +1,6 @@
 package it.mainPr.helper;
 
-import it.mainPr.member.entity.Member;
+import it.mainPr.model.Member;
 import lombok.Getter;
 
 @Getter

@@ -1,10 +1,10 @@
 package it.mainPr.auth.userDetails;
 
 import it.mainPr.auth.utils.CustomAuthorityUtils;
-import it.mainPr.exception.BusinessLogicException;
+import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
-import it.mainPr.member.entity.Member;
-import it.mainPr.member.repository.MemberRepository;
+import it.mainPr.model.Member;
+import it.mainPr.repository.MemberRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +27,7 @@ public class MemberDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
-        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return new MemberDetails(findMember);
     }

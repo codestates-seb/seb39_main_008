@@ -1,7 +1,7 @@
 package it.mainPr.auth.utils;
 
 import com.google.gson.Gson;
-import it.mainPr.exception.response.ErrorResponse;
+import it.mainPr.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 

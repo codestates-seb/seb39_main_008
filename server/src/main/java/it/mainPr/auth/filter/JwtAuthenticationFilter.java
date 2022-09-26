@@ -1,9 +1,11 @@
 package it.mainPr.auth.filter;
 
+
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.mainPr.auth.dto.LoginDto;
 import it.mainPr.auth.jwt.JwtTokenizer;
-import it.mainPr.member.entity.Member;
+import it.mainPr.dto.LoginDto;
+import it.mainPr.model.Member;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

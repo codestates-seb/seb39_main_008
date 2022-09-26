@@ -1,7 +1,7 @@
 package it.mainPr.auth.handler;
 
 import com.google.gson.Gson;
-import it.mainPr.exception.response.ErrorResponse;
+import it.mainPr.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +18,7 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
+        // 인증 실패 시, 에러 로그를 기록
         log.error("# Authentication failed: {}", exception.getMessage());
 
         sendErrorResponse(response);
