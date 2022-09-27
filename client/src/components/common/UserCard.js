@@ -8,6 +8,7 @@ import Avatar from './Avatar';
 const UserCardContainer = styled.div`
   width: 150px;
   height: auto;
+  flex: 0 0 auto;
   padding: ${theme.space.spaceS};
   border-radius: ${theme.borderRadius.borderRadiusS};
   box-shadow: ${theme.boxShadow.shadowS};

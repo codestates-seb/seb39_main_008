@@ -1,56 +1,114 @@
 import ContentCard from '../components/common/ContentCard';
 import { useEffect, useState } from 'react';
-import { getDiaries } from '../lib/axios';
+import { getDiaries, getMembers } from '../lib/axios';
 import styled from 'styled-components';
-import { space } from '../assets/styles/theme';
-export const ContentCardGridContainer = styled.div`
-  margin: ${space.spaceL};
+import { space, fontSize } from '../assets/styles/theme';
+import UserCard from '../components/common/UserCard';
+
+const MainContainer = styled.div`
+  padding: ${space.spaceL};
+  padding-top: 0;
+
+  > div:last-child {
+    padding: ${space.spaceM};
+  }
+`;
+
+const PopularPeopleContainer = styled.div`
+  max-width: 835px;
+  margin: 0 ${space.spaceM};
+
+  > div {
+    padding: ${space.spaceL} ${space.spaceS};
+    padding-top: ${space.spaceM};
+    margin-bottom: ${space.spaceM};
+    gap: 20px;
+    display: flex;
+    flex-wrap: no-wrap;
+    overflow-x: auto;
+  }
+`;
+
+const ContentCardGridContainer = styled.div`
   display: grid;
-  padding: ${space.spaceM};
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-columns: minmax(350px, 407px);
   grid-auto-rows: 286px;
   grid-gap: ${space.spaceM};
-  & > .item {
+`;
+
+const TitleFilterBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  > div {
+    padding: 0 ${space.spaceM};
   }
 `;
-const Main = () => {
+
+const SubTitle = styled.p`
+  font-size: ${fontSize.fontSizeL};
+  padding: 0 ${space.spaceM};
+`;
+
+const Main = ({ setHeaderData }) => {
   const [data, setData] = useState([]);
-  useEffect(() => {
-    getDiaries().then((res) => {
-      setData(
-        res.data.map((el) => {
-          return {
-            diaryId: el.diaryId,
-            thumbnailURL: el.userImage,
-            isFollow: el.isFollow,
-            nickname: el.nickname,
-            memberId: el.memberId,
-            profileURL: el.userPicture,
-            totalComment: el.totalComment,
-            totalLike: el.totalLike,
-            createdAt: el.createdAt,
-            title: el.title,
-          };
-        })
-      );
+  const [currentTitle, setCurrentTitle] = useState('최신글');
+  const [popularPeople, setPopularPeople] = useState([]);
+
+  useEffect(async () => {
+    setHeaderData({
+      title: '메인페이지',
+      description: `인기 작가들과 ${currentTitle}을 확인해보세요.`,
     });
+    // api 연동 및 필러팅 기능 추가시 수정
+    setCurrentTitle('최신글');
+    const resDiaries = await getDiaries();
+    setData(resDiaries.data);
+    const resPeople = await getMembers(1, 10, 'followdesc');
+    setPopularPeople(resPeople.data);
   }, []);
+
   return (
-    <ContentCardGridContainer>
-      {data &&
-        data.map((el, idx) => (
-          <ContentCard
-            onClick={() => {
-              // navigate(`/book/:bookId/:diaryId`);
-            }}
-            className="item"
-            data={el}
-            key={idx}
-            isDiary={true}
-          />
-        ))}
-    </ContentCardGridContainer>
+    <MainContainer>
+      <SubTitle>DUSKHOUR의 인기 작가들</SubTitle>
+      <PopularPeopleContainer>
+        <div>
+          {popularPeople.map((e) => (
+            <UserCard
+              key={e.memberId}
+              nickname={e.name}
+              userImage={e.profile}
+              total_content={e.total_content}
+              total_follower={e.total_follower}
+              isFollow={e.isFollow}
+              memberId={e.memberId}
+            ></UserCard>
+          ))}
+        </div>
+      </PopularPeopleContainer>
+      <TitleFilterBox>
+        <SubTitle>작가들의 {currentTitle}</SubTitle>
+        <div>
+          <span>최신글</span>
+          <span>인기글</span>
+        </div>
+      </TitleFilterBox>
+      <ContentCardGridContainer>
+        {data &&
+          data.map((e) => (
+            <ContentCard
+              onClick={() => {
+                // navigate(`/book/:bookId/:diaryId`);
+              }}
+              className="item"
+              data={e}
+              key={e.diaryId}
+              isDiary={true}
+            />
+          ))}
+      </ContentCardGridContainer>
+    </MainContainer>
   );
 };
 

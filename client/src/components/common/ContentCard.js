@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Avatar from './Avatar';
+import Thumbnail from './Thumbnail';
 import {
   borderRadius,
   space,
@@ -36,9 +36,9 @@ const Details = styled.div`
 `;
 const Labels = styled.div`
   text-align: end;
-  & > * {
-    display: inline-block;
-  }
+  display: flex;
+  align-items: center;
+
   & > p {
     margin: 0 10px 0 4px;
   }
@@ -57,15 +57,15 @@ const Text = styled.p`
 const ContentCard = ({ data, isDiary, onClick }) => {
   return (
     <Container onClick={onClick}>
-      <Avatar
+      <Thumbnail
         height="166px"
         borderRadius={borderRadius.borderRadiusM}
-        imageURL={data.thumbnailURL}
+        imageURL={data.diaryimage || data.bookimage}
       />
       <div className="mid">
         {isDiary && (
           <Profile
-            userImage={data.profileURL}
+            userImage={data.profile}
             isFollow={data.isFollow}
             nickname={data.nickname}
             memberId={data.memberId}
