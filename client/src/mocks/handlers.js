@@ -172,7 +172,7 @@ export const handlers = [
     const reqUrl = req.url.searchParams;
     const page = Number(reqUrl.get('page')) || 1;
     const size = Number(reqUrl.get('size')) || 10;
-    const filterby = reqUrl.get('filterby') || 'recentdesc';
+    const sortby = reqUrl.get('sortby') || 'recentdesc';
     let filteredData = diarylist.reduce((acc, cur) => {
       const filteredMember = memberData.filter(
         (e) => e.id === cur.member_id
@@ -192,34 +192,33 @@ export const handlers = [
       };
       return [...acc, { ...temp }];
     }, []);
-
-    switch (filterby) {
+    switch (sortby) {
       case 'recentdesc':
         filteredData = filteredData.sort(
           (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
         break;
       case 'recentasc':
         filteredData = filteredData.sort(
           (a, b) =>
-            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
         break;
       case 'likedesc':
-        filteredData = filteredData.sort((a, b) => b.total_like - a.total_like);
+        filteredData = filteredData.sort((a, b) => b.totalLike - a.totalLike);
         break;
       case 'likeasc':
-        filteredData = filteredData.sort((a, b) => a.total_like - b.total_like);
+        filteredData = filteredData.sort((a, b) => a.totalLike - b.totalLike);
         break;
       case 'commentdesc':
         filteredData = filteredData.sort(
-          (a, b) => b.total_comment - a.total_comment
+          (a, b) => b.totalComment - a.totalComment
         );
         break;
       case 'commentasc':
         filteredData = filteredData.sort(
-          (a, b) => a.total_comment - b.total_comment
+          (a, b) => a.totalComment - b.totalComment
         );
         break;
       default:
