@@ -1,4 +1,4 @@
-package it.mainPr.dto;
+package it.mainPr.dto.commonDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

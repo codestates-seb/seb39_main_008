@@ -1,4 +1,4 @@
-package it.mainPr.dto;
+package it.mainPr.dto.commonDto;
 
 import lombok.Getter;
 import org.springframework.data.domain.Page;
@@ -9,6 +9,10 @@ import java.util.List;
 public class MultiResponseDto<T> {
     private List<T> data;
     private PageInfo pageInfo;
+
+    public MultiResponseDto(List<T> data) {
+        this.data = data;
+    }
 
     public MultiResponseDto(List<T> data, Page page) {
         this.data = data;
