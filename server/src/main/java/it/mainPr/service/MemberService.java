@@ -2,22 +2,17 @@ package it.mainPr.service;
 
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import it.mainPr.auth.utils.SecurityUtils;
-import it.mainPr.dto.MemberPatchDto;
-import it.mainPr.dto.MemberPostDto;
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.member.MemberPatchDto;
+import it.mainPr.dto.member.MemberPostDto;
+import it.mainPr.dto.member.MemberResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 
 import it.mainPr.model.Member;
 import it.mainPr.repository.MemberRepository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

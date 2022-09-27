@@ -1,11 +1,11 @@
 package it.mainPr.controller;
 
-import it.mainPr.dto.*;
-import it.mainPr.model.Member;
+import it.mainPr.dto.member.MemberPatchDto;
+import it.mainPr.dto.member.MemberPostDto;
+import it.mainPr.dto.member.MemberResponseDto;
 import it.mainPr.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;

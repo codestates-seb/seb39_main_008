@@ -1,4 +1,4 @@
-package it.mainPr.dto;
+package it.mainPr.dto.member;
 
 import it.mainPr.model.Member;
 import lombok.AllArgsConstructor;
