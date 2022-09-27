@@ -6,7 +6,7 @@ import {
   fontSize,
   borderRadius,
 } from '../../assets/styles/theme';
-import Logo from '../common/Logo';
+import Logo from './Logo';
 
 const Container = styled.div`
   position: fixed;
@@ -64,7 +64,7 @@ const Wraper = styled.div`
     }
   }
 `;
-const ComfirmModal = ({ message, onComfirm, target }) => {
+const ConfirmModal = ({ message, onComfirm, target }) => {
   return (
     <Container onClick={() => onComfirm(false)}>
       <Wraper onClick={(e) => e.stopPropagation()}>
@@ -84,4 +84,4 @@ const ComfirmModal = ({ message, onComfirm, target }) => {
   );
 };
 
-export default ComfirmModal;
+export default ConfirmModal;

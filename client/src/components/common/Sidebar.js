@@ -13,7 +13,7 @@ import {
 } from 'react-icons/fi';
 import { RiUserSettingsLine } from 'react-icons/ri';
 import { IoColorPaletteOutline } from 'react-icons/io5';
-import ComfirmModal from './ComfirmModal';
+import ConfirmModal from './ConfirmModal';
 
 const Wraper = styled.div`
   * {
@@ -159,7 +159,7 @@ const Sidebar = ({ hasSidebar }) => {
     <>
       <Wraper hasSidebar={hasSidebar}>
         {confirm && (
-          <ComfirmModal
+          <ConfirmModal
             message={'로그아웃 하시겠습니까?'}
             onComfirm={confirmLogout}
             target={`${userData.nickname} 님`}
