@@ -19,24 +19,29 @@ const Wraper = styled.div`
   * {
     font-size: ${theme.fontSize.fontSizeM};
   }
+
   z-index: 1000;
   display: flex;
   padding: ${theme.space.spaceM};
-  max-width: 223px;
+  width: 223px;
+  min-width: 223px;
   height: 100vh;
   border-right: 2px solid ${colors.grey};
   position: sticky;
   top: 0;
   flex-direction: column;
+
   .auto {
     margin-top: auto;
   }
+
   .auto + div {
     margin-top: ${theme.space.spaceS};
   }
 `;
 const UserBox = styled.div`
   margin-top: 20px;
+
   & > button {
     width: 100%;
     position: relative;
@@ -46,9 +51,11 @@ const UserBox = styled.div`
       color: ${colors.text2};
       text-align: left;
     }
+
     & > p:nth-child(2) {
       color: ${colors.text4};
     }
+
     & > svg {
       color: ${colors.text4};
       position: absolute;
@@ -64,11 +71,13 @@ const UserBox = styled.div`
 `;
 const List = styled.div`
   margin-top: ${theme.space.spaceL};
+
   & > button {
     width: 100%;
     display: flex;
     justify-content: space-between;
     color: ${colors.text2};
+
     & > svg {
       color: ${colors.text4};
     }
@@ -82,9 +91,13 @@ const List = styled.div`
 `;
 const Sidebar = ({ hasSidebar }) => {
   const [confirm, setConfirm] = useState(false);
+
+  const navigate = useNavigate();
+
   const onLogout = () => {
     setConfirm(!confirm);
   };
+
   const logOut = async () => {
     //todo 로그아웃 구현
     navigate('/');
@@ -143,7 +156,9 @@ const Sidebar = ({ hasSidebar }) => {
       },
     },
   };
+
   const list = Object.values(listdata);
+
   const userData = {
     name: '김코딩',
     profileURL:
@@ -154,7 +169,7 @@ const Sidebar = ({ hasSidebar }) => {
       navigate('/user/1');
     },
   };
-  const navigate = useNavigate();
+
   return (
     <>
       <Wraper hasSidebar={hasSidebar}>
