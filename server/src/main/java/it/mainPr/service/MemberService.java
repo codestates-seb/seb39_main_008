@@ -1,6 +1,10 @@
 package it.mainPr.service;
 
 import it.mainPr.auth.utils.CustomAuthorityUtils;
+import it.mainPr.auth.utils.SecurityUtils;
+import it.mainPr.dto.MemberPatchDto;
+import it.mainPr.dto.MemberPostDto;
+import it.mainPr.dto.MemberResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 
@@ -18,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -31,45 +36,51 @@ public class MemberService {
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
     }
+    //회원 가입
+    public MemberResponseDto createMember(MemberPostDto postDto) {
+        verifyExistsEmail(postDto.getEmail());
 
-    public Member createMember(Member member) {
-        verifyExistsEmail(member.getEmail());
+        Member newMember = Member.builder()
+                .email(postDto.getEmail())
+                .password(passwordEncoder.encode(postDto.getPassword()))
+                .name(postDto.getName())
+                .nickname(postDto.getNickname())
+                .build();
 
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
+        List<String> roles = authorityUtils.createRoles(newMember.getEmail());
+        newMember.setRoles(roles);
 
-        List<String> roles = authorityUtils.createRoles(member.getEmail());
-        member.setRoles(roles);
+        Member createdMember = memberRepository.save(newMember);
 
-        Member savedMember = memberRepository.save(member);
-
-        return savedMember;
+        return MemberResponseDto.of(createdMember);
     }
+    //회원 정보 수정
+    public MemberResponseDto updateMember(MemberPatchDto patchDto) {
+        Long memberId = SecurityUtils.getCurrentMemberId();
+        Member findMember = findVerifiedMember(memberId);
 
-    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
-    public Member updateMember(Member member) {
-        Member findMember = findVerifiedMember(member.getMemberId());
-
-        Optional.ofNullable(member.getNickname())
-                .ifPresent(nickname -> findMember.setNickname(nickname));
-        Optional.ofNullable(member.getInformation())
+        Optional.ofNullable(patchDto.getInformation())
                 .ifPresent(information -> findMember.setInformation(information));
-        Optional.ofNullable(member.getImgUrl())
-                .ifPresent(imgUrl -> findMember.setInformation(imgUrl));
+        Optional.ofNullable(patchDto.getImgUrl())
+                .ifPresent(imgUrl -> findMember.setImgUrl(imgUrl));
 
-        return memberRepository.save(findMember);
+        return MemberResponseDto.of(memberRepository.save(findMember));
     }
-
+    //특정 회원 찾기
     @Transactional(readOnly = true)
-    public Member findMember(long memberId) {
-        return findVerifiedMember(memberId);
-    }
+    public MemberResponseDto findMember(long memberId) {
 
-    public Page<Member> findMembers(int page, int size) {
-        return memberRepository.findAll(PageRequest.of(page, size,
-                Sort.by("memberId").descending()));
+        return memberRepository.findById(memberId)
+                .map(MemberResponseDto::of)
+                .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
     }
-
+    //회원 리스트 보기
+    public List<MemberResponseDto> findAllMembers() {
+        return memberRepository.findAll().stream()
+                .map(member -> MemberResponseDto.of(member))
+                .collect(Collectors.toList());
+    }
+    //회원 탈퇴
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
 
@@ -78,11 +89,10 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public Member findVerifiedMember(long memberId) {
-        Optional<Member> optionalMember =
-                memberRepository.findById(memberId);
-        Member findMember =
-                optionalMember.orElseThrow(() ->
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Member findMember = optionalMember.orElseThrow(() ->
                         new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
+
         return findMember;
     }
 
