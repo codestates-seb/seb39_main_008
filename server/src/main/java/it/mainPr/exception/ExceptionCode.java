@@ -3,7 +3,9 @@ package it.mainPr.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
+    NO_AUTHORIZED(401, "No Authentication"),
     MEMBER_NOT_FOUND(404, "Member not found"),
+
     MEMBER_EXISTS(409, "Member exists");
 
     @Getter

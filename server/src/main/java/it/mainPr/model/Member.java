@@ -1,9 +1,7 @@
 package it.mainPr.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import it.mainPr.audit.BaseTime;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,10 +10,12 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-public class Member {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "MEMBER")
+public class Member extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long memberId;
 
     @Column
@@ -39,12 +39,14 @@ public class Member {
         this.email = email;
     }
 
-    public Member(String email, String name, String nickname, String information, String imgUrl) {
+    @Builder
+    public Member(String email, String password, String name, String nickname, String information, String imgUrl) {
         this.email = email;
         this.name = name;
         this.nickname = nickname;
         this.information = information;
         this.imgUrl = imgUrl;
+        this.password = password;
     }
 
 }
