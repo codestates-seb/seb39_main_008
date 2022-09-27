@@ -31,7 +31,7 @@ const PopularPeopleContainer = styled.div`
 
 const ContentCardGridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-columns: minmax(350px, 407px);
   grid-auto-rows: 286px;
   grid-gap: ${space.spaceM};
