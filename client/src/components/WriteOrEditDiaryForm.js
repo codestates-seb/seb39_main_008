@@ -15,14 +15,14 @@ import {
 } from '../assets/styles/theme';
 import { getBookList } from '../lib/axios';
 
-const Container = styled.form`
+export const Container = styled.form`
   padding: 0 ${space.spaceL};
   margin: 0 auto;
   width: 100%;
   /* max-width: 710px; */
 `;
 
-const Mid = styled.div`
+export const Mid = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 ${space.spaceS};
@@ -69,6 +69,23 @@ const Mid = styled.div`
     width: 40px;
     display: inline-block;
   }
+  .radioBox {
+    margin-top: ${space.spaceM};
+    font-size: ${fontSize.fontSizeS};
+    p {
+      margin-bottom: ${space.spaceS};
+    }
+    input,
+    label {
+      cursor: pointer;
+      margin: calc(${space.spaceS} / 3);
+      display: inline;
+    }
+    input {
+      width: 10px;
+      display: inline;
+    }
+  }
   .addImgButton {
     cursor: pointer;
     margin: ${space.spaceM} 0 ${space.spaceM} ${space.spaceS};
@@ -92,12 +109,18 @@ const Mid = styled.div`
     display: none;
   }
 `;
-const Bottom = styled.div`
+export const Bottom = styled.div`
   width: 100%;
   padding-bottom: ${space.spaceL};
+  .preview {
+    p {
+      font-size: ${fontSize.fontSizeM};
+      padding: ${space.spaceS} ${space.spaceS} 0 ${space.spaceS};
+    }
+  }
   .previewImg {
-    width: 100%;
     padding: ${space.spaceS};
+    width: 100%;
   }
   .quill {
     z-index: 2000;
