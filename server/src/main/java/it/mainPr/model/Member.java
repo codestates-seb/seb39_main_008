@@ -1,12 +1,12 @@
 package it.mainPr.model;
 
 import it.mainPr.audit.BaseTime;
+import it.mainPr.dto.MemberPatchDto;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 @Getter
 @Setter
