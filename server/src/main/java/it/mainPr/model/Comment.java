@@ -1,13 +1,18 @@
 package it.mainPr.model;
 
 import it.mainPr.audit.BaseTime;
+import it.mainPr.dto.DiariesDto;
+import it.mainPr.dto.MemberResponseDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
+@Setter
 @NoArgsConstructor
 public class Comment extends BaseTime {
 
@@ -27,19 +32,10 @@ public class Comment extends BaseTime {
     @JoinColumn(name = "diary_id")
     private Diary diary;
 
+    @Builder
     public Comment(String content, Member member, Diary diary) {
         this.content = content;
         this.member = member;
         this.diary = diary;
-    }
-
-    public static Comment createComment(String content, Member member, Diary diary) {
-        Comment comment = new Comment(content,member,diary);
-        diary.getComments().add(comment);
-        return comment;
-    }
-
-    public void updateContent(String content) {
-        this.content = content;
     }
 }
