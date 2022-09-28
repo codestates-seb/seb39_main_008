@@ -11,7 +11,8 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Validated
+@Getter
+@NoArgsConstructor
 public class DiariesDto {
 
     @Getter

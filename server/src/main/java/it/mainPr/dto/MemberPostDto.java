@@ -18,15 +18,15 @@ public class MemberPostDto {
     @NotBlank(message = "비밀번호를 입력해주세요")
     private String password;
 
-    @NotBlank(message = "이름을 입력해주세요")
+//    @NotBlank(message = "이름을 입력해주세요")
     private String name;
-    @NotBlank(message = "닉네임을 입력해주세요")
+//    @NotBlank(message = "닉네임을 입력해주세요")
     private String nickname;
 
     @Builder
-    public MemberPostDto(String email, String passwrod, String name, String nickname){
+    public MemberPostDto(String email, String password, String name, String nickname){
         this.email = email;
-        this.password = passwrod;
+        this.password = password;
         this.name = name;
         this.nickname = nickname;
     }

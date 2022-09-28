@@ -37,11 +37,11 @@ public class MemberDetailsService implements UserDetailsService {
             setMemberId(member.getMemberId());
             setEmail(member.getEmail());
             setPassword(member.getPassword());
-            setRoles(member.getRoles());
+            setRole(member.getRole());
         }
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorityUtils.createAuthorities(this.getRoles());
+            return authorityUtils.createAuthorities(this.getRole());
         }
         @Override
         public String getUsername() {

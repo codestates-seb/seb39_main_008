@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,11 +56,31 @@ public class Diary extends BaseTime {
         this.member = member;
     }
 
-    public void update(String title, String subTitle, String content, String diaryImgUrl) {
-        this.title = title;
-        this.subTitle = subTitle;
-        this.content = content;
-        this.DiaryImgUrl = diaryImgUrl;
+
+
+    //비즈니스 로직
+    public void setMember(Member member) {
+        this.member = member;
     }
 
+    public void updateDiaries(String title, String content, String subTitle){
+        this.title = title;
+        this.content = content;
+        this.subTitle = subTitle;
+    }
+
+    public void updateDiaries(String content) {
+        this.content = content;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateDiaryImages() {
+    }
 }
