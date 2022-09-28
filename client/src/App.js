@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { path } from './pages/router';
 import Loading from './components/common/Loading';
-import Layout from './pages/Layout';
-import OAuth2Redirect from './pages/OAuth2Redirect';
+const Layout = React.lazy(() => import('./pages/Layout'));
 const Root = React.lazy(() => import('./pages/Root'));
 const Error = React.lazy(() => import('./pages/Error'));
 const Landing = React.lazy(() => import('./pages/Landing'));
@@ -16,6 +16,8 @@ const MakeBook = React.lazy(() => import('./pages/MakeBook'));
 const WriteDiary = React.lazy(() => import('./pages/WriteDiary'));
 const Userpage = React.lazy(() => import('./pages/Userpage'));
 const People = React.lazy(() => import('./pages/People'));
+const EditDiary = React.lazy(() => import('./pages/EditDiary'));
+const EditBook = React.lazy(() => import('./pages/EditBook'));
 
 function App() {
   return (
@@ -29,8 +31,25 @@ function App() {
             </Layout>
           }
         ></Route>
+
         <Route
-          path="/"
+          path={path.signUp}
+          element={
+            <Layout hasCommon={false}>
+              <Signup />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path={path.logIn}
+          element={
+            <Layout hasCommon={false}>
+              <Login />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path={path.root}
           element={
             <Root>
               <Layout>
@@ -43,31 +62,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="/signup"
-          element={
-            <Layout hasCommon={false}>
-              <Signup />
-            </Layout>
-          }
-        ></Route>
-        <Route
-          path="/login"
-          element={
-            <Layout hasCommon={false}>
-              <Login />
-            </Layout>
-          }
-        ></Route>
-        <Route
-          path="/book/:bookId"
-          element={
-            <Layout>
-              <Book />
-            </Layout>
-          }
-        ></Route>
-        <Route
-          path="/books/:memberId"
+          path={path.bookList}
           element={
             <Layout>
               <BookList />
@@ -75,15 +70,15 @@ function App() {
           }
         ></Route>
         <Route
-          path="/book/:bookId/:diaryId"
+          path={path.book}
           element={
             <Layout>
-              <Diary />
+              <Book />
             </Layout>
           }
         ></Route>
         <Route
-          path="/makebook"
+          path={path.makeBook}
           element={
             <Layout>
               <MakeBook />
@@ -91,7 +86,24 @@ function App() {
           }
         ></Route>
         <Route
-          path="/writediary"
+          path={path.editBook}
+          element={
+            <Layout>
+              <EditBook />
+            </Layout>
+          }
+        ></Route>
+
+        <Route
+          path={path.diary}
+          element={
+            <Layout>
+              <Diary />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path={path.writeDiary}
           element={
             <Layout>
               <WriteDiary />
@@ -99,7 +111,15 @@ function App() {
           }
         ></Route>
         <Route
-          path="/user/:memberId"
+          path={path.editDiary}
+          element={
+            <Layout>
+              <EditDiary />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path={path.userpage}
           element={
             <Layout>
               <Userpage />
@@ -107,14 +127,13 @@ function App() {
           }
         ></Route>
         <Route
-          path="/people"
+          path={path.people}
           element={
             <Layout>
               <People />
             </Layout>
           }
         ></Route>
-        <Route path="/oauth2/redirect" element={<OAuth2Redirect />}></Route>
       </Routes>
     </Suspense>
   );
