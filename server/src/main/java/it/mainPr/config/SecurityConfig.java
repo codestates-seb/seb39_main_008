@@ -57,8 +57,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
-                        .anyRequest().hasRole("USER"));
+   //                     .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2", "/api/v1/members").permitAll()
+                        .anyRequest().permitAll());
 
 //                .authorizeHttpRequests(authorize -> authorize
 //                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
