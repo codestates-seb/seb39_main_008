@@ -1,6 +1,7 @@
 package it.mainPr.model;
 
 import it.mainPr.audit.BaseTime;
+import it.mainPr.dto.member.MemberPatchDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Member extends BaseTime {
     @Column
     private String imgUrl;
 
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
@@ -49,4 +51,25 @@ public class Member extends BaseTime {
         this.password = password;
     }
 
+    public void update(MemberPatchDto memberPatchDto) {
+        this.information = memberPatchDto.getInformation();
+        this.imgUrl = memberPatchDto.getImgUrl();
+    }
+
+    public void update(String information, String imgUrl) {
+        this.information = information;
+        this.imgUrl = imgUrl;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 }

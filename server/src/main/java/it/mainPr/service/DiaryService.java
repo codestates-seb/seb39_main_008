@@ -1,7 +1,6 @@
 package it.mainPr.service;
 
-import it.mainPr.dto.diary.DiaryRequestDto;
-import it.mainPr.dto.diary.DiaryResponseDto;
+import it.mainPr.dto.DiariesDto;
 import it.mainPr.model.Diary;
 import it.mainPr.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +17,13 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
 
     @Transactional
-    public DiaryResponseDto saveDiary(DiaryRequestDto diaryRequestDto) {
+    public DiariesDto.DiaryResponseDto saveDiary(DiariesDto.DiaryRequestDto diaryRequestDto) {
         Diary entity = diaryRepository.save(diaryRequestDto.toEntity());
-        return new DiaryResponseDto(entity);
+        return new DiariesDto.DiaryResponseDto(entity);
     }
 
     @Transactional
-    public DiaryResponseDto updateDiary(Long diaryId, DiaryRequestDto diaryRequestDto) {
+    public DiariesDto.DiaryResponseDto updateDiary(Long diaryId, DiariesDto.DiaryRequestDto diaryRequestDto) {
         Diary diary = diaryRepository.findById(diaryId).orElseThrow(
                 () -> new IllegalArgumentException("DiaryId: Diary does not Exist"));
 
@@ -33,19 +32,19 @@ public class DiaryService {
                 diaryRequestDto.getContent(),
                 diaryRequestDto.getDiaryImgUrl());
 
-        return new DiaryResponseDto(diary);
+        return new DiariesDto.DiaryResponseDto(diary);
     }
 
-    public DiaryResponseDto findById(Long diaryId) {
+    public DiariesDto.DiaryResponseDto findById(Long diaryId) {
         Diary entity = diaryRepository.findById(diaryId).orElseThrow(
                 () -> new IllegalArgumentException("DiaryId: Diary does not exist"));
 
-        return new DiaryResponseDto(entity);
+        return new DiariesDto.DiaryResponseDto(entity);
     }
 
-    public List<DiaryResponseDto> findAll() {
+    public List<DiariesDto.DiaryResponseDto> findAll() {
         return diaryRepository.findAll().stream()
-                .map(diary -> new DiaryResponseDto(diary)).collect(Collectors.toList());
+                .map(diary -> new DiariesDto.DiaryResponseDto(diary)).collect(Collectors.toList());
     }
 
     public void deleteDiary(Long diaryId) {

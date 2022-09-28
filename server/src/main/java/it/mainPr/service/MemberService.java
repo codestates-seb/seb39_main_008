@@ -11,6 +11,7 @@ import it.mainPr.exception.ExceptionCode;
 import it.mainPr.model.Member;
 import it.mainPr.repository.MemberRepository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
+//@RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;

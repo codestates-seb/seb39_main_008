@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,24 +35,23 @@ public class Diary extends BaseTime {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String DiaryImgUrl;
 
-    @Column(nullable = false)
-    private int likes;
-
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    @OneToMany(mappedBy = "diary")
+    private List<Comment> comments = new ArrayList<>();
 
 //    @ManyToOne
 //    private Book book;
 
     @Builder
-    public Diary(String title, String subTitle, String nickname, String content, String diaryImgUrl, int likes, Member member) {
+    public Diary(String title, String subTitle, String nickname, String content, String diaryImgUrl, Member member) {
         this.title = title;
         this.subTitle = subTitle;
         this.nickname = nickname;
         this.content = content;
         this.DiaryImgUrl = diaryImgUrl;
-        this.likes = likes;
         this.member = member;
     }
 
