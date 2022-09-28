@@ -51,7 +51,6 @@ public class MemberService {
         newMember.setRoles(roles);
 
         Member createdMember = memberRepository.save(newMember);
-
         return MemberResponseDto.of(createdMember);
     }
     //회원 정보 수정
