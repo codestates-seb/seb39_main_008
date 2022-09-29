@@ -41,8 +41,11 @@ public class Diary extends BaseTime {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "diary")
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    private List<Heart> heart;
 
     @Enumerated(value = EnumType.STRING)
     private Category category;

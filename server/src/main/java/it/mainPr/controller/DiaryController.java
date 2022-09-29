@@ -24,7 +24,6 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 public class DiaryController {
-    private final Member member;
     private final DiaryService diaryService;
     private final DiaryMapper diaryMapper;
 

@@ -108,4 +108,5 @@ public class MemberService {
         if (member.isPresent())
             throw new BusinessLogicalException(ExceptionCode.MEMBER_EXISTS);
     }
+
 }
