@@ -17,7 +17,7 @@ public interface CommentMapper {
     void updateEntityFromDto(CommentsDto.PatchDto patchDto, @MappingTarget Comment entity);
 
     //Response
-    CommentsDto.ResponseDto commentToResponseDto(Comment comment);
+    CommentsDto.ResponseDto commentToDtoResponse(Comment comment);
     List<CommentsDto.ResponseDto> multiCommentToDtoResponse(List<Comment> comments);
 }
 
