@@ -1,6 +1,7 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
-const TextEditor = ({ content, onChange }) => {
+
+const TextEditor = ({ content, onChange, ...props }) => {
   const modules = {
     toolbar: [
       [{ color: [] }, { background: [] }],
@@ -15,6 +16,7 @@ const TextEditor = ({ content, onChange }) => {
       ['clean'],
     ],
   };
+
   return (
     <ReactQuill
       theme="bubble"
@@ -22,6 +24,7 @@ const TextEditor = ({ content, onChange }) => {
       placeholder="당신의 오늘을 공유해 주세요. 글을 드래그하면 멋진 효과들을 만날 수 있답니다!"
       modules={modules}
       onChange={onChange}
+      readOnly={props.viewer}
     />
   );
 };

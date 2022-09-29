@@ -15,6 +15,197 @@ import {
 } from '../assets/styles/theme';
 import { getBookList } from '../lib/axios';
 
+const WriteOrEditDiaryForm = (props) => {
+  const [fileURL, setFileURL] = useState(null);
+  const [booklist, setBooklist] = useState([]);
+  const [confirm, setConfirm] = useState(false);
+  const navigate = useNavigate();
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    watch,
+    // reset,
+    formState: { errors },
+  } = useForm({});
+
+  const onFileChange = (imgURL) => {
+    setFileURL(imgURL);
+  };
+
+  useEffect(() => {
+    register('content', {
+      required: true,
+      validate: (value) => {
+        if (value.replace(/<[^>]*>?/g, '').trim() === '') return false;
+        if (value === '<p><br></p>') return false;
+      },
+    });
+  }, [register]);
+
+  useEffect(() => {
+    if (props.data) {
+      setValue('content', props.data.content);
+      setValue('title', props.data.title);
+      setValue('subtitle', props.data.subtitle);
+      setValue('category', props.data.category);
+    }
+  }, []);
+
+  useEffect(async () => {
+    const data = await getBookList(19);
+    setBooklist(data.data);
+  }, []);
+
+  const onChange = (editorContent) => {
+    setValue('content', editorContent);
+  };
+
+  const onUpdateDiary = (data) => {
+    const updateDiaryData = {
+      title: data.title,
+      category: Number(data.category),
+      subtitle: data.subtitle,
+      content: data.content,
+      image: fileURL || props.data.diaryimage,
+    };
+    console.log('update', updateDiaryData);
+  };
+
+  const onWriteDiary = (data) => {
+    const diaryData = {
+      bookid: Number(data.book),
+      title: data.title,
+      content: data.content,
+      category: Number(data.category),
+      image: fileURL,
+    };
+    console.log('write', diaryData);
+  };
+
+  const editorContent = watch('content');
+
+  const onCancle = () => {
+    setConfirm(!confirm);
+  };
+
+  const confirmCancle = (res) => {
+    if (res) {
+      onCancle();
+      navigate(-1);
+    } else {
+      onCancle();
+    }
+  };
+  return (
+    <Container
+      onSubmit={
+        props.isEdit ? handleSubmit(onUpdateDiary) : handleSubmit(onWriteDiary)
+      }
+    >
+      <Mid>
+        <div>
+          <input
+            // wrap="on"
+            className="title"
+            type="text"
+            placeholder="제목"
+            {...register('title', {
+              required: true,
+              validate: (value) => {
+                if (value.trim() === '') return false;
+              },
+            })}
+          />
+
+          <input
+            // wrap="on"
+            className="subtitle"
+            id="subtitle"
+            type="text"
+            placeholder="소제목"
+            {...register('subtitle', {
+              required: true,
+              validate: (value) => {
+                if (value.trim() === '') return false;
+              },
+            })}
+          />
+
+          <br />
+          <label className="book" htmlFor="book">
+            일기장
+          </label>
+          {props.isEdit ? (
+            <span className="booktitle">{props.booktitle || '나의하루'}</span>
+          ) : (
+            <select id="book" {...register('book')}>
+              {booklist &&
+                booklist.map((el, idx) => (
+                  <option value={el.id} key={idx}>
+                    {el.title}
+                  </option>
+                ))}
+            </select>
+          )}
+          <br />
+          <label className="category" htmlFor="category">
+            주제
+          </label>
+          <select id="category" {...register('category')}>
+            {['일상 공유', '공감과 치유', '문화 생활', '여행 기록', '자유'].map(
+              (el, idx) => (
+                <option value={idx} key={idx}>
+                  {el}
+                </option>
+              )
+            )}
+          </select>
+        </div>
+        <ImageInput onFileChange={onFileChange} />
+      </Mid>
+      <Bottom>
+        {props.isEdit && (
+          <img
+            className="previewImg"
+            src={fileURL || props.data.diaryimage}
+            alt="preview Img"
+          />
+        )}
+        <TextEditor content={editorContent} onChange={onChange} />
+        <div className="rightbox">
+          <p className="Error">{errors && '모든 내용을 입력해 주세요'}</p>
+          <BorderButton
+            width="120px"
+            height="40px"
+            type="submit"
+            fontSize={fontSize.fontSizeM}
+            text={props.isEdit ? '수정하기' : '기록하기'}
+          />
+          <BorderButton
+            text="취소"
+            width="120px"
+            height="40px"
+            fontSize={fontSize.fontSizeM}
+            onClick={() => {
+              setConfirm(!confirm);
+            }}
+          />
+        </div>
+      </Bottom>
+      {confirm && (
+        <ConfirmModal
+          message={'취소하시겠습니까?'}
+          onComfirm={confirmCancle}
+          target={'작성한 내용은 복구할 수 없습니다'}
+        />
+      )}
+    </Container>
+  );
+};
+
+export default WriteOrEditDiaryForm;
+
 export const Container = styled.form`
   padding: 0 ${space.spaceL};
   margin: 0 auto;
@@ -65,9 +256,12 @@ export const Mid = styled.div`
   }
   label {
     margin-top: ${space.spaceM};
-    font-size: ${fontSize.fontSizeS};
-    width: 40px;
+    /* font-size: ${fontSize.fontSizeM}; */
+    width: 50px;
     display: inline-block;
+  }
+  .booktitle {
+    font-size: ${fontSize.fontSizeM};
   }
   .radioBox {
     margin-top: ${space.spaceM};
@@ -123,13 +317,14 @@ export const Bottom = styled.div`
     width: 100%;
   }
   .quill {
+    border-top: 1px solid ${colors.grey};
     z-index: 2000;
-    margin: ${space.spaceM} ${space.spaceS};
+    padding: ${space.spaceM} ${space.spaceS};
     color: ${colors.text2};
     min-height: 20rem;
-    font-size: ${fontSize.fontSizeM};
   }
   .ql-editor {
+    font-size: ${fontSize.fontSizeM};
     padding: 0px;
   }
 
@@ -148,177 +343,3 @@ export const Bottom = styled.div`
     display: inline-block;
   }
 `;
-
-const WriteOrEditDiaryForm = (props) => {
-  const [fileURL, setFileURL] = useState(null);
-  const [booklist, setBooklist] = useState([]);
-  const [confirm, setConfirm] = useState(false);
-  const navigate = useNavigate();
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({});
-
-  const onFileChange = (imgURL) => {
-    setFileURL(imgURL);
-    console.log(fileURL);
-    // setPreview(imgURL);
-  };
-
-  useEffect(() => {
-    register('content', {
-      required: true,
-      validate: (editorContent) => {
-        if (editorContent.replace(/<[^>]*>?/g, '').trim() === '') return false;
-        if (editorContent === '<p><br></p>') return false;
-      },
-    });
-  }, [register]);
-
-  useEffect(() => {
-    if (props.isEdit) {
-      setValue('content', props.data.content);
-    }
-  }, []);
-
-  useEffect(async () => {
-    const data = await getBookList(19);
-    setBooklist(data.data);
-    console.log(booklist);
-  }, []);
-
-  const onChange = (editorContent) => {
-    setValue('content', editorContent);
-  };
-
-  const onUpdateDiary = (data) => {
-    console.log('update', data);
-  };
-
-  const onWriteDiary = (data) => {
-    console.log('write', data);
-  };
-
-  const editorContent = watch('content');
-
-  const onCancle = () => {
-    setConfirm(!confirm);
-  };
-
-  const confirmCancle = (res) => {
-    if (res) {
-      onCancle();
-      navigate(-1);
-    } else {
-      onCancle();
-    }
-  };
-  return (
-    <Container
-      onSubmit={
-        props.isEdit ? handleSubmit(onUpdateDiary) : handleSubmit(onWriteDiary)
-      }
-    >
-      <Mid>
-        <div>
-          <input
-            wrap="on"
-            className="title"
-            type="text"
-            placeholder="제목"
-            defaultValue={props.data ? props.data.title : null}
-            {...register('title', {
-              required: true,
-              validate: (value) => {
-                if (value.trim() === '') return false;
-              },
-            })}
-          />
-
-          <input
-            wrap="on"
-            className="subtitle"
-            id="subtitle"
-            type="text"
-            placeholder="소제목"
-            defaultValue={props.data ? props.data.subtitle : null}
-            {...register('subtitle', {
-              required: true,
-              validate: (value) => {
-                if (value.trim() === '') return false;
-              },
-            })}
-          />
-
-          <br />
-          <label className="book" htmlFor="book">
-            일기장
-          </label>
-          <select id="book" {...register('book', { required: true })}>
-            {booklist &&
-              booklist.map((el, idx) => (
-                <option value={el.title} key={idx}>
-                  {el.title}
-                </option>
-              ))}
-          </select>
-          <br />
-          <label className="category" htmlFor="category">
-            주제
-          </label>
-          <select id="category" {...register('category', { required: true })}>
-            {['일상 공유', '공감과 치유', '문화 생활', '여행 기록', '자유'].map(
-              (el, idx) => (
-                <option value={el} key={idx}>
-                  {el}
-                </option>
-              )
-            )}
-          </select>
-        </div>
-        <ImageInput onFileChange={onFileChange} />
-      </Mid>
-      <Bottom>
-        {props.isEdit && (
-          <img
-            className="previewImg"
-            src={fileURL || props.data.diaryimage}
-            alt="preview Img"
-          />
-        )}
-        <TextEditor content={editorContent} onChange={onChange} />
-        <div className="rightbox">
-          <p className="Error">{errors && '모든 내용을 입력해 주세요'}</p>
-          <BorderButton
-            width="120px"
-            height="40px"
-            type="submit"
-            fontSize={fontSize.fontSizeM}
-            text={props.isEdit ? '수정하기' : '기록하기'}
-          />
-          <BorderButton
-            text="취소"
-            width="120px"
-            height="40px"
-            fontSize={fontSize.fontSizeM}
-            onClick={() => {
-              setConfirm(!confirm);
-            }}
-          />
-        </div>
-      </Bottom>
-      {confirm && (
-        <ConfirmModal
-          message={'취소하시겠습니까?'}
-          onComfirm={confirmCancle}
-          target={'작성한 내용은 복구할 수 없습니다'}
-        />
-      )}
-    </Container>
-  );
-};
-
-export default WriteOrEditDiaryForm;
