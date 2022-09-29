@@ -1,5 +1,6 @@
 package it.mainPr.service;
 
+import it.mainPr.auth.PrincipalDetails;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import it.mainPr.auth.utils.SecurityUtils;
 import it.mainPr.dto.MemberPatchDto;
@@ -8,16 +9,13 @@ import it.mainPr.dto.MemberResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 
+import it.mainPr.mapper.MemberMapper;
 import it.mainPr.model.Member;
 import it.mainPr.repository.MemberRepository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -29,13 +27,16 @@ import java.util.stream.Collectors;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MemberMapper memberMapper;
     private final CustomAuthorityUtils authorityUtils;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, MemberMapper memberMapper, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.memberMapper = memberMapper;
         this.authorityUtils = authorityUtils;
     }
+
     //회원 가입
     public MemberResponseDto createMember(MemberPostDto postDto) {
         verifyExistsEmail(postDto.getEmail());
@@ -48,11 +49,19 @@ public class MemberService {
                 .build();
 
         List<String> roles = authorityUtils.createRoles(newMember.getEmail());
-        newMember.setRoles(roles);
+        newMember.setRole(Member.Role.ROLE_MEMBER);
 
         Member createdMember = memberRepository.save(newMember);
         return MemberResponseDto.of(createdMember);
     }
+
+    public MemberResponseDto loginMember(Authentication authentication){
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        Member loginMember = memberRepository.findByEmail(principalDetails.getMember().getEmail())
+                .orElseThrow(()->new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
+        return memberMapper.memberToMemberResponse(loginMember);
+    }
+
     //회원 정보 수정
     public MemberResponseDto updateMember(MemberPatchDto patchDto) {
         Long memberId = SecurityUtils.getCurrentMemberId();

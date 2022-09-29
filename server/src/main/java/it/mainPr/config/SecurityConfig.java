@@ -10,6 +10,7 @@ import it.mainPr.auth.jwt.JwtTokenizer;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -57,7 +58,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-   //                     .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2", "/api/v1/members").permitAll()
+                        .antMatchers(HttpMethod.POST,"/diaries/**","/comment/**").access("hasRole('ROLE_MEMBER')")
+                        .antMatchers(HttpMethod.PATCH,"/members/**","/comment/**").access("hasRole('ROLE_MEMBER')")
+                        .antMatchers(HttpMethod.DELETE,"/members/**","/comment/**").access("hasRole('ROLE_MEMBER')")
                         .anyRequest().permitAll());
 
 //                .authorizeHttpRequests(authorize -> authorize
