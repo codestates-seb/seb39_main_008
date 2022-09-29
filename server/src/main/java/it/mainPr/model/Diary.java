@@ -4,6 +4,7 @@ import it.mainPr.audit.BaseTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "diary")
+@Table(name = "DIARY")
 public class Diary extends BaseTime {
 
     @Id
@@ -37,14 +38,14 @@ public class Diary extends BaseTime {
     private String DiaryImgUrl;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToMany(mappedBy = "diary")
     private List<Comment> comments = new ArrayList<>();
 
-//    @ManyToOne
-//    private Book book;
+    @Enumerated(value = EnumType.STRING)
+    private Category category;
 
     @Builder
     public Diary(String title, String subTitle, String nickname, String content, String diaryImgUrl, Member member) {
@@ -82,5 +83,16 @@ public class Diary extends BaseTime {
     }
 
     public void updateDiaryImages() {
+    }
+
+    @Getter
+    public enum Category {
+        CATEGORY_0("일상공유"), CATEGORY_1("공감과치유");
+
+        private String description;
+
+        Category(String description) {
+            this.description = description;
+        }
     }
 }

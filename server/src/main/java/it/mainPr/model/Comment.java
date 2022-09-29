@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @NoArgsConstructor
+@Table(name = "COMMENT")
 public class Comment extends BaseTime {
 
     @Id
