@@ -19,6 +19,7 @@ const Container = styled.article`
   background-color: ${colors.white};
   box-shadow: ${boxShadow.shadowM};
   border-radius: ${borderRadius.borderRadiusM};
+
   .mid {
     width: 100%;
     display: flex;
@@ -34,6 +35,7 @@ const Details = styled.div`
   justify-content: space-between;
   padding-bottom: calc(${space.spaceS} / 3);
 `;
+
 const Labels = styled.div`
   text-align: end;
   display: flex;
@@ -43,17 +45,21 @@ const Labels = styled.div`
     margin: 0 10px 0 4px;
   }
 `;
+
 const Label = styled.span`
+  margin-left: auto;
+  align-self: flex-end;
   background-color: ${colors.black};
   color: ${colors.white};
-
   padding: 3px 10px;
   border-radius: ${borderRadius.borderRadiusS};
 `;
+
 const Text = styled.p`
   font-size: ${(props) =>
     props.fontsize ? props.fontsize : fontSize.fontSizeM};
 `;
+
 const ContentCard = ({ data, isDiary, onClick }) => {
   return (
     <Container onClick={onClick}>
@@ -83,10 +89,14 @@ const ContentCard = ({ data, isDiary, onClick }) => {
             ) : (
               <>
                 <FiBook />
-                <Text fontsize={fontSize.fontSizeS}>{data.totalbook}</Text>
+                <Text fontsize={fontSize.fontSizeS}>
+                  {data.total_diary_count}
+                </Text>
               </>
             )}
-            <Label>{isDiary ? '일상' : '공개여부'}</Label>
+            <Label>
+              {isDiary ? data.category : data.public ? '전체공개' : '비공개'}
+            </Label>
           </Labels>
           <Date date={data.createdAt} />
         </Details>

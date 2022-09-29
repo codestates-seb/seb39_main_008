@@ -29,7 +29,7 @@ const PopularPeopleContainer = styled.div`
   }
 `;
 
-const ContentCardGridContainer = styled.div`
+export const ContentCardGridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-columns: minmax(350px, 407px);
