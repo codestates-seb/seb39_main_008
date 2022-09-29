@@ -1,6 +1,5 @@
 package it.mainPr.controller;
 
-import it.mainPr.auth.PrincipalDetails;
 import it.mainPr.dto.CommentsDto;
 import it.mainPr.dto.MultiResponseDto;
 import it.mainPr.mapper.CommentMapper;
@@ -11,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +25,9 @@ public class CommentController {
 
     @PostMapping("/api/v1/comments/")
     public ResponseEntity postComment(@PathVariable Long diaryId, @RequestBody CommentsDto.PostDto postDto,
-                                      @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Member member = principalDetails.getMember();
+                                      Authentication authentication) {
+        Member member = (Member)authentication.getPrincipal();
+
         Comment comment = commentMapper.postDtoToComment(postDto);
 
         Comment createdComment = commentService.writeComment(diaryId, comment, member);
