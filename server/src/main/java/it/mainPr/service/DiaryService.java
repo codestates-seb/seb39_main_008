@@ -1,12 +1,12 @@
 package it.mainPr.service;
 
-import it.mainPr.auth.PrincipalDetails;
 import it.mainPr.dto.DiariesDto;
 import it.mainPr.dto.MultiResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 import it.mainPr.mapper.DiaryMapper;
 import it.mainPr.model.Diary;
+import it.mainPr.model.Member;
 import it.mainPr.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,8 +25,8 @@ public class DiaryService {
 
     public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto, Authentication authentication) {
         Diary diary = diaryMapper.postDtoToDiary(postDto);
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        diary.setMember(principalDetails.getMember());
+        Member member = (Member)authentication.getPrincipal();
+        diary.setMember(member);
         diaryRepository.save(diary);
         //이미지 클래스 추가 후 주석 제거
 //        if(postDto.getDiaryImgUrl() != null) {
@@ -68,8 +68,8 @@ public class DiaryService {
     }
 
     public void checkPermission(Diary diary, Authentication authentication) {
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        if(diary.getMember().getMemberId() != principalDetails.getMember().getMemberId()) {
+        Member member = (Member) authentication.getPrincipal();
+        if(diary.getMember().getMemberId() != member.getMemberId()) {
             throw new BusinessLogicalException(ExceptionCode.NO_AUTHORIZED);
         }
     }

@@ -23,11 +23,11 @@ public class Member extends BaseTime {
     private String nickname;
     private String information;
     private String imgUrl;
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
+//    @Enumerated(value = EnumType.STRING)
+//    private Role role;
 
     @Builder
-    public Member(Long memberId, String email, String password, String name, String nickname, String information, String imgUrl, Role role) {
+    public Member(Long memberId, String email, String password, String name, String nickname, String information, String imgUrl) {
         this.memberId = memberId;
         this.email = email;
         this.password = password;
@@ -35,27 +35,26 @@ public class Member extends BaseTime {
         this.nickname = nickname;
         this.information = information;
         this.imgUrl = imgUrl;
-        this.role = role  == null ? Role.ROLE_MEMBER : role;
+   //     this.role = role  == null ? Role.ROLE_MEMBER : role;
     }
 
-    //    @ElementCollection(fetch = FetchType.EAGER)
-//    private List<String> roles = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     @Builder
-
-
     public Member(String email) {
         this.email = email;
     }
 
-    @Getter
-    public enum Role {
-
-        ROLE_ADMIN("관리자"), ROLE_MEMBER("일반회원");
-
-        private String description;
-
-        Role(String description) {
-            this.description = description;
-        }
-    }
+//    @Getter
+//    public enum Role {
+//
+//        ROLE_ADMIN("관리자"), ROLE_MEMBER("일반회원");
+//
+//        private String description;
+//
+//        Role(String description) {
+//            this.description = description;
+//        }
+//    }
 }

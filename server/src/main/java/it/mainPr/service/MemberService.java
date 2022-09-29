@@ -1,6 +1,5 @@
 package it.mainPr.service;
 
-import it.mainPr.auth.PrincipalDetails;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import it.mainPr.auth.utils.SecurityUtils;
 import it.mainPr.dto.MemberPatchDto;
@@ -49,15 +48,15 @@ public class MemberService {
                 .build();
 
         List<String> roles = authorityUtils.createRoles(newMember.getEmail());
-        newMember.setRole(Member.Role.ROLE_MEMBER);
+        newMember.setRoles(roles);
 
         Member createdMember = memberRepository.save(newMember);
         return MemberResponseDto.of(createdMember);
     }
 
     public MemberResponseDto loginMember(Authentication authentication){
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        Member loginMember = memberRepository.findByEmail(principalDetails.getMember().getEmail())
+        Member member = (Member) authentication.getPrincipal();
+        Member loginMember = memberRepository.findByEmail(member.getEmail())
                 .orElseThrow(()->new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
         return memberMapper.memberToMemberResponse(loginMember);
     }
