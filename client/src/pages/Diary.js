@@ -79,7 +79,6 @@ const Diary = ({ setHeaderData }) => {
 };
 
 const Container = styled.div`
-  margin: 0 ${space.spaceL};
   padding: 0 ${space.spaceM};
 `;
 
