@@ -11,6 +11,7 @@ import {
   colors,
   fontSize,
   layout,
+  screen,
   space,
 } from '../assets/styles/theme';
 import { getBookList } from '../lib/axios';
@@ -20,12 +21,12 @@ const WriteOrEditDiaryForm = (props) => {
   const [booklist, setBooklist] = useState([]);
   const [confirm, setConfirm] = useState(false);
   const navigate = useNavigate();
+
   const {
     register,
     setValue,
     handleSubmit,
     watch,
-    // reset,
     formState: { errors },
   } = useForm({});
 
@@ -97,6 +98,7 @@ const WriteOrEditDiaryForm = (props) => {
       onCancle();
     }
   };
+
   return (
     <Container
       onSubmit={
@@ -207,17 +209,17 @@ const WriteOrEditDiaryForm = (props) => {
 export default WriteOrEditDiaryForm;
 
 export const Container = styled.form`
-  padding: 0 ${space.spaceL};
   margin: 0 auto;
   width: 100%;
-  /* max-width: 710px; */
 `;
 
 export const Mid = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   padding: 0 ${space.spaceS};
   border-bottom: 1px solid ${colors.grey};
+
   & > div {
     width: 50%;
   }
@@ -231,55 +233,68 @@ export const Mid = styled.div`
     border: none;
     display: inline-block;
   }
+
   & select {
     width: 30%;
     border: none;
     background-color: ${colors.dimGrey};
     border-radius: ${borderRadius.borderRadiusS};
   }
+
   & input:focus-visible {
     outline: none;
   }
+
   .title {
     height: 50px;
     font-size: ${fontSize.fontSizeLL};
   }
+
   .title::placeholder {
     font-size: ${fontSize.fontSizeLL};
   }
+
   .subtitle {
     height: 50px;
     font-size: ${fontSize.fontSizeL};
   }
+
   .subtitle::placeholder {
     font-size: ${fontSize.fontSizeL};
   }
+
   label {
     margin-top: ${space.spaceM};
     /* font-size: ${fontSize.fontSizeM}; */
     width: 50px;
     display: inline-block;
   }
+
   .booktitle {
     font-size: ${fontSize.fontSizeM};
   }
+
   .radioBox {
     margin-top: ${space.spaceM};
     font-size: ${fontSize.fontSizeS};
+
     p {
       margin-bottom: ${space.spaceS};
     }
+
     input,
     label {
       cursor: pointer;
       margin: calc(${space.spaceS} / 3);
       display: inline;
     }
+
     input {
       width: 10px;
       display: inline;
     }
   }
+
   .addImgButton {
     cursor: pointer;
     margin: ${space.spaceM} 0 ${space.spaceM} ${space.spaceS};
@@ -289,33 +304,53 @@ export const Mid = styled.div`
     border-radius: ${borderRadius.borderRadiusM};
     border: 1px dashed ${colors.dimGrey};
     ${layout.flexCenter}
+
     & > p {
       font-size: ${fontSize.fontSizeL};
       color: ${colors.text4};
     }
+
     &:hover {
       & > p {
         color: ${colors.text3};
       }
     }
   }
+
   .image {
     display: none;
   }
+
+  @media ${screen.mobile} {
+    align-items: center;
+    flex-direction: column;
+    & > div {
+      width: 100%;
+    }
+
+    .addImgButton {
+      margin: ${space.spaceM} 0;
+      width: 100%;
+    }
+  }
 `;
+
 export const Bottom = styled.div`
   width: 100%;
   padding-bottom: ${space.spaceL};
+
   .preview {
     p {
       font-size: ${fontSize.fontSizeM};
       padding: ${space.spaceS} ${space.spaceS} 0 ${space.spaceS};
     }
   }
+
   .previewImg {
     padding: ${space.spaceS};
     width: 100%;
   }
+
   .quill {
     border-top: 1px solid ${colors.grey};
     z-index: 2000;
@@ -323,6 +358,7 @@ export const Bottom = styled.div`
     color: ${colors.text2};
     min-height: 20rem;
   }
+
   .ql-editor {
     font-size: ${fontSize.fontSizeM};
     padding: 0px;
@@ -332,11 +368,16 @@ export const Bottom = styled.div`
     & > * {
       margin-right: ${space.spaceS};
     }
+
+    & > button:last-child {
+      margin: 0;
+    }
     display: flex;
     justify-content: end;
     align-items: flex-end;
-    margin: ${space.spaceM} ${space.spaceS};
+    margin: ${space.spaceM} 0;
   }
+
   .Error {
     font-size: calc(${fontSize.fontSizeS}*1.2);
     color: ${colors.red};
