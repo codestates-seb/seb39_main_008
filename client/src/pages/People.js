@@ -9,8 +9,8 @@ import LoadingUnit from '../components/common/LoadingUnit';
 const PeopleContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: ${space.spaceL};
   position: relative;
+  z-index: -1;
 
   > div:first-child {
     display: grid;
