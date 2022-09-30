@@ -9,6 +9,7 @@ const Container = styled.div`
   display: flex;
 `;
 const Content = styled.section`
+  overflow-x: hidden;
   margin-left: ${(props) => (props.hasCommon ? '20px' : '0px')};
   width: 100%;
   max-width: ${(props) => (props.hasCommon ? '977px' : '1200px')};

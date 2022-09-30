@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const headers = { authorization: 'bearer test' };
+const headers = {
+  authorization: 'Bearer -',
+};
 
 // eslint-disable-next-line no-undef
 const url = process.env.REACT_APP_API_URL;
@@ -55,7 +57,8 @@ export const getMembers = async (
 
 export const getMember = async (member_id) => {
   try {
-    return (await axios.get(`/api/v1/members/${member_id}`)).data;
+    const res = await axios.get(`/api/v1/members/${member_id}`);
+    return res.data;
   } catch (err) {
     console.log('getMember', err);
   }
@@ -63,7 +66,7 @@ export const getMember = async (member_id) => {
 
 export const patchMember = async (data) => {
   try {
-    return await axios.patch('/api/v1/members', { data }, { headers });
+    return await axios.patch('/api/v1/members', data, { headers });
   } catch (err) {
     console.log('patchMember', err);
   }
@@ -75,6 +78,15 @@ export const getDiary = async (diaries_id) => {
     return res.data;
   } catch (err) {
     console.log('getDiary', err);
+  }
+};
+
+export const addDiary = async (data) => {
+  try {
+    const res = await axios.post(`${url}/api/v1/diaries`, data, { headers });
+    return res.data;
+  } catch (error) {
+    console.log('addDiary', error);
   }
 };
 
@@ -97,7 +109,8 @@ export const getBookList = async (member_id) => {
 
 export const getBook = async (book_id) => {
   try {
-    return await axios.get(`/api/v1/books/${book_id}`);
+    const res = await axios.get(`/api/v1/books/${book_id}`);
+    return res.data;
   } catch (err) {
     console.log('getBookList', err);
   }
@@ -105,9 +118,10 @@ export const getBook = async (book_id) => {
 
 export const getComment = async (diaryId, page = 1, size = 10) => {
   try {
-    return await axios.get(
+    const res = await axios.get(
       `/api/v1/comments/?diaryId=${diaryId}&page=${page}&size=${size}`
     );
+    return res.data;
   } catch (error) {
     console.log('getComment', error);
   }
@@ -151,9 +165,7 @@ export const followUser = async (followingMemberId) => {
       `/api/vi/follow`,
       { followingMemberId },
       {
-        headers: {
-          'content-type': 'text/json',
-        },
+        headers,
       }
     );
   } catch (error) {
