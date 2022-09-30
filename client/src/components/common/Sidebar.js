@@ -2,7 +2,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Logo from './Logo';
 import Avatar from './Avatar';
-import { theme, colors } from '../../assets/styles/theme';
+import {
+  fontSize,
+  screen,
+  space,
+  colors,
+  borderRadius,
+} from '../../assets/styles/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   FiPenTool,
@@ -17,12 +23,11 @@ import ConfirmModal from './ConfirmModal';
 
 const Wraper = styled.div`
   * {
-    font-size: ${theme.fontSize.fontSizeM};
+    font-size: ${fontSize.fontSizeM};
   }
-
   z-index: 1000;
   display: flex;
-  padding: ${theme.space.spaceM};
+  padding: ${space.spaceM};
   width: 223px;
   min-width: 223px;
   height: 100vh;
@@ -30,13 +35,25 @@ const Wraper = styled.div`
   position: sticky;
   top: 0;
   flex-direction: column;
+  background-color: ${colors.white};
 
   .auto {
     margin-top: auto;
   }
 
   .auto + div {
-    margin-top: ${theme.space.spaceS};
+    margin-top: ${space.spaceS};
+  }
+
+  @media ${screen.mobileAndTablet} {
+    position: absolute;
+    left: -${space.spaceS};
+    height: calc(100vh - 50px);
+    top: 49px;
+
+    & > div:first-child {
+      display: none;
+    }
   }
 `;
 const UserBox = styled.div`
@@ -45,11 +62,15 @@ const UserBox = styled.div`
   & > button {
     width: 100%;
     position: relative;
-    margin-top: ${theme.space.spaceM};
+    margin-top: ${space.spaceM};
 
     & > div {
       color: ${colors.text2};
       text-align: left;
+    }
+
+    & > div:hover {
+      color: ${colors.text4};
     }
 
     & > p:nth-child(2) {
@@ -63,14 +84,19 @@ const UserBox = styled.div`
       right: 0;
     }
   }
+
   & > button:hover {
     & > svg {
       color: ${colors.text3};
     }
   }
+
+  @media ${screen.mobileAndTablet} {
+    margin-top: 0px;
+  }
 `;
 const List = styled.div`
-  margin-top: ${theme.space.spaceL};
+  margin-top: ${space.spaceL};
 
   & > button {
     width: 100%;
@@ -84,11 +110,14 @@ const List = styled.div`
   }
 
   & > button:hover {
+    color: ${colors.text4};
+
     & > svg {
       color: ${colors.text3};
     }
   }
 `;
+
 const Sidebar = ({ hasSidebar }) => {
   const [confirm, setConfirm] = useState(false);
 
@@ -111,7 +140,8 @@ const Sidebar = ({ hasSidebar }) => {
       onLogout();
     }
   };
-  const listdata = {
+
+  const LISTDATA = {
     newDiary: {
       text: '새 기록 남기기',
       icon: <FiPenTool size={20} />,
@@ -157,7 +187,7 @@ const Sidebar = ({ hasSidebar }) => {
     },
   };
 
-  const list = Object.values(listdata);
+  const list = Object.values(LISTDATA);
 
   const userData = {
     name: '김코딩',
@@ -173,6 +203,7 @@ const Sidebar = ({ hasSidebar }) => {
   return (
     <>
       <Wraper hasSidebar={hasSidebar}>
+        <Logo />
         {confirm && (
           <ConfirmModal
             message={'로그아웃 하시겠습니까?'}
@@ -180,13 +211,13 @@ const Sidebar = ({ hasSidebar }) => {
             target={`${userData.nickname} 님`}
           />
         )}
-        <Logo />
+
         <UserBox>
           <Avatar
             isShadow={true}
             height="197px"
             imageURL={userData.profileURL}
-            borderRadius={theme.borderRadius.borderRadiusL}
+            borderRadius={borderRadius.borderRadiusL}
           />
           <button onClick={userData.onClick}>
             <div>
