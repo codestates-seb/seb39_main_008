@@ -4,6 +4,7 @@ import it.mainPr.audit.BaseTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "diary")
+@Table(name = "Diary")
 public class Diary extends BaseTime {
 
     @Id
@@ -21,30 +22,29 @@ public class Diary extends BaseTime {
     @Column(name = "diary_id")
     private Long diaryId;
 
-    @Column(nullable = false, length = 50)
     private String title;
 
-    @Column(nullable = false, length = 50)
     private String subTitle;
 
-    @Column(nullable = false, length = 20)
     private String nickname;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
     private String DiaryImgUrl;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "diary")
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    private List<Comment> comments;
 
-//    @ManyToOne
-//    private Book book;
+    @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    private List<Heart> heart;
+
+    @Enumerated(value = EnumType.STRING)
+    private Category category;
 
     @Builder
     public Diary(String title, String subTitle, String nickname, String content, String diaryImgUrl, Member member) {
@@ -82,5 +82,24 @@ public class Diary extends BaseTime {
     }
 
     public void updateDiaryImages() {
+    }
+
+    public void addMember(Member member) {
+        this.member = member;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    @Getter
+    public enum Category {
+        CATEGORY_0("일상공유"), CATEGORY_1("공감과치유");
+
+        private String description;
+
+        Category(String description) {
+            this.description = description;
+        }
     }
 }

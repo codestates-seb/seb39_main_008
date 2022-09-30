@@ -1,6 +1,7 @@
 package it.mainPr.dto;
 
 import it.mainPr.model.Diary;
+import it.mainPr.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,8 +12,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@NoArgsConstructor
+@Validated
 public class DiariesDto {
 
     @Getter
@@ -24,15 +24,17 @@ public class DiariesDto {
         @NotBlank
         private String content;
         private String diaryImgUrl;
+        private Member member;
 //        private Integer likeCount;
 //        private Integer followCount;
 
         @Builder
-        public PostDto(String title, String subtitle, String content, String diaryImgUrl) {
+        public PostDto(String title, String subtitle, String content, String diaryImgUrl, Member member) {
             this.title = title;
             this.subtitle = subtitle;
             this.content = content;
             this.diaryImgUrl = diaryImgUrl;
+            this.member = member;
         }
     }
 
@@ -67,24 +69,22 @@ public class DiariesDto {
         private String subtitle;
         private String content;
         private String nickname;
-        private Long memberId;
+        private Member member;
         private String diaryImgUrl;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
         private List<CommentsDto.ResponseDto> comments;
+        private List<HeartResponseDto> hearts;
 
         @Builder
-        public DiaryResponseDto(Long diaryId, String title, String subtitle, String content, String nickname, Long memberId, String diaryImgUrl, LocalDateTime createdAt, LocalDateTime modifiedAt, List<CommentsDto.ResponseDto> comments) {
+        public DiaryResponseDto(Long diaryId, String title, String subtitle, String content, String nickname, Member member, String diaryImgUrl, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts) {
             this.diaryId = diaryId;
             this.title = title;
             this.subtitle = subtitle;
             this.content = content;
             this.nickname = nickname;
-            this.memberId = memberId;
+            this.member = member;
             this.diaryImgUrl = diaryImgUrl;
-            this.createdAt = createdAt;
-            this.modifiedAt = modifiedAt;
             this.comments = comments;
+            this.hearts = hearts;
         }
     }
 }

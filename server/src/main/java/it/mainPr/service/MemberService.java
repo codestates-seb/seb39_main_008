@@ -77,7 +77,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public MemberResponseDto findMember(long memberId) {
 
-        return memberRepository.findById(memberId)
+        return memberRepository.findByMemberId(memberId)
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
     }
@@ -108,4 +108,5 @@ public class MemberService {
         if (member.isPresent())
             throw new BusinessLogicalException(ExceptionCode.MEMBER_EXISTS);
     }
+
 }

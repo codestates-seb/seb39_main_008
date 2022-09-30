@@ -1,6 +1,8 @@
 //package it.mainPr.auth;
 //
 //
+//import it.mainPr.auth.userDetails.MemberDetailsService;
+//import it.mainPr.auth.utils.CustomAuthorityUtils;
 //import it.mainPr.model.Member;
 //import lombok.Data;
 //import org.springframework.security.core.GrantedAuthority;
@@ -19,10 +21,15 @@
 //
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        Collection<GrantedAuthority> authorities = new ArrayList<>();
-//        authorities.add(() -> member.getRole().name());
-//        return authorities;
-//    }
+//
+//        return null;
+//     }
+////    @Override
+////    public Collection<? extends GrantedAuthority> getAuthorities() {
+////        Collection<GrantedAuthority> authorities = new ArrayList<>();
+////        authorities.add(() -> member.getRole().name());
+////        return authorities;
+////    }
 //
 //    @Override
 //    public String getPassword() {

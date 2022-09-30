@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "MEMBER")
 public class Member extends BaseTime {
     @Id
@@ -23,8 +24,16 @@ public class Member extends BaseTime {
     private String nickname;
     private String information;
     private String imgUrl;
-//    @Enumerated(value = EnumType.STRING)
-//    private Role role;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Diary> diary = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Heart> heart;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Comment> comment;
+
 
     @Builder
     public Member(Long memberId, String email, String password, String name, String nickname, String information, String imgUrl) {
@@ -41,20 +50,9 @@ public class Member extends BaseTime {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-    @Builder
     public Member(String email) {
         this.email = email;
     }
 
-//    @Getter
-//    public enum Role {
-//
-//        ROLE_ADMIN("관리자"), ROLE_MEMBER("일반회원");
-//
-//        private String description;
-//
-//        Role(String description) {
-//            this.description = description;
-//        }
-//    }
+
 }

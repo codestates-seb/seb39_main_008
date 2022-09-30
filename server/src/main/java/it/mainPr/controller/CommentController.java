@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/comments")
+@RequestMapping
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentMapper commentMapper;
     private final CommentService commentService;
 
-    @PostMapping("/api/v1/comments/")
+    @PostMapping("/api/v1/comments")
     public ResponseEntity postComment(@PathVariable Long diaryId, @RequestBody CommentsDto.PostDto postDto,
                                       Authentication authentication) {
         Member member = (Member)authentication.getPrincipal();

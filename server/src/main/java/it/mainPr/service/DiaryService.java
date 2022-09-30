@@ -5,6 +5,7 @@ import it.mainPr.dto.MultiResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 import it.mainPr.mapper.DiaryMapper;
+import it.mainPr.model.Comment;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
 import it.mainPr.repository.DiaryRepository;
@@ -23,9 +24,8 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
     private final DiaryMapper diaryMapper;
 
-    public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto, Authentication authentication) {
+    public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto, Member member) {
         Diary diary = diaryMapper.postDtoToDiary(postDto);
-        Member member = (Member)authentication.getPrincipal();
         diary.setMember(member);
         diaryRepository.save(diary);
         //이미지 클래스 추가 후 주석 제거
@@ -35,6 +35,8 @@ public class DiaryService {
         return diaryMapper.diaryToResponseDto(diary);
 
     }
+
+
 
     public DiariesDto.DiaryResponseDto readDiary(Long diaryId) {
         Diary diary = diaryRepository.findById(diaryId).orElseThrow(() ->
@@ -73,4 +75,6 @@ public class DiaryService {
             throw new BusinessLogicalException(ExceptionCode.NO_AUTHORIZED);
         }
     }
+
+
 }
