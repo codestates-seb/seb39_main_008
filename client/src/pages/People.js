@@ -5,6 +5,7 @@ import { space } from '../assets/styles/theme';
 import { getMembers } from '../lib/axios';
 import PeopleFilter from '../components/People/PeopleFilter';
 import LoadingUnit from '../components/common/LoadingUnit';
+import useInfinityScroll from '../lib/useInfinityScroll';
 
 const PeopleContainer = styled.div`
   width: 100%;
@@ -36,15 +37,15 @@ const People = ({ setHeaderData }) => {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [sortby, setSortby] = useState({ head: 'follow', tail: 'desc' });
-  const [endPage, setEndPage] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [active, setActive] = useState(0);
   const [filterModal, setFilterModal] = useState(false);
   const obsRef = useRef(null);
-  const preventRef = useRef(true);
   const endRef = useRef(false);
   const isFilterModal = useRef();
   const isButtonModal = useRef();
+
+  useInfinityScroll(obsRef, endRef, setPage);
 
   useEffect(async () => {
     setHeaderData({
@@ -63,33 +64,23 @@ const People = ({ setHeaderData }) => {
       }
     };
 
-    const observer = new IntersectionObserver(handlerObs, { threshold: 0.5 });
-    if (obsRef.current) observer.observe(obsRef.current);
     window.addEventListener('mousedown', handleModal);
 
     return () => {
-      observer.disconnect();
       window.removeEventListener('mousedown', handleModal);
     };
   }, []);
 
   useEffect(() => {
     getUserData();
-  }, [page, sortby]);
-
-  const handlerObs = (entries) => {
-    const target = entries[0];
-    if (!endRef.current && target.isIntersecting && preventRef.current) {
-      preventRef.current = false;
-      setPage((prev) => prev + 1);
-    }
-  };
+  }, [page]);
 
   const handleFilter = (size, sortby) => {
     setUserDatas([]);
     setPage(1);
     setSize(size);
     setSortby(sortby);
+    endRef.current = false;
   };
 
   const getUserData = async () => {
@@ -98,10 +89,8 @@ const People = ({ setHeaderData }) => {
     setLoading(false);
     if (res.data) {
       setUserDatas((prev) => [...prev, ...res.data]);
-      preventRef.current = true;
       if (res.data.length === 0) {
-        preventRef.current = false;
-        setEndPage(true);
+        endRef.current = true;
       }
     } else {
       console.log(res);
@@ -135,7 +124,7 @@ const People = ({ setHeaderData }) => {
             ></UserCard>
           ))}
         </div>
-        {endPage && (
+        {endRef && (
           <NoticeContainer>더 이상 불러올 유저가 없습니다.</NoticeContainer>
         )}
         <div ref={obsRef}>{isLoading && <LoadingUnit />}</div>
