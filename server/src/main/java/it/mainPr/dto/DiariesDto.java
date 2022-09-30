@@ -69,21 +69,22 @@ public class DiariesDto {
         private String subtitle;
         private String content;
         private String nickname;
-        private Long memberId;
+        private Member member;
         private String diaryImgUrl;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
         private List<CommentsDto.ResponseDto> comments;
+        private List<HeartResponseDto> hearts;
 
         @Builder
-        public DiaryResponseDto(Long diaryId, String title, String subtitle, String nickname, String diaryImgUrl, String content, Long memberid) {
+        public DiaryResponseDto(Long diaryId, String title, String subtitle, String content, String nickname, Member member, String diaryImgUrl, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts) {
             this.diaryId = diaryId;
             this.title = title;
             this.subtitle = subtitle;
-            this.nickname = nickname;
-            this.diaryImgUrl = diaryImgUrl;
             this.content = content;
-            this.memberId = memberId;
+            this.nickname = nickname;
+            this.member = member;
+            this.diaryImgUrl = diaryImgUrl;
+            this.comments = comments;
+            this.hearts = hearts;
         }
     }
 }

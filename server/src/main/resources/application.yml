@@ -13,7 +13,7 @@ spring:
   jpa:
 #    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     show-sql: true
 server:
   servlet:

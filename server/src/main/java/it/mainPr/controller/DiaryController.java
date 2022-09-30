@@ -40,7 +40,7 @@ public class DiaryController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/api/v1/diaries")
     public ResponseEntity getAllDiaries(@PageableDefault(page = 1, sort = "diaryId", direction = Sort.Direction.DESC) Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize(), pageable.getSort());
         MultiResponseDto responseDto = diaryService.readAllDiaries(pageRequest);

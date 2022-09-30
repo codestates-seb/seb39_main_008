@@ -25,13 +25,13 @@ public class Member extends BaseTime {
     private String information;
     private String imgUrl;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Diary> diary;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Diary> diary = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Heart> heart;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> comment;
 
 

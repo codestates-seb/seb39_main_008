@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "DIARY")
+@Table(name = "Diary")
 public class Diary extends BaseTime {
 
     @Id
@@ -22,19 +22,15 @@ public class Diary extends BaseTime {
     @Column(name = "diary_id")
     private Long diaryId;
 
-    @Column(nullable = false, length = 50)
     private String title;
 
-    @Column(nullable = false, length = 50)
     private String subTitle;
 
-    @Column(nullable = false, length = 20)
     private String nickname;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
     private String DiaryImgUrl;
 
     @ManyToOne
@@ -86,6 +82,14 @@ public class Diary extends BaseTime {
     }
 
     public void updateDiaryImages() {
+    }
+
+    public void addMember(Member member) {
+        this.member = member;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 
     @Getter
