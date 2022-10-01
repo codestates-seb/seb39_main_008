@@ -1,4 +1,4 @@
-package it.mainPr.dto;
+package it.mainPr.dto.heartDto;
 
 import lombok.Getter;
 

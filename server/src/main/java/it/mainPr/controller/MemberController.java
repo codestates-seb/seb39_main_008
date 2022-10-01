@@ -1,20 +1,21 @@
 package it.mainPr.controller;
 
-import it.mainPr.dto.*;
-import it.mainPr.model.Member;
+import it.mainPr.dto.memberDto.MemberPatchDto;
+import it.mainPr.dto.memberDto.MemberPostDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.service.MemberService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -29,16 +30,12 @@ public class MemberController {
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
+
     @PostMapping("/v1/auth/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto requestBody) {
 
         return ResponseEntity.ok(memberService.createMember(requestBody));
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity loginMember(Authentication authentication){
-//        return new ResponseEntity<>(memberService.loginMember(authentication),HttpStatus.OK);
-//    }
 
     @PatchMapping("/v1/members")
     public ResponseEntity patchMember(@PathVariable("member-id") long memberId,
@@ -64,5 +61,10 @@ public class MemberController {
         memberService.deleteMember(memberId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/v1/auth/reissue")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        memberService.reissue(request, response);
     }
 }

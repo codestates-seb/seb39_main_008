@@ -1,6 +1,6 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.CommentsDto;
+import it.mainPr.dto.commentDto.CommentsDto;
 import it.mainPr.model.Comment;
 import org.mapstruct.*;
 

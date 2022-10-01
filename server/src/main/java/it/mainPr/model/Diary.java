@@ -2,12 +2,9 @@ package it.mainPr.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import it.mainPr.audit.BaseTime;
-import it.mainPr.dto.MemberResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +32,10 @@ public class Diary extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
 
     @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
     private List<Comment> comments;

@@ -1,7 +1,7 @@
 package it.mainPr.service;
 
 
-import it.mainPr.dto.CommentsDto;
+import it.mainPr.dto.commentDto.CommentsDto;
 import it.mainPr.mapper.CommentMapper;
 import it.mainPr.model.Comment;
 import it.mainPr.model.Diary;

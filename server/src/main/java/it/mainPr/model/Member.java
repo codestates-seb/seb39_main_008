@@ -1,7 +1,7 @@
 package it.mainPr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.mainPr.audit.BaseTime;
-import it.mainPr.dto.MemberPatchDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +25,10 @@ public class Member extends BaseTime {
     private String information;
     private String imgUrl;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Book> book = new ArrayList<>();
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Diary> diary = new ArrayList<>();
 
@@ -44,7 +48,6 @@ public class Member extends BaseTime {
         this.nickname = nickname;
         this.information = information;
         this.imgUrl = imgUrl;
-//        this.role = role  == null ? Role.ROLE_MEMBER : role;
     }
 
     @ElementCollection(fetch = FetchType.EAGER)

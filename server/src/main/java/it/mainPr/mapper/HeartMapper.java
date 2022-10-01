@@ -1,6 +1,6 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.HeartResponseDto;
+import it.mainPr.dto.heartDto.HeartResponseDto;
 import it.mainPr.model.Heart;
 import org.mapstruct.Mapper;
 

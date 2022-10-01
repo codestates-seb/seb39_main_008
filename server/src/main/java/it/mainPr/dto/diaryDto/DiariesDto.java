@@ -1,12 +1,13 @@
-package it.mainPr.dto;
+package it.mainPr.dto.diaryDto;
 
+import it.mainPr.dto.heartDto.HeartResponseDto;
+import it.mainPr.dto.commentDto.CommentsDto;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Validated
@@ -68,7 +69,7 @@ public class DiariesDto {
         private String subtitle;
         private String content;
         private String nickname;
-        private long memberId;
+        private Long memberId;
         private String diaryImgUrl;
         private String total_hearts;
         private String total_comments;
@@ -77,13 +78,13 @@ public class DiariesDto {
         private Diary.Category category;
 
         @Builder
-        public DiaryResponseDto(Long diaryId, String title, String subtitle, String content, String nickname, long memberId, String diaryImgUrl, String total_hearts, String total_comments, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category) {
+        public DiaryResponseDto(Long diaryId, String title, String subtitle, String content, Member member, String diaryImgUrl, String total_hearts, String total_comments, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category) {
             this.diaryId = diaryId;
             this.title = title;
             this.subtitle = subtitle;
             this.content = content;
-            this.nickname = nickname;
-            this.memberId = memberId;
+            this.nickname = member.getNickname();
+            this.memberId = member.getMemberId();
             this.diaryImgUrl = diaryImgUrl;
             this.total_hearts = total_hearts;
             this.total_comments = total_comments;

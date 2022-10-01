@@ -1,11 +1,11 @@
 package it.mainPr.service;
 
-import it.mainPr.dto.DiariesDto;
-import it.mainPr.dto.MultiResponseDto;
+import it.mainPr.auth.utils.SecurityUtils;
+import it.mainPr.dto.diaryDto.DiariesDto;
+import it.mainPr.dto.global.MultiResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 import it.mainPr.mapper.DiaryMapper;
-import it.mainPr.model.Comment;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
 import it.mainPr.repository.DiaryRepository;
@@ -23,8 +23,12 @@ public class DiaryService {
 
     private final DiaryRepository diaryRepository;
     private final DiaryMapper diaryMapper;
+    private final MemberService memberService;
 
-    public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto, Member member) {
+    public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto) {
+        String memberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member member = memberService.findVerifiedMember(memberEmail);
+
         Diary diary = diaryMapper.postDtoToDiary(postDto);
         diary.setMember(member);
         diaryRepository.save(diary);
