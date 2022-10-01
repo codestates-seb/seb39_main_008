@@ -3,7 +3,6 @@ package it.mainPr.controller;
 import it.mainPr.dto.HeartDto;
 import it.mainPr.dto.MemberResponseDto;
 import it.mainPr.mapper.HeartMapper;
-import it.mainPr.model.Member;
 import it.mainPr.service.HeartService;
 import it.mainPr.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +33,7 @@ public class HeartController {
                                        @Valid @RequestBody HeartDto heartDto) {
         boolean result = false;
 
-        Member member = memberService.findMember(heartDto.getMemberId());
+        MemberResponseDto member = memberService.findMember(heartDto.getMemberId());
 
         if(Objects.nonNull(member))
             result = heartService.createHeart(member, diaryId);
@@ -45,7 +44,7 @@ public class HeartController {
     @DeleteMapping("/api/v1/heart/delete/{diary_id}")
     public ResponseEntity deleteHeart(@PathVariable("diary_id") long diaryId,
                                       HeartDto heartDto) {
-        Member member = memberService.findMember(heartDto.getMemberId());
+        MemberResponseDto member = memberService.findMember(heartDto.getMemberId());
         if(member != null) {
             heartService.deleteHeart(member, diaryId);
         }

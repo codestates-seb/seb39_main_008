@@ -6,7 +6,10 @@ import it.mainPr.mapper.DiaryMapper;
 import it.mainPr.model.Comment;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
+import it.mainPr.repository.DiaryRepository;
+import it.mainPr.service.CommentService;
 import it.mainPr.service.DiaryService;
+import it.mainPr.service.HeartService;
 import it.mainPr.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -17,22 +20,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@Validated
 public class DiaryController {
     private final DiaryService diaryService;
     private final DiaryMapper diaryMapper;
+    private final DiaryRepository diaryRepository;
+    private final HeartService heartService;
+    private final MemberService memberService;
+    private final CommentService commentService;
 
-    @PostMapping("/api/v1/diaries")
+    @PostMapping("/api/v1/writeDiaries")
     public ResponseEntity writeDiary(@Valid @RequestBody DiariesDto.PostDto postDto, @AuthenticationPrincipal Member member) {
         Diary diary = diaryMapper.postDtoToDiary(postDto);
         DiariesDto.DiaryResponseDto responseDto = diaryService.writeDiary(postDto, member);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
+
 
     @GetMapping("/api/v1/diaries/{diary_id}")
     public ResponseEntity getDiary(@PathVariable("diary_id") Long diaryId) {

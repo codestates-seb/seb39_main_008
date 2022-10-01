@@ -1,10 +1,9 @@
 package it.mainPr.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import it.mainPr.audit.BaseTime;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import it.mainPr.dto.MemberResponseDto;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,7 +32,7 @@ public class Diary extends BaseTime {
 
     private String DiaryImgUrl;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -93,13 +92,11 @@ public class Diary extends BaseTime {
     }
 
     @Getter
+    @AllArgsConstructor
+    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public enum Category {
         CATEGORY_0("일상공유"), CATEGORY_1("공감과치유");
 
         private String description;
-
-        Category(String description) {
-            this.description = description;
-        }
     }
 }

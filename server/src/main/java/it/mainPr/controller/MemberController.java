@@ -35,10 +35,10 @@ public class MemberController {
         return ResponseEntity.ok(memberService.createMember(requestBody));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity loginMember(Authentication authentication){
-        return new ResponseEntity<>(memberService.loginMember(authentication),HttpStatus.OK);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity loginMember(Authentication authentication){
+//        return new ResponseEntity<>(memberService.loginMember(authentication),HttpStatus.OK);
+//    }
 
     @PatchMapping("/v1/members")
     public ResponseEntity patchMember(@PathVariable("member-id") long memberId,
