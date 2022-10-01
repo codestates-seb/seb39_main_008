@@ -2,10 +2,7 @@ package it.mainPr.dto;
 
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
@@ -19,22 +16,24 @@ public class DiariesDto {
     @NoArgsConstructor
     public static class PostDto {
         @NotBlank
-        private String title;
-        private String subtitle;
+        String title;
+        String subtitle;
         @NotBlank
-        private String content;
-        private String diaryImgUrl;
-        private Member member;
-//        private Integer likeCount;
-//        private Integer followCount;
+        String content;
+        String diaryImgUrl;
+        Member member;
+        Integer likeCount;
+        Integer followCount;
 
         @Builder
-        public PostDto(String title, String subtitle, String content, String diaryImgUrl, Member member) {
+        public PostDto(String title, String subtitle, String content, String diaryImgUrl, Member member, Integer likeCount, Integer followCount) {
             this.title = title;
             this.subtitle = subtitle;
             this.content = content;
             this.diaryImgUrl = diaryImgUrl;
             this.member = member;
+            this.likeCount = likeCount;
+            this.followCount = followCount;
         }
     }
 
@@ -69,22 +68,28 @@ public class DiariesDto {
         private String subtitle;
         private String content;
         private String nickname;
-        private Member member;
+        private long memberId;
         private String diaryImgUrl;
+        private String total_hearts;
+        private String total_comments;
         private List<CommentsDto.ResponseDto> comments;
         private List<HeartResponseDto> hearts;
+        private Diary.Category category;
 
         @Builder
-        public DiaryResponseDto(Long diaryId, String title, String subtitle, String content, String nickname, Member member, String diaryImgUrl, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts) {
+        public DiaryResponseDto(Long diaryId, String title, String subtitle, String content, String nickname, long memberId, String diaryImgUrl, String total_hearts, String total_comments, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category) {
             this.diaryId = diaryId;
             this.title = title;
             this.subtitle = subtitle;
             this.content = content;
             this.nickname = nickname;
-            this.member = member;
+            this.memberId = memberId;
             this.diaryImgUrl = diaryImgUrl;
+            this.total_hearts = total_hearts;
+            this.total_comments = total_comments;
             this.comments = comments;
             this.hearts = hearts;
+            this.category = category;
         }
     }
-}
+    }

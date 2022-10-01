@@ -1,13 +1,11 @@
 package it.mainPr.service;
 
-import it.mainPr.dto.DiariesDto;
 import it.mainPr.dto.MemberResponseDto;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Heart;
 import it.mainPr.model.Member;
 import it.mainPr.repository.DiaryRepository;
 import it.mainPr.repository.HeartRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,21 +27,21 @@ public class HeartService {
         this.memberService = memberService;
     }
 
-    public boolean createHeart(Member member, long diaryId) {
+    public boolean createHeart(MemberResponseDto member, long diaryId) {
         //다이어리 존재 확인
         Diary diary = diaryRepository.findById(diaryId).orElseThrow();
 
         //중복 좋아요 방지
-        if(isNotAlreadyHeart(member, diary)) {
-            heartRepository.save(new Heart(member, diary));
-            return true;
-        }
-        return false;
+//        if(isNotAlreadyHeart(member, diary)) {
+//            heartRepository.save(new Heart(member, diary));
+//            return true;
+//        }
+        return false;/**/
     }
 
     public List<String> count(long diaryId) {
         Diary diary = diaryRepository.findById(diaryId).orElseThrow();
-        Member member = diary.getMember();
+        MemberResponseDto member = MemberResponseDto.of(diary.getMember());
 
         Integer heartCount = heartRepository.countByDiary(diary).orElse(0);
 
@@ -57,14 +55,14 @@ public class HeartService {
         return result;
     }
 
-    public void deleteHeart(Member member, long diaryId) {
+    public void deleteHeart(MemberResponseDto member, long diaryId) {
         Diary diary = diaryRepository.findById(diaryId).orElseThrow();
         Heart heart = heartRepository.findByMemberAndDiary(member, diary).orElseThrow();
 
         heartRepository.delete(heart);
     }
     //좋아요 중복 체크
-    private boolean isNotAlreadyHeart(Member member, Diary diary) {
+    private boolean isNotAlreadyHeart(MemberResponseDto member, Diary diary) {
         return heartRepository.findByMemberAndDiary(member, diary).isEmpty();
     }
 

@@ -36,7 +36,7 @@ public class Member extends BaseTime {
 
 
     @Builder
-    public Member(Long memberId, String email, String password, String name, String nickname, String information, String imgUrl) {
+    public Member(long memberId, String email, String password, String name, String nickname, String information, String imgUrl) {
         this.memberId = memberId;
         this.email = email;
         this.password = password;
@@ -44,15 +44,11 @@ public class Member extends BaseTime {
         this.nickname = nickname;
         this.information = information;
         this.imgUrl = imgUrl;
-   //     this.role = role  == null ? Role.ROLE_MEMBER : role;
+//        this.role = role  == null ? Role.ROLE_MEMBER : role;
     }
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
-
-    public Member(String email) {
-        this.email = email;
-    }
 
 
 }
