@@ -21,6 +21,7 @@ const NavContainer = styled.div`
 `;
 
 const Toggle = styled.div`
+  cursor: pointer;
   position: relative;
   display: flex;
   height: 100%;
@@ -108,7 +109,6 @@ const Navbar = () => {
   const toggleRef = useRef();
 
   const handleClickOutSide = (e) => {
-    e.preventDefault();
     if (
       sidebar &&
       !sidebarRef.current.contains(e.target) &&
@@ -119,9 +119,9 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (sidebar) document.addEventListener('mousedown', handleClickOutSide);
+    if (sidebar) window.addEventListener('click', handleClickOutSide);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutSide);
+      window.removeEventListener('click', handleClickOutSide);
     };
   });
 
