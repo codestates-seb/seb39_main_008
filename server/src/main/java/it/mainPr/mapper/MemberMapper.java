@@ -1,8 +1,8 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.MemberPatchDto;
-import it.mainPr.dto.MemberPostDto;
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.memberDto.MemberPatchDto;
+import it.mainPr.dto.memberDto.MemberPostDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Member;
 import org.mapstruct.Mapper;
 

@@ -1,10 +1,14 @@
 package it.mainPr.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
+import it.mainPr.auth.jwt.JwtTokenizer;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import it.mainPr.auth.utils.SecurityUtils;
-import it.mainPr.dto.MemberPatchDto;
-import it.mainPr.dto.MemberPostDto;
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.memberDto.MemberPatchDto;
+import it.mainPr.dto.memberDto.MemberPostDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 
@@ -12,29 +16,27 @@ import it.mainPr.mapper.MemberMapper;
 import it.mainPr.model.Member;
 import it.mainPr.repository.MemberRepository;
 
-import org.springframework.security.core.Authentication;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final MemberMapper memberMapper;
     private final CustomAuthorityUtils authorityUtils;
-
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, MemberMapper memberMapper, CustomAuthorityUtils authorityUtils) {
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.memberMapper = memberMapper;
-        this.authorityUtils = authorityUtils;
-    }
+    private final JwtTokenizer jwtTokenizer;
 
     //회원 가입
     public MemberResponseDto createMember(MemberPostDto postDto) {
@@ -54,17 +56,54 @@ public class MemberService {
         return MemberResponseDto.of(createdMember);
     }
 
-    public MemberResponseDto loginMember(Authentication authentication){
-        Member member = (Member) authentication.getPrincipal();
-        Member loginMember = memberRepository.findByEmail(member.getEmail())
-                .orElseThrow(()->new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
-        return memberMapper.memberToMemberResponse(loginMember);
+    public void reissue(HttpServletRequest request, HttpServletResponse response) {
+        //리프레시토큰 검증
+        String refreshToken = request.getHeader("Authorization");
+
+        if(refreshToken != null && refreshToken.startsWith("Bearer ")) {
+            try {
+                String authorizationHeader = refreshToken.replace("Bearer ", "");
+                String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+                Map<String, Object> verifiedClaims = jwtTokenizer.getClaims(authorizationHeader, base64EncodedSecretKey).getBody();
+
+                // 디버깅 결과 username이 안 얻어지고 있는 상태임. 이거 해결하면 끝날듯.
+                String username = (String) verifiedClaims.get("username");
+                System.out.println(username);
+                Member member = findVerifiedMember(username);
+
+                //access토큰 재발급
+                Map<String, Object> claims = new HashMap<>();
+                claims.put("username", member.getEmail());
+                claims.put("roles", member.getRoles());
+                String subject = member.getEmail();
+                Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
+                String secretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+                String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, secretKey);
+
+                response.setHeader("Authorization", "Bearer " + accessToken);
+                response.setHeader("Refresh", "Bearer " + refreshToken);
+
+                Map<String, String> tokens = new HashMap<>();
+                tokens.put("Authorization", "Bearer " + accessToken);
+                tokens.put("Refresh", "Bearer " + refreshToken);
+
+                response.setContentType(APPLICATION_JSON_VALUE);
+                new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+
+            } catch (SignatureException se) {
+                request.setAttribute("exception", se);
+            } catch (ExpiredJwtException ee) {
+                request.setAttribute("exception", ee);
+            } catch (Exception e) {
+                request.setAttribute("exception", e);
+            }
+        }
     }
 
     //회원 정보 수정
     public MemberResponseDto updateMember(MemberPatchDto patchDto) {
-        Long memberId = SecurityUtils.getCurrentMemberId();
-        Member findMember = findVerifiedMember(memberId);
+        String memberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member findMember = findVerifiedMember(memberEmail);
 
         Optional.ofNullable(patchDto.getInformation())
                 .ifPresent(information -> findMember.setInformation(information));
@@ -99,6 +138,15 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         Member findMember = optionalMember.orElseThrow(() ->
                         new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return findMember;
+    }
+
+    @Transactional(readOnly = true)
+    public Member findVerifiedMember(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        Member findMember = optionalMember.orElseThrow(() ->
+                new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return findMember;
     }

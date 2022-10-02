@@ -1,7 +1,7 @@
 package it.mainPr.controller;
 
-import it.mainPr.dto.CommentsDto;
-import it.mainPr.dto.MultiResponseDto;
+import it.mainPr.dto.commentDto.CommentsDto;
+import it.mainPr.dto.global.MultiResponseDto;
 import it.mainPr.mapper.CommentMapper;
 import it.mainPr.model.Comment;
 import it.mainPr.model.Member;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

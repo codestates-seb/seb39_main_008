@@ -10,13 +10,13 @@ public class SecurityUtils {
     public SecurityUtils() {
     }
 
-    public static Long getCurrentMemberId() {
+    public static String getCurrentMemberEmail() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser")) {
             throw new BusinessLogicalException(ExceptionCode.NO_AUTHORIZED);
         }
 
-        return Long.parseLong(authentication.getName());
+        return (String)authentication.getPrincipal();
     }
 }

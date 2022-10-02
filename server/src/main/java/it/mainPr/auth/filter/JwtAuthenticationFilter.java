@@ -4,7 +4,7 @@ package it.mainPr.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.mainPr.auth.jwt.JwtTokenizer;
-import it.mainPr.dto.LoginDto;
+import it.mainPr.dto.memberDto.LoginDto;
 import it.mainPr.model.Member;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -52,7 +54,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = delegateRefreshToken(member);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.setHeader("Refresh", refreshToken);
+        response.setHeader("Refresh", "Bearer " + refreshToken);
+
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("Authorization", "Bearer " + accessToken);
+        tokens.put("Refresh", "Bearer " + accessToken);
+        response.setContentType(APPLICATION_JSON_VALUE);
+
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
@@ -73,11 +82,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     private String delegateRefreshToken(Member member) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", member.getEmail());
+        claims.put("roles", member.getRoles());
+
         String subject = member.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
-        String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+        String refreshToken = jwtTokenizer.generateRefreshToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return refreshToken;
     }

@@ -1,9 +1,8 @@
 package it.mainPr.controller;
 
-import it.mainPr.dto.DiariesDto;
-import it.mainPr.dto.MultiResponseDto;
+import it.mainPr.dto.diaryDto.DiariesDto;
+import it.mainPr.dto.global.MultiResponseDto;
 import it.mainPr.mapper.DiaryMapper;
-import it.mainPr.model.Comment;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
 import it.mainPr.repository.DiaryRepository;
@@ -33,13 +32,12 @@ public class DiaryController {
     private final DiaryMapper diaryMapper;
     private final DiaryRepository diaryRepository;
     private final HeartService heartService;
-    private final MemberService memberService;
     private final CommentService commentService;
 
     @PostMapping("/api/v1/writeDiaries")
-    public ResponseEntity writeDiary(@Valid @RequestBody DiariesDto.PostDto postDto, @AuthenticationPrincipal Member member) {
+    public ResponseEntity writeDiary(@Valid @RequestBody DiariesDto.PostDto postDto) {
         Diary diary = diaryMapper.postDtoToDiary(postDto);
-        DiariesDto.DiaryResponseDto responseDto = diaryService.writeDiary(postDto, member);
+        DiariesDto.DiaryResponseDto responseDto = diaryService.writeDiary(postDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 

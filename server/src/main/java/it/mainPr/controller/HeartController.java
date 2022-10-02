@@ -1,7 +1,7 @@
 package it.mainPr.controller;
 
-import it.mainPr.dto.HeartDto;
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.heartDto.HeartDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.mapper.HeartMapper;
 import it.mainPr.service.HeartService;
 import it.mainPr.service.MemberService;

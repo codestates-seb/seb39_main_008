@@ -1,6 +1,6 @@
 package it.mainPr.repository;
 
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Heart;
 import it.mainPr.model.Member;

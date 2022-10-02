@@ -1,5 +1,6 @@
-package it.mainPr.dto;
+package it.mainPr.dto.commentDto;
 
+import it.mainPr.dto.memberDto.MemberResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
