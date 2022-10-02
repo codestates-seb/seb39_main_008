@@ -45,7 +45,7 @@ public class MemberController {
     }
 
     @GetMapping("/v1/members/{memberId}")
-    public ResponseEntity<MemberResponseDto> getMember(@PathVariable("member-id") long memberId) {
+    public ResponseEntity<MemberResponseDto> getMember(@PathVariable long memberId) {
         SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(System.out::println);
         return ResponseEntity.ok(memberService.findMember(memberId));
     }
@@ -56,7 +56,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/v1/members/{memberId}")
-    public ResponseEntity deleteMember(@PathVariable("member-id") long memberId) {
+    public ResponseEntity deleteMember(@PathVariable long memberId) {
 
         memberService.deleteMember(memberId);
 
