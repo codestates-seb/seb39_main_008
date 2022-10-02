@@ -6,6 +6,7 @@ public enum ExceptionCode {
     NO_AUTHORIZED(401, "No Authentication"),
     MEMBER_NOT_FOUND(404, "Member not found"),
     DIARY_NOT_FOUND(404, "Post not found"),
+    BOOK_NOT_FOUND(404, "Book not found"),
     UNDEFINED(99, "Undefined"),
 
     MEMBER_EXISTS(409, "Member exists");

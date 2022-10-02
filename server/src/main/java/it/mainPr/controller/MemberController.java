@@ -38,13 +38,13 @@ public class MemberController {
     }
 
     @PatchMapping("/v1/members")
-    public ResponseEntity patchMember(@PathVariable("member-id") long memberId,
+    public ResponseEntity patchMember(@RequestParam(name = "member-id") long memberId,
                                       @Valid @RequestBody MemberPatchDto requestBody) {
 
         return ResponseEntity.ok(memberService.updateMember(requestBody));
     }
 
-    @GetMapping("/v1/members/{member-id}")
+    @GetMapping("/v1/members/{memberId}")
     public ResponseEntity<MemberResponseDto> getMember(@PathVariable("member-id") long memberId) {
         SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(System.out::println);
         return ResponseEntity.ok(memberService.findMember(memberId));
@@ -55,7 +55,7 @@ public class MemberController {
         return ResponseEntity.ok(memberService.findAllMembers());
     }
 
-    @DeleteMapping("/v1/members/{member-id}")
+    @DeleteMapping("/v1/members/{memberId}")
     public ResponseEntity deleteMember(@PathVariable("member-id") long memberId) {
 
         memberService.deleteMember(memberId);

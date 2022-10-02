@@ -40,8 +40,6 @@ public class DiaryService {
 
     }
 
-
-
     public DiariesDto.DiaryResponseDto readDiary(Long diaryId) {
         Diary diary = diaryRepository.findById(diaryId).orElseThrow(() ->
                 new BusinessLogicalException(ExceptionCode.DIARY_NOT_FOUND));

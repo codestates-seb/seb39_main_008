@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class BookResponseDto {
+    private Long bookId;
     @NotBlank
     private String bookTitle;
     @NotBlank
@@ -27,7 +28,8 @@ public class BookResponseDto {
     private List<Diary> diary;
 
     @Builder
-    public BookResponseDto(String bookTitle, String bookSubTitle, String bookImageUrl, Member member, List<Diary> diary) {
+    public BookResponseDto(Long bookId, String bookTitle, String bookSubTitle, String bookImageUrl, Member member, List<Diary> diary) {
+        this.bookId = bookId;
         this.bookTitle = bookTitle;
         this.bookSubTitle = bookSubTitle;
         this.bookImageUrl = bookImageUrl;
@@ -39,7 +41,7 @@ public class BookResponseDto {
     }
 
     public static BookResponseDto of(Book book) {
-        return new BookResponseDto(book.getBookTitle(), book.getBookSubTitle(), book.getBookImageUrl(),
+        return new BookResponseDto(book.getBookId(), book.getBookTitle(), book.getBookSubTitle(), book.getBookImageUrl(),
                 book.getMember(), book.getDiary());
     }
 }
