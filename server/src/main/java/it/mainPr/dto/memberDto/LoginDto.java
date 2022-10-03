@@ -1,4 +1,4 @@
-package it.mainPr.dto;
+package it.mainPr.dto.memberDto;
 import lombok.Getter;
 
 @Getter

@@ -1,4 +1,4 @@
-package it.mainPr.dto;
+package it.mainPr.dto.global;
 
 import lombok.Getter;
 import org.springframework.data.domain.Page;

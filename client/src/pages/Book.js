@@ -5,16 +5,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ContentCardGridContainer } from './Main';
 import MakeButton from '../components/common/MakeButton';
 import styled from 'styled-components';
-import { space } from '../assets/styles/theme';
 
-const Container = styled.div`
-  padding: ${space.spaceL};
-  padding-top: 0;
-`;
+const Container = styled.div``;
 
 const Book = ({ setHeaderData }) => {
   const id = useParams().bookId;
+
   const [data, setData] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(async () => {

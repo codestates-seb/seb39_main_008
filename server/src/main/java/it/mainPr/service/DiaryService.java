@@ -1,7 +1,8 @@
 package it.mainPr.service;
 
-import it.mainPr.dto.DiariesDto;
-import it.mainPr.dto.MultiResponseDto;
+import it.mainPr.auth.utils.SecurityUtils;
+import it.mainPr.dto.diaryDto.DiariesDto;
+import it.mainPr.dto.global.MultiResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 import it.mainPr.mapper.DiaryMapper;
@@ -22,10 +23,13 @@ public class DiaryService {
 
     private final DiaryRepository diaryRepository;
     private final DiaryMapper diaryMapper;
+    private final MemberService memberService;
 
-    public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto, Authentication authentication) {
+    public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto) {
+        String memberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member member = memberService.findVerifiedMember(memberEmail);
+
         Diary diary = diaryMapper.postDtoToDiary(postDto);
-        Member member = (Member)authentication.getPrincipal();
         diary.setMember(member);
         diaryRepository.save(diary);
         //이미지 클래스 추가 후 주석 제거
@@ -73,4 +77,6 @@ public class DiaryService {
             throw new BusinessLogicalException(ExceptionCode.NO_AUTHORIZED);
         }
     }
+
+
 }

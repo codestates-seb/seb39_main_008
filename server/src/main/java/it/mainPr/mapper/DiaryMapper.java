@@ -1,6 +1,6 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.DiariesDto;
+import it.mainPr.dto.diaryDto.DiariesDto;
 import it.mainPr.model.Diary;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

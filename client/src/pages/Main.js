@@ -6,10 +6,7 @@ import { space, fontSize } from '../assets/styles/theme';
 import UserCard from '../components/common/UserCard';
 
 const MainContainer = styled.div`
-  padding: ${space.spaceL};
-  padding-top: 0;
-
-  > div:last-child {
+  & > div:last-child {
     padding: ${space.spaceM};
   }
 `;

@@ -1,8 +1,6 @@
 package it.mainPr.model;
 
 import it.mainPr.audit.BaseTime;
-import it.mainPr.dto.DiariesDto;
-import it.mainPr.dto.MemberResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @NoArgsConstructor
+@Table(name = "COMMENT")
 public class Comment extends BaseTime {
 
     @Id
