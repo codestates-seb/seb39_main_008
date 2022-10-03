@@ -48,6 +48,7 @@ export const space = {
 export const screen = {
   mobile: `(max-width: 576px)`,
   tablet: `(min-width: 576px) and (max-width: 991.98px)`,
+  mobileAndTablet: `(max-width: 991.98px)`,
   desktop: `(min-width: 992px)`,
 };
 

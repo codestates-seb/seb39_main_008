@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { fontSize, screen, space } from '../../assets/styles/theme';
 const Container = styled.div`
   display: block;
-  padding: ${({ theme }) => theme.space.spaceL};
+  padding-bottom: ${space.spaceL};
   max-width: 954px;
 `;
 const Wraper = styled.div`
@@ -11,6 +12,12 @@ const Title = styled.p`
   font-size: ${({ theme }) => theme.space.spaceL};
   margin-bottom: ${({ theme }) => theme.space.spaceM};
   color: ${({ theme }) => theme.colors.text1};
+  @media ${screen.tablet} {
+    font-size: calc(${fontSize.fontSizeM}*2);
+  }
+  @media ${screen.mobile} {
+    font-size: calc(${fontSize.fontSizeM}*1.5);
+  }
 `;
 const Description = styled.p`
   font-size: ${({ theme }) => theme.fontSize.fontSizeM};

@@ -4,13 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import MakeButton from '../components/common/MakeButton';
 import ContentCard from '../components/common/ContentCard';
 import { ContentCardGridContainer } from './Main';
-import styled from 'styled-components';
-import { space } from '../assets/styles/theme';
-
-const Container = styled.div`
-  padding: ${space.spaceL};
-  padding-top: 0;
-`;
 
 const BookList = ({ setHeaderData }) => {
   const { memberId } = useParams();
@@ -34,31 +27,29 @@ const BookList = ({ setHeaderData }) => {
   }, []);
 
   return (
-    <Container>
-      <ContentCardGridContainer>
-        <MakeButton type={'book'} />
-        {bookListData &&
-          bookListData.map((el, idx) => (
-            <ContentCard
-              isDiary={false}
-              key={el.bookId || idx}
-              onClick={() => {
-                navigate(`/book/${el.bookId}`);
-              }}
-              className="item"
-              // API 연동 후 변경
-              // data={bookListData}
-              data={{
-                title: el.title,
-                createdAt: el.created_at,
-                total_diary_count: 10,
-                bookimage: el.image,
-                public: false,
-              }}
-            />
-          ))}
-      </ContentCardGridContainer>
-    </Container>
+    <ContentCardGridContainer>
+      <MakeButton type={'book'} />
+      {bookListData &&
+        bookListData.map((el, idx) => (
+          <ContentCard
+            isDiary={false}
+            key={el.bookId || idx}
+            onClick={() => {
+              navigate(`/book/${el.bookId}`);
+            }}
+            className="item"
+            // API 연동 후 변경
+            // data={bookListData}
+            data={{
+              title: el.title,
+              createdAt: el.created_at,
+              total_diary_count: 10,
+              bookimage: el.image,
+              public: false,
+            }}
+          />
+        ))}
+    </ContentCardGridContainer>
   );
 };
 

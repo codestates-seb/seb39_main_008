@@ -8,10 +8,7 @@ import DiaryCard from '../components/common/DiaryCard';
 // 로그인 기능 추가시 주석해제 로직 변경
 // import { FiSettings } from 'react-icons/fi';
 
-const UserpageContainer = styled.div`
-  padding: ${space.spaceL};
-  padding-top: 0;
-`;
+const UserpageContainer = styled.div``;
 
 const UserInfoContainer = styled.div`
   display: flex;
