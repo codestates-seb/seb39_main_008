@@ -14,7 +14,7 @@ public interface HeartMapper {
         HeartResponseDto heartResponseDto = new HeartResponseDto();
         heartResponseDto.setMemberId(heart.getMember().getMemberId());
         heartResponseDto.setDiaryId(heart.getDiary().getDiaryId());
-        heartResponseDto.setDiaryTitle(heart.getDiary().getTitle());
+        heartResponseDto.setDiaryTitle(heart.getDiary().getDiary_title());
         heartResponseDto.setDiaryContent(heart.getDiary().getContent());
 
         return heartResponseDto;

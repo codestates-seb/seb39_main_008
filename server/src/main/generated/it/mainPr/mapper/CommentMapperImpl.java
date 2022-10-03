@@ -1,10 +1,11 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.CommentsDto.PatchDto;
-import it.mainPr.dto.CommentsDto.PostDto;
-import it.mainPr.dto.CommentsDto.ResponseDto;
-import it.mainPr.dto.CommentsDto.ResponseDto.ResponseDtoBuilder;
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.commentDto.CommentsDto.PatchDto;
+import it.mainPr.dto.commentDto.CommentsDto.PostDto;
+import it.mainPr.dto.commentDto.CommentsDto.ResponseDto;
+import it.mainPr.dto.commentDto.CommentsDto.ResponseDto.ResponseDtoBuilder;
+import it.mainPr.dto.memberDto.MemberResponseDto;
+import it.mainPr.dto.memberDto.MemberResponseDto.MemberResponseDtoBuilder;
 import it.mainPr.model.Comment;
 import it.mainPr.model.Comment.CommentBuilder;
 import it.mainPr.model.Member;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-30T17:45:59+0900",
+    date = "2022-10-03T23:49:04+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Amazon.com Inc.)"
 )
 @Component
@@ -81,15 +82,15 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        MemberResponseDto memberResponseDto = new MemberResponseDto();
+        MemberResponseDtoBuilder memberResponseDto = MemberResponseDto.builder();
 
-        memberResponseDto.setMemberId( member.getMemberId() );
-        memberResponseDto.setEmail( member.getEmail() );
-        memberResponseDto.setName( member.getName() );
-        memberResponseDto.setNickname( member.getNickname() );
-        memberResponseDto.setInformation( member.getInformation() );
-        memberResponseDto.setImgUrl( member.getImgUrl() );
+        memberResponseDto.memberId( member.getMemberId() );
+        memberResponseDto.email( member.getEmail() );
+        memberResponseDto.name( member.getName() );
+        memberResponseDto.nickname( member.getNickname() );
+        memberResponseDto.information( member.getInformation() );
+        memberResponseDto.imgUrl( member.getImgUrl() );
 
-        return memberResponseDto;
+        return memberResponseDto.build();
     }
 }

@@ -27,14 +27,14 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @Validated
-public class DiaryController {
+    public class DiaryController {
     private final DiaryService diaryService;
     private final DiaryMapper diaryMapper;
     private final DiaryRepository diaryRepository;
     private final HeartService heartService;
     private final CommentService commentService;
 
-    @PostMapping("/api/v1/writeDiaries")
+    @PostMapping("/api/v1/diaries")
     public ResponseEntity writeDiary(@Valid @RequestBody DiariesDto.PostDto postDto) {
         Diary diary = diaryMapper.postDtoToDiary(postDto);
         DiariesDto.DiaryResponseDto responseDto = diaryService.writeDiary(postDto);

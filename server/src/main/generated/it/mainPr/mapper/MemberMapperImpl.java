@@ -1,8 +1,9 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.MemberPatchDto;
-import it.mainPr.dto.MemberPostDto;
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.memberDto.MemberPatchDto;
+import it.mainPr.dto.memberDto.MemberPostDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
+import it.mainPr.dto.memberDto.MemberResponseDto.MemberResponseDtoBuilder;
 import it.mainPr.model.Member;
 import it.mainPr.model.Member.MemberBuilder;
 import javax.annotation.processing.Generated;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-30T17:55:08+0900",
+    date = "2022-10-03T23:49:04+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Amazon.com Inc.)"
 )
 @Component
@@ -38,16 +39,16 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
-        MemberResponseDto memberResponseDto = new MemberResponseDto();
+        MemberResponseDtoBuilder memberResponseDto = MemberResponseDto.builder();
 
-        memberResponseDto.setMemberId( member.getMemberId() );
-        memberResponseDto.setEmail( member.getEmail() );
-        memberResponseDto.setName( member.getName() );
-        memberResponseDto.setNickname( member.getNickname() );
-        memberResponseDto.setInformation( member.getInformation() );
-        memberResponseDto.setImgUrl( member.getImgUrl() );
+        memberResponseDto.memberId( member.getMemberId() );
+        memberResponseDto.email( member.getEmail() );
+        memberResponseDto.name( member.getName() );
+        memberResponseDto.nickname( member.getNickname() );
+        memberResponseDto.information( member.getInformation() );
+        memberResponseDto.imgUrl( member.getImgUrl() );
 
-        return memberResponseDto;
+        return memberResponseDto.build();
     }
 
     @Override

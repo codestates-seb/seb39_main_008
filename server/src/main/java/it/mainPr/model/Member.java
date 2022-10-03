@@ -19,18 +19,18 @@ public class Member extends BaseTime {
     @Column(name = "member_id")
     private Long memberId;
     private String email;
+    @JsonIgnore
     private String password;
     private String name;
     private String nickname;
     private String information;
     private String imgUrl;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Book> book = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Diary> diary = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Diary> diary;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Heart> heart;

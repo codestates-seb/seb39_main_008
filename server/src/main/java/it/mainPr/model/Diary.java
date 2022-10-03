@@ -1,6 +1,9 @@
 package it.mainPr.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.mainPr.audit.BaseTime;
 import lombok.*;
 
@@ -18,39 +21,40 @@ public class Diary extends BaseTime {
     @Column(name = "diary_id")
     private Long diaryId;
 
-    private String title;
+    private String diary_title;
 
-    private String subTitle;
-
-    private String nickname;
+    private String diary_subtitle;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     private String DiaryImgUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id")
+    @JsonIgnore
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
+    @JsonIgnore
     private Book book;
 
     @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Heart> heart;
 
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
     @Builder
-    public Diary(String title, String subTitle, String nickname, String content, String diaryImgUrl, Member member) {
-        this.title = title;
-        this.subTitle = subTitle;
-        this.nickname = nickname;
+    public Diary(String diary_title, String diary_subtitle, String nickname, String content, String diaryImgUrl, Member member) {
+        this.diary_title = diary_title;
+        this.diary_subtitle = diary_subtitle;
         this.content = content;
         this.DiaryImgUrl = diaryImgUrl;
         this.member = member;
@@ -63,18 +67,18 @@ public class Diary extends BaseTime {
         this.member = member;
     }
 
-    public void updateDiaries(String title, String content, String subTitle){
-        this.title = title;
+    public void updateDiaries(String diary_title, String content, String diary_subtitle){
+        this.diary_title = diary_title;
         this.content = content;
-        this.subTitle = subTitle;
+        this.diary_subtitle = diary_subtitle;
     }
 
     public void updateDiaries(String content) {
         this.content = content;
     }
 
-    public void updateTitle(String title) {
-        this.title = title;
+    public void updateTitle(String diary_title) {
+        this.diary_title = diary_title;
     }
 
     public void updateContent(String content) {

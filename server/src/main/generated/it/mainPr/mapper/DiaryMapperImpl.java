@@ -1,11 +1,12 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.CommentsDto.ResponseDto;
-import it.mainPr.dto.CommentsDto.ResponseDto.ResponseDtoBuilder;
-import it.mainPr.dto.DiariesDto.DiaryResponseDto;
-import it.mainPr.dto.DiariesDto.DiaryResponseDto.DiaryResponseDtoBuilder;
-import it.mainPr.dto.DiariesDto.PostDto;
-import it.mainPr.dto.MemberResponseDto;
+import it.mainPr.dto.commentDto.CommentsDto.ResponseDto;
+import it.mainPr.dto.commentDto.CommentsDto.ResponseDto.ResponseDtoBuilder;
+import it.mainPr.dto.diaryDto.DiariesDto.DiaryResponseDto;
+import it.mainPr.dto.diaryDto.DiariesDto.DiaryResponseDto.DiaryResponseDtoBuilder;
+import it.mainPr.dto.diaryDto.DiariesDto.PostDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
+import it.mainPr.dto.memberDto.MemberResponseDto.MemberResponseDtoBuilder;
 import it.mainPr.model.Comment;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Diary.DiaryBuilder;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-01T01:40:17+0900",
+    date = "2022-10-04T00:29:37+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Amazon.com Inc.)"
 )
 @Component
@@ -31,7 +32,8 @@ public class DiaryMapperImpl implements DiaryMapper {
 
         DiaryBuilder diary = Diary.builder();
 
-        diary.title( postDto.getTitle() );
+        diary.diary_title( postDto.getDiary_title() );
+        diary.diary_subtitle( postDto.getDiary_subtitle() );
         diary.content( postDto.getContent() );
         diary.diaryImgUrl( postDto.getDiaryImgUrl() );
         diary.member( postDto.getMember() );
@@ -48,9 +50,10 @@ public class DiaryMapperImpl implements DiaryMapper {
         DiaryResponseDtoBuilder diaryResponseDto = DiaryResponseDto.builder();
 
         diaryResponseDto.diaryId( diary.getDiaryId() );
-        diaryResponseDto.title( diary.getTitle() );
+        diaryResponseDto.diary_title( diary.getDiary_title() );
+        diaryResponseDto.diary_subtitle( diary.getDiary_subtitle() );
         diaryResponseDto.content( diary.getContent() );
-        diaryResponseDto.nickname( diary.getNickname() );
+        diaryResponseDto.member( diary.getMember() );
         diaryResponseDto.diaryImgUrl( diary.getDiaryImgUrl() );
         diaryResponseDto.comments( commentListToResponseDtoList( diary.getComments() ) );
         diaryResponseDto.category( diary.getCategory() );
@@ -77,16 +80,16 @@ public class DiaryMapperImpl implements DiaryMapper {
             return null;
         }
 
-        MemberResponseDto memberResponseDto = new MemberResponseDto();
+        MemberResponseDtoBuilder memberResponseDto = MemberResponseDto.builder();
 
-        memberResponseDto.setMemberId( member.getMemberId() );
-        memberResponseDto.setEmail( member.getEmail() );
-        memberResponseDto.setName( member.getName() );
-        memberResponseDto.setNickname( member.getNickname() );
-        memberResponseDto.setInformation( member.getInformation() );
-        memberResponseDto.setImgUrl( member.getImgUrl() );
+        memberResponseDto.memberId( member.getMemberId() );
+        memberResponseDto.email( member.getEmail() );
+        memberResponseDto.name( member.getName() );
+        memberResponseDto.nickname( member.getNickname() );
+        memberResponseDto.information( member.getInformation() );
+        memberResponseDto.imgUrl( member.getImgUrl() );
 
-        return memberResponseDto;
+        return memberResponseDto.build();
     }
 
     protected ResponseDto commentToResponseDto(Comment comment) {
