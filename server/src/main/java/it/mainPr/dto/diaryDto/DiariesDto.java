@@ -48,6 +48,8 @@ public class DiariesDto {
         private String title;
         private String subtitle;
         private String content;
+
+        private String information;
         private String diaryImgUrl;
 
         public void setDiaryId(long diaryId) {
@@ -55,11 +57,12 @@ public class DiariesDto {
         }
 
         @Builder
-        public PatchDto(Long diaryId, String title, String subtitle, String content, String diaryImgUrl) {
+        public PatchDto(Long diaryId, String title, String subtitle, String content, String information, String diaryImgUrl) {
             this.diaryId = diaryId;
             this.title = title;
             this.subtitle = subtitle;
             this.content = content;
+            this.information = information;
             this.diaryImgUrl = diaryImgUrl;
         }
     }
@@ -71,6 +74,7 @@ public class DiariesDto {
         private String diary_title;
         private String diary_subtitle;
         private String content;
+        private String information;
         private Member member;
         private String diaryImgUrl;
         private String total_hearts;
@@ -82,11 +86,12 @@ public class DiariesDto {
         private List<BookResponseDto> books;
 
         @Builder
-        public DiaryResponseDto(Long diaryId, String diary_title, String diary_subtitle, String content, Member member, String diaryImgUrl, String total_hearts, String total_comments, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category, List<BookResponseDto> books) {
+        public DiaryResponseDto(Long diaryId, String diary_title, String diary_subtitle, String content, String information, Member member, String diaryImgUrl, String total_hearts, String total_comments, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category, List<BookResponseDto> books) {
             this.diaryId = diaryId;
             this.diary_title = diary_title;
             this.diary_subtitle = diary_subtitle;
             this.content = content;
+            this.information = information;
             this.member = member;
             this.diaryImgUrl = diaryImgUrl;
             this.total_hearts = total_hearts;

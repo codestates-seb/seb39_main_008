@@ -11,4 +11,5 @@ public interface MemberMapper {
     Member memberPostToMember(MemberPostDto post);
     MemberResponseDto memberToMemberResponse(Member member);
     Member memberPatchToMember(MemberPatchDto patch);
+
 }

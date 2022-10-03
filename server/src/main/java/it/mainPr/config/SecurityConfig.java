@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                         .antMatchers(HttpMethod.POST,"/diaries/**","/comment/**").access("hasRole('ROLE_MEMBER')")
-                        .antMatchers(HttpMethod.PATCH,"/members/**","/comment/**").access("hasRole('ROLE_MEMBER')")
+                        .antMatchers(HttpMethod.PATCH,"/members/**","/diaries/**","/comment/**").access("hasRole('ROLE_MEMBER')")
                         .antMatchers(HttpMethod.DELETE,"/members/**","/comment/**").access("hasRole('ROLE_MEMBER')")
                         .anyRequest().permitAll());
 

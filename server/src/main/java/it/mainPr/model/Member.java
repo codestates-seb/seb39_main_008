@@ -24,6 +24,7 @@ public class Member extends BaseTime {
     private String name;
     private String nickname;
     private String information;
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String imgUrl;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
