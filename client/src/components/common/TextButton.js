@@ -1,11 +1,14 @@
 import styled from 'styled-components';
-import { theme } from '../../assets/styles/theme';
 const Text = styled.span`
   color: ${({ theme }) => theme.colors.text4};
-  font-size: ${(props) => props.fontSize || theme.fontSize.fontSizeS};
+  font-size: ${(props) =>
+    props.fontSize ? props.fontSize : ({ theme }) => theme.fontSize.fontSizeS};
   cursor: pointer;
+
   &:hover {
-    color: ${(props) => props.hoverColor || theme.colors.text3};
+    color: ${(props) =>
+      props.hoverColor ? props.hoverColor : ({ theme }) => theme.colors.text3};
+    cursor: pointer;
   }
 `;
 const TextButton = ({ text, onClick, ...props }) => {

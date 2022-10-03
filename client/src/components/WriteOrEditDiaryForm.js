@@ -7,19 +7,15 @@ import ImageInput from '../components/common/ImageInput';
 import ConfirmModal from './common/ConfirmModal';
 import styled from 'styled-components';
 import {
-  borderRadius,
-  colors,
-  fontSize,
-  layout,
-  screen,
-  space,
-} from '../assets/styles/theme';
-import { getBookList } from '../lib/axios';
+  //  addDiary,
+  getBookList,
+} from '../lib/axios';
 
 const WriteOrEditDiaryForm = (props) => {
   const [fileURL, setFileURL] = useState(null);
   const [booklist, setBooklist] = useState([]);
   const [confirm, setConfirm] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -73,14 +69,16 @@ const WriteOrEditDiaryForm = (props) => {
     console.log('update', updateDiaryData);
   };
 
-  const onWriteDiary = (data) => {
+  const onWriteDiary = async (data) => {
     const diaryData = {
-      bookid: Number(data.book),
       title: data.title,
       content: data.content,
       category: Number(data.category),
       image: fileURL,
     };
+    console.log(diaryData);
+    // const res = await addDiary(diaryData);
+    // console.log(res);
     console.log('write', diaryData);
   };
 
@@ -181,14 +179,14 @@ const WriteOrEditDiaryForm = (props) => {
             width="120px"
             height="40px"
             type="submit"
-            fontSize={fontSize.fontSizeM}
+            fontSize={`${({ theme }) => theme.fontSize.fontSizeM}`}
             text={props.isEdit ? '수정하기' : '기록하기'}
           />
           <BorderButton
             text="취소"
             width="120px"
             height="40px"
-            fontSize={fontSize.fontSizeM}
+            fontSize={`${({ theme }) => theme.fontSize.fontSizeM}`}
             onClick={() => {
               setConfirm(!confirm);
             }}
@@ -217,8 +215,8 @@ export const Mid = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 ${space.spaceS};
-  border-bottom: 1px solid ${colors.grey};
+  padding: 0 ${({ theme }) => theme.space.spaceS};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 
   & > div {
     width: 50%;
@@ -226,7 +224,7 @@ export const Mid = styled.div`
 
   & input {
     padding: 0;
-    margin-top: ${space.spaceM};
+    margin-top: ${({ theme }) => theme.space.spaceM};
     overflow: visible;
     width: 100%;
     height: 100%;
@@ -237,8 +235,8 @@ export const Mid = styled.div`
   & select {
     width: 30%;
     border: none;
-    background-color: ${colors.dimGrey};
-    border-radius: ${borderRadius.borderRadiusS};
+    background-color: ${({ theme }) => theme.colors.dimGrey};
+    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
   }
 
   & input:focus-visible {
@@ -247,45 +245,44 @@ export const Mid = styled.div`
 
   .title {
     height: 50px;
-    font-size: ${fontSize.fontSizeLL};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
   }
 
   .title::placeholder {
-    font-size: ${fontSize.fontSizeLL};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
   }
 
   .subtitle {
     height: 50px;
-    font-size: ${fontSize.fontSizeL};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
   }
 
   .subtitle::placeholder {
-    font-size: ${fontSize.fontSizeL};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
   }
 
   label {
-    margin-top: ${space.spaceM};
-    /* font-size: ${fontSize.fontSizeM}; */
+    margin-top: ${({ theme }) => theme.space.spaceM};
     width: 50px;
     display: inline-block;
   }
 
   .booktitle {
-    font-size: ${fontSize.fontSizeM};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeM};
   }
 
   .radioBox {
-    margin-top: ${space.spaceM};
-    font-size: ${fontSize.fontSizeS};
+    margin-top: ${({ theme }) => theme.space.spaceM};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
 
     p {
-      margin-bottom: ${space.spaceS};
+      margin-bottom: ${({ theme }) => theme.space.spaceS};
     }
 
     input,
     label {
       cursor: pointer;
-      margin: calc(${space.spaceS} / 3);
+      margin: calc(${({ theme }) => theme.space.spaceS} / 3);
       display: inline;
     }
 
@@ -297,22 +294,23 @@ export const Mid = styled.div`
 
   .addImgButton {
     cursor: pointer;
-    margin: ${space.spaceM} 0 ${space.spaceM} ${space.spaceS};
+    margin: ${({ theme }) => theme.space.spaceM} 0
+      ${({ theme }) => theme.space.spaceM} ${({ theme }) => theme.space.spaceS};
     width: 50%;
     height: 427.5px;
     overflow: hidden;
-    border-radius: ${borderRadius.borderRadiusM};
-    border: 1px dashed ${colors.dimGrey};
-    ${layout.flexCenter}
+    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
+    border: 1px dashed ${({ theme }) => theme.colors.dimGrey};
+    ${({ theme }) => theme.layout.flexCenter}
 
     & > p {
-      font-size: ${fontSize.fontSizeL};
-      color: ${colors.text4};
+      font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+      color: ${({ theme }) => theme.colors.text4};
     }
 
     &:hover {
       & > p {
-        color: ${colors.text3};
+        color: ${({ theme }) => theme.colors.text3};
       }
     }
   }
@@ -321,7 +319,7 @@ export const Mid = styled.div`
     display: none;
   }
 
-  @media ${screen.mobile} {
+  @media ${({ theme }) => theme.screen.mobile} {
     align-items: center;
     flex-direction: column;
     & > div {
@@ -329,7 +327,7 @@ export const Mid = styled.div`
     }
 
     .addImgButton {
-      margin: ${space.spaceM} 0;
+      margin: ${({ theme }) => theme.space.spaceM} 0;
       width: 100%;
     }
   }
@@ -337,36 +335,39 @@ export const Mid = styled.div`
 
 export const Bottom = styled.div`
   width: 100%;
-  padding-bottom: ${space.spaceL};
+  padding-bottom: ${({ theme }) => theme.space.spaceL};
 
   .preview {
     p {
-      font-size: ${fontSize.fontSizeM};
-      padding: ${space.spaceS} ${space.spaceS} 0 ${space.spaceS};
+      font-size: ${({ theme }) => theme.fontSize.fontSizeM};
+      padding: ${({ theme }) => theme.space.spaceS}
+        ${({ theme }) => theme.space.spaceS} 0
+        ${({ theme }) => theme.space.spaceS};
     }
   }
 
   .previewImg {
-    padding: ${space.spaceS};
+    padding: ${({ theme }) => theme.space.spaceS};
     width: 100%;
   }
 
   .quill {
-    border-top: 1px solid ${colors.grey};
+    border-top: 1px solid ${({ theme }) => theme.colors.grey};
     z-index: 2000;
-    padding: ${space.spaceM} ${space.spaceS};
-    color: ${colors.text2};
+    padding: ${({ theme }) => theme.space.spaceM};
+    ${({ theme }) => theme.space.spaceS};
+    color: ${({ theme }) => theme.colors.text2};
     min-height: 20rem;
   }
 
   .ql-editor {
-    font-size: ${fontSize.fontSizeM};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeM};
     padding: 0px;
   }
 
   .rightbox {
     & > * {
-      margin-right: ${space.spaceS};
+      margin-right: ${({ theme }) => theme.space.spaceS};
     }
 
     & > button:last-child {
@@ -375,12 +376,12 @@ export const Bottom = styled.div`
     display: flex;
     justify-content: end;
     align-items: flex-end;
-    margin: ${space.spaceM} 0;
+    margin: ${({ theme }) => theme.space.spaceM} 0;
   }
 
   .Error {
-    font-size: calc(${fontSize.fontSizeS}*1.2);
-    color: ${colors.red};
+    font-size: calc(${({ theme }) => theme.fontSize.fontSizeS} * 1.2);
+    color: ${({ theme }) => theme.colors.red};
     display: inline-block;
   }
 `;

@@ -6,8 +6,9 @@ import * as yup from 'yup';
 import SiginupInput from './SiginupInput';
 import BorderButton from './common/BorderButton';
 import TextButton from './common/TextButton';
-import { theme } from '../assets/styles/theme';
-const schema = yup.object().shape({
+import { login } from '../lib/axios';
+
+const SCHEMA = yup.object().shape({
   email: yup
     .string()
     .email('이메일 형식으로 적어주세요')
@@ -30,6 +31,7 @@ const data = {
     placeholder: ' ',
   },
 };
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const [keepLogin, setKeepLogin] = useState(false);
@@ -38,14 +40,15 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SCHEMA),
   });
 
-  const submitForm = (data) => {
+  const submitForm = async (data) => {
     console.log(data);
-    console.log(keepLogin);
-    alert('login successful');
+    const res = await login(data);
+    console.log(res);
   };
+
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       {Object.values(data).map((e, i) => {
@@ -69,7 +72,7 @@ const LoginForm = () => {
       <BorderButton
         width={'100%'}
         height={'2.2rem'}
-        fontSize={theme.fontSize.fontSizeM}
+        fontSize={`${({ theme }) => theme.fontSize.fontSizeM}`}
         type="submit"
         text={'Login'}
       />

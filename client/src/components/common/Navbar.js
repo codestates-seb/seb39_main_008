@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import Avatar from './Avatar';
 import { useRef, useState, useEffect } from 'react';
-import { borderRadius, colors, space } from '../../assets/styles/theme';
 import { RiUserSettingsLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -10,11 +9,12 @@ import Sidebar from './Sidebar';
 const NavContainer = styled.div`
   display: none;
   width: 100%;
-  padding: calc(${space.spaceS} / 3) ${space.spaceS};
-  border-bottom: 1px solid ${colors.grey};
+  padding: calc(${({ theme }) => theme.space.spaceS} / 3)
+    ${({ theme }) => theme.space.spaceS};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   align-items: center;
-  background-color: ${colors.white};
-  @media ${screen.mobileAndTablet} {
+  background-color: ${({ theme }) => theme.colors.white};
+  @media ${({ theme }) => theme.screen.mobileAndTablet} {
     display: flex;
     justify-content: space-between;
   }
@@ -25,7 +25,7 @@ const Toggle = styled.div`
   position: relative;
   display: flex;
   height: 100%;
-  padding: 0 ${space.spaceS} 0 0;
+  padding: 0 ${({ theme }) => theme.space.spaceS} 0 0;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
@@ -33,7 +33,7 @@ const Toggle = styled.div`
   & > .hamberger {
     width: 16px;
     height: 2px;
-    background-color: ${colors.black};
+    background-color: ${({ theme }) => theme.colors.black};
     position: relative;
     box-sizing: border-box;
     cursor: pointer;
@@ -49,7 +49,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${colors.black};
+    background-color: ${({ theme }) => theme.colors.black};
   }
 
   & > .hamberger:before {
@@ -62,7 +62,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${colors.black};
+    background-color: ${({ theme }) => theme.colors.black};
   }
 
   & > .X-mark {
@@ -84,7 +84,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${colors.black};
+    background-color: ${({ theme }) => theme.colors.black};
   }
 
   & > .X-mark:after {
@@ -97,7 +97,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${colors.black};
+    background-color: ${({ theme }) => theme.colors.black};
   }
 `;
 const Navbar = () => {
@@ -158,7 +158,7 @@ const Navbar = () => {
           width="40px"
           height="40px"
           imageURL={USERDATA.profileURL}
-          borderRadius={borderRadius.borderRadiusL}
+          borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusL}`}
         />
       </NavContainer>
     </>

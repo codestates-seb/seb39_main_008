@@ -1,5 +1,3 @@
-import { space, theme, fontSize, colors, layout } from '../assets/styles/theme';
-// import TextButton from '../components/common/TextButton';
 import styled from 'styled-components';
 import signinImg from '../assets/img/signinImg.png';
 import SignupForm from '../components/SignupForm';
@@ -32,15 +30,17 @@ export const Container = styled.div`
   width: 50rem;
   height: 37rem;
   margin: auto;
-  box-shadow: ${theme.boxShadow.shadowS};
-  border-radius: ${theme.borderRadius.borderRadiusM};
+  box-shadow: ${({ theme }) => theme.boxShadow.shadowS};
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
   display: flex;
-  @media ${theme.screen.tablet} {
+
+  @media ${({ theme }) => theme.screen.tablet} {
     width: 100%;
     height: 100%;
   }
-  @media ${theme.screen.mobile} {
-    ${theme.layout.flexColumnCenter};
+
+  @media ${({ theme }) => theme.screen.mobile} {
+    ${({ theme }) => theme.layout.flexColumnCenter};
     width: 100%;
     height: 100%;
     flex-direction: column;
@@ -48,73 +48,85 @@ export const Container = styled.div`
 `;
 
 export const HeaderBox = styled.div`
-  margin: ${space.spaceL};
+  margin: ${({ theme }) => theme.space.spaceL};
+
   & > p {
-    font-size: ${fontSize.fontSizeL};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
   }
-  @media ${theme.screen.mobile} {
+
+  @media ${({ theme }) => theme.screen.mobile} {
     margin: 0;
     width: 100%;
     height: 100%;
-    background-color: ${colors.dimGrey};
-    ${layout.flexCenter}
+    background-color: ${({ theme }) => theme.colors.dimGrey};
+    ${({ theme }) => theme.layout.flexCenter}
+
     & > p {
-      font-size: ${fontSize.fontSizeL};
+      font-size: ${({ theme }) => theme.fontSize.fontSizeL};
     }
   }
 `;
 export const ImageBox = styled.div`
   width: 25rem;
   background: url(${signinImg}) no-repeat center;
-  @media ${theme.screen.mobile} {
+
+  @media ${({ theme }) => theme.screen.mobile} {
     min-width: 400px;
     width: 100%;
     height: 10%;
   }
 `;
+
 export const FormBox = styled.div`
   height: 100%;
   width: 50%;
   min-width: 400px;
-  padding: ${space.spaceL};
+  padding: ${({ theme }) => theme.space.spaceL};
   display: flex;
   flex-direction: column;
+
   & > p {
     text-align: center;
-    font-size: ${fontSize.fontSizeL};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
     margin-bottom: 20px;
   }
+
   & > form {
     width: 90%;
     margin: auto;
   }
+
   & > form > .checkKeepLogin {
-    width: ${fontSize.fontSizeS};
-    height: ${fontSize.fontSizeS};
-    margin-right: calc(${fontSize.fontSizeS} / 2);
+    width: ${({ theme }) => theme.fontSize.fontSizeS};
+    height: ${({ theme }) => theme.fontSize.fontSizeS};
+    margin-right: calc(${({ theme }) => theme.fontSize.fontSizeS} / 2);
     cursor: pointer;
   }
 
   & > form > button + p,
   & > form > .checkKeepLogin + span {
     display: inline-block;
-    font-size: ${fontSize.fontSizeS};
-    margin: ${space.spaceS} 0;
+    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+    margin: ${({ theme }) => theme.space.spaceS} 0;
   }
-  @media ${theme.screen.mobile} {
+
+  @media ${({ theme }) => theme.screen.mobile} {
     width: 100%;
     height: 100%;
+
     & > p {
       text-align: center;
-      font-size: ${fontSize.fontSizeL};
-      margin-bottom: ${space.spaceL};
+      font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+      margin-bottom: ${({ theme }) => theme.space.spaceL};
     }
+
     & > form {
       margin: auto;
       height: 100%;
     }
+
     & > form > button {
-      margin-top: ${space.spaceL};
+      margin-top: ${({ theme }) => theme.space.spaceL};
     }
   }
 `;

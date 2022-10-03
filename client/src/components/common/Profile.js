@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { theme } from '../../assets/styles/theme';
 import { FiUserCheck, FiUserX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -10,7 +9,7 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileContentsBox = styled.div`
-  margin-left: ${theme.space.spaceS};
+  margin-left: ${({ theme }) => theme.space.spaceS};
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -20,16 +19,16 @@ const ProfileContentsBox = styled.div`
   }
 
   > p:first-child {
-    margin-bottom: ${theme.space.spaceS};
+    margin-bottom: ${({ theme }) => theme.space.spaceS};
   }
 
   > p:last-child {
-    color: ${theme.colors.text4};
-    margin-bottom: calc(${theme.space.spaceS} / 3);
+    color: ${({ theme }) => theme.colors.text4};
+    margin-bottom: calc(${({ theme }) => theme.space.spaceS} / 3);
   }
 
   > p:last-child:hover {
-    color: ${theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
 `;
 
@@ -57,7 +56,7 @@ const Profile = ({ userImage, isFollow, nickname, memberId }) => {
         imageURL={userImage}
         width={'50px'}
         height={'50px'}
-        borderRadius={theme.borderRadius.borderRadiusL}
+        borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusL}`}
       />
       <ProfileContentsBox>
         <p>

@@ -2,7 +2,6 @@ import Sidebar from '../components/common/Sidebar';
 import Header from '../components/common/Header';
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { screen, space } from '../assets/styles/theme';
 import Navbar from '../components/common/Navbar';
 
 const Container = styled.div`
@@ -10,44 +9,50 @@ const Container = styled.div`
   max-width: 1200px;
   display: flex;
 
-  @media ${screen.mobileAndTablet} {
+  @media ${({ theme }) => theme.screen.mobileAndTablet} {
     flex-direction: column;
   }
 `;
+
 const Content = styled.section`
   overflow-x: hidden;
   margin-left: ${(props) => (props.hasCommon ? '20px' : '0px')};
   width: 100%;
   max-width: ${(props) => (props.hasCommon ? '977px' : '1200px')};
-  padding: ${space.spaceL};
+  padding: ${({ theme }) => theme.space.spaceL};
 
-  @media ${screen.mobileAndTablet} {
+  @media ${({ theme }) => theme.screen.mobileAndTablet} {
     margin-left: 0px;
   }
 
-  @media ${screen.tablet} {
-    padding: ${space.spaceM};
+  @media ${({ theme }) => theme.screen.tablet} {
+    padding: ${({ theme }) => theme.space.spaceM};
   }
 
-  @media ${screen.mobile} {
-    padding: calc(${space.spaceS} + 6px);
+  @media ${({ theme }) => theme.screen.mobile} {
+    padding: calc(${({ theme }) => theme.space.spaceS} + 6px);
   }
 `;
+
 const Aside = styled.aside`
-  @media ${screen.mobileAndTablet} {
+  @media ${({ theme }) => theme.screen.mobileAndTablet} {
     display: none;
   }
 `;
+
 const NavContainer = styled.div`
   display: none;
-  @media ${screen.mobileAndTablet} {
+
+  @media ${({ theme }) => theme.screen.mobileAndTablet} {
     display: flex;
     position: sticky;
     top: 0;
   }
 `;
+
 function Layout({ hasCommon = true, children }) {
   const [headerData, setHeaderData] = useState({});
+
   return (
     <Container>
       {hasCommon && (

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getBookList, getMember, getDiaries } from '../lib/axios';
-import { borderRadius, space, fontSize, colors } from '../assets/styles/theme';
 import Avatar from '../components/common/Avatar';
 import styled from 'styled-components';
 import DiaryCard from '../components/common/DiaryCard';
@@ -14,36 +13,36 @@ const UserInfoContainer = styled.div`
   display: flex;
 
   > div {
-    margin-left: ${space.spaceM};
+    margin-left: ${({ theme }) => theme.space.spaceM};
     align-self: flex-end;
   }
 
   > div > p {
-    padding-bottom: ${space.spaceM};
-    color: ${colors.text4};
+    padding-bottom: ${({ theme }) => theme.space.spaceM};
+    color: ${({ theme }) => theme.colors.text4};
   }
 
   > div > p:first-child {
-    font-size: ${fontSize.fontSizeL};
-    color: ${colors.text2};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   > div > div {
     display: flex;
-    padding-bottom: ${space.spaceM};
-    color: ${colors.text3};
+    padding-bottom: ${({ theme }) => theme.space.spaceM};
+    color: ${({ theme }) => theme.colors.text3};
   }
 
   > div > div > svg {
-    margin-left: ${space.spaceS};
+    margin-left: ${({ theme }) => theme.space.spaceS};
   }
 
   > div > div > svg:hover {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   > div > div > p:last-child {
-    font-size: ${fontSize.fontSizeS};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
   }
 `;
 
@@ -59,8 +58,8 @@ const AvatarContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  padding: ${space.spaceM};
-  padding-top: ${space.spaceL};
+  padding: ${({ theme }) => theme.space.spaceM};
+  padding-top: ${({ theme }) => theme.space.spaceL};
 `;
 
 const BookAndDiaries = styled.div`
@@ -73,8 +72,8 @@ const BookAndDiaries = styled.div`
 
   > div:last-child {
     display: flex;
-    gap: ${space.spaceM};
-    padding: ${space.spaceM};
+    gap: ${({ theme }) => theme.space.spaceM};
+    padding: ${({ theme }) => theme.space.spaceM};
   }
 `;
 
@@ -106,7 +105,7 @@ const Userpage = ({ setHeaderData }) => {
             imageURL={user.profile}
             width={'183px'}
             height={'197px'}
-            borderRadius={borderRadius.borderRadiusM}
+            borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusM}`}
             isShadow={true}
           />
           {/* 로그인 기능 추가시 프로필 사진 변경 로직 변경 */}

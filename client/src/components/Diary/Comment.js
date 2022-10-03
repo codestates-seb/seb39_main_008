@@ -4,27 +4,23 @@ import Avatar from '../common/Avatar';
 import Date from '../common/Date';
 import BorderButton from '../common/BorderButton';
 import styled from 'styled-components';
-import {
-  borderRadius,
-  colors,
-  fontSize,
-  space,
-} from '../../assets/styles/theme';
 
 const Container = styled.div`
   & > * {
-    font-size: ${fontSize.fontSizeS};
-    line-height: ${fontSize.fontSizeM};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+    line-height: ${({ theme }) => theme.fontSize.fontSizeM};
   }
+
   width: 100%;
   height: 100%;
-  padding: ${space.spaceS};
+  padding: ${({ theme }) => theme.space.spaceS};
   display: flex;
-  border-bottom: 1px solid ${colors.grey};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 
   & > img {
-    margin-right: ${space.spaceS};
+    margin-right: ${({ theme }) => theme.space.spaceS};
   }
+
   .edit {
     overflow-y: visible;
     display: block;
@@ -32,6 +28,7 @@ const Container = styled.div`
     height: 100%;
   }
 `;
+
 const Right = styled.div`
   width: 100%;
   height: 100%;
@@ -41,21 +38,21 @@ const Right = styled.div`
   }
 
   textarea {
-    border: 0.3px solid ${colors.text5};
-    border-radius: ${borderRadius.borderRadiusS};
+    border: 0.3px solid ${({ theme }) => theme.colors.text5};
+    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
     resize: none;
     white-space: pre-wrap;
   }
 `;
 
 const Top = styled.div`
-  margin-bottom: ${space.spaceS};
+  margin-bottom: ${({ theme }) => theme.space.spaceS};
   display: flex;
   align-items: center;
 
   & > span {
-    margin-right: ${space.spaceS};
-    color: ${colors.text3};
+    margin-right: ${({ theme }) => theme.space.spaceS};
+    color: ${({ theme }) => theme.colors.text3};
   }
 
   & > span + p {
@@ -68,7 +65,7 @@ const Top = styled.div`
 
   & > button:nth-child(3) {
     margin-left: auto;
-    margin-right: ${space.spaceS};
+    margin-right: ${({ theme }) => theme.space.spaceS};
   }
 `;
 
@@ -99,13 +96,16 @@ const Comment = ({ data }) => {
         imageURL={data.profile}
         width={'50px'}
         height={'50px'}
-        borderRadius={borderRadius.borderRadiusL}
+        borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusL}`}
       />
       <Right>
         <Top>
           <span>{data.nickname}</span>
           {data.content ? (
-            <Date fontsize={fontSize.fontSizeS} date={data.createdAt} />
+            <Date
+              fontsize={`${({ theme }) => theme.fontSize.fontSizeS}`}
+              date={data.createdAt}
+            />
           ) : null}
           {/* todo 로그인 유저와 댓글 단 유저 비교해서 수정, 삭제 권한 */}
           {data.content ? (

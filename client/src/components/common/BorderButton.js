@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { colors, layout, borderRadius, theme } from '../../assets/styles/theme';
+
 const Button = styled.button`
   box-sizing: border-box;
   width: ${(props) => props.width || 'auto'};
-  color: ${colors.text1};
-  font-size: ${(props) => props.fontSize || theme.fontSize.fontSizeS};
+  color: ${({ theme }) => theme.colors.text1};
+  font-size: ${(props) => props.fontSize || props.theme.fontSize.fontSizeS};
   margin: 0px;
   padding: 0;
   border: none;
@@ -12,37 +12,44 @@ const Button = styled.button`
   &:after {
     display: block;
     content: '';
-    border-bottom: solid 1.2px ${colors.text5};
+    border-bottom: solid 1.2px ${({ theme }) => theme.colors.text5};
     transform: scaleX(0);
     transition: transform 300ms ease-in-out;
   }
+
   &:hover:after {
     transform: scaleX(0.97);
   }
+
   &:hover {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
+
   .container {
     height: ${(props) => props.height || 'auto'};
-    border: 1.2px solid ${colors.black050};
+    border: 1.2px solid ${({ theme }) => theme.colors.black050};
     padding: 2px;
-    border-radius: ${borderRadius.borderRadiusS};
-    background-color: ${colors.white};
+    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
+    background-color: ${({ theme }) => theme.colors.white};
     white-space: nowrap;
-    ${layout.flexCenter};
+    ${({ theme }) => theme.layout.flexCenter};
   }
+
   .container:hover {
     border: 1.2px solid transparent;
     transition: 0.5s ease-out;
-    background-color: ${colors.black050};
+    background-color: ${({ theme }) => theme.colors.black050};
   }
+
   .container:not(:hover) {
     transition: 0.5s ease-out;
   }
+
   .icon {
     margin-left: 4px;
-    ${layout.flexCenter};
+    ${({ theme }) => theme.layout.flexCenter};
   }
+
   .text {
     margin: 0 4px;
   }

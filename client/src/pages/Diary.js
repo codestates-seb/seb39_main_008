@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getDiary } from '../lib/axios';
-import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import Date from '../components/common/Date';
 import Profile from '../components/common/Profile';
 import TextEditor from '../components/TextEditor';
 import Comment from '../components/Diary/Comment';
 import styled from 'styled-components';
-import { colors, fontSize, space } from '../assets/styles/theme';
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 
-const tempContent = `<h2><span style="background-color: rgb(255, 255, 2…ll">용할 수 있도록 한다'라는 사명을 가지고 사업을 하고 있다.</span></h2>`;
+const TEMPCONTENT = `<h2><span style="background-color: rgb(255, 255, 2…ll">용할 수 있도록 한다'라는 사명을 가지고 사업을 하고 있다.</span></h2>`;
 
 const Diary = ({ setHeaderData }) => {
   const [diary, setDiary] = useState(null);
+
   const { diaryId } = useParams();
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const Diary = ({ setHeaderData }) => {
   useEffect(async () => {
     // const diaryAndComment = await Promise.all([getDiary(id),getComment(id)]);
     const res = await getDiary(diaryId);
+    console.log(res.data);
     setDiary(res.data);
   }, []);
 
@@ -43,7 +44,7 @@ const Diary = ({ setHeaderData }) => {
               <span>{diary.totalLike}</span>
             </div>
             <img className="thumbnail" alt="thumbnail" src={diary.diaryimage} />
-            <TextEditor content={diary.content || tempContent} viewer={true} />
+            <TextEditor content={diary.content || TEMPCONTENT} viewer={true} />
             <Profile
               userImage={diary.profile}
               isFollow={diary.isFollow}
@@ -79,27 +80,27 @@ const Diary = ({ setHeaderData }) => {
 };
 
 const Container = styled.div`
-  padding: 0 ${space.spaceM};
+  padding: 0 ${({ theme }) => theme.space.spaceM};
 `;
 
 const Titles = styled.div`
   h1 {
-    font-size: ${fontSize.fontSizeLL};
-    margin-bottom: ${space.spaceM};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
+    margin-bottom: ${({ theme }) => theme.space.spaceM};
   }
 
   h2 {
-    font-size: ${fontSize.fontSizeL};
-    margin-bottom: ${space.spaceM};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    margin-bottom: ${({ theme }) => theme.space.spaceM};
   }
 
   p {
-    margin-top: ${space.spaceS};
+    margin-top: ${({ theme }) => theme.space.spaceS};
   }
 `;
 
 const Contents = styled.div`
-  margin: ${space.spaceM} 0;
+  margin: ${({ theme }) => theme.space.spaceM} 0;
   display: flex;
   flex-direction: column;
 
@@ -109,17 +110,17 @@ const Contents = styled.div`
   }
 
   .thumbnail {
-    padding: ${space.spaceL};
+    padding: ${({ theme }) => theme.space.spaceL};
     width: 100%;
   }
 `;
 
 const Comments = styled.div`
-  padding: ${space.spaceM} 0;
-  border-top: 1px solid ${colors.grey};
+  padding: ${({ theme }) => theme.space.spaceM} 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.grey};
 
   & > p:first-child {
-    font-size: ${fontSize.fontSizeL};
+    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
   }
 `;
 

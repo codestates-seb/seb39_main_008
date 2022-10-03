@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
-import {
-  borderRadius,
-  space,
-  colors,
-  fontSize,
-  boxShadow,
-} from '../../assets/styles/theme';
 import { FiMessageSquare, FiBook } from 'react-icons/fi';
 import { HiHeart } from 'react-icons/hi';
 import Profile from './Profile';
@@ -15,25 +8,26 @@ import Date from './Date';
 const Container = styled.article`
   cursor: pointer;
   overflow: hidden;
-  padding: ${space.spaceS};
-  background-color: ${colors.white};
-  box-shadow: ${boxShadow.shadowM};
-  border-radius: ${borderRadius.borderRadiusM};
+  padding: ${({ theme }) => theme.space.spaceS};
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: ${({ theme }) => theme.boxShadow.shadowM};
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
 
   .mid {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: ${space.spaceM};
-    margin-top: ${space.spaceS};
+    margin-bottom: ${({ theme }) => theme.space.spaceM};
+    margin-top: ${({ theme }) => theme.space.spaceS};
   }
 `;
+
 const Details = styled.div`
   margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: calc(${space.spaceS} / 3);
+  padding-bottom: calc(${({ theme }) => theme.space.spaceS} / 3);
 `;
 
 const Labels = styled.div`
@@ -49,15 +43,15 @@ const Labels = styled.div`
 const Label = styled.span`
   margin-left: auto;
   align-self: flex-end;
-  background-color: ${colors.black};
-  color: ${colors.white};
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
   padding: 3px 10px;
-  border-radius: ${borderRadius.borderRadiusS};
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
 `;
 
 const Text = styled.p`
   font-size: ${(props) =>
-    props.fontsize ? props.fontsize : fontSize.fontSizeM};
+    props.fontsize ? props.fontsize : ({ theme }) => theme.fontSize.fontSizeM};
 `;
 
 const ContentCard = ({ data, isDiary, onClick }) => {
@@ -65,7 +59,7 @@ const ContentCard = ({ data, isDiary, onClick }) => {
     <Container onClick={onClick}>
       <Thumbnail
         height="166px"
-        borderRadius={borderRadius.borderRadiusM}
+        borderRadius={({ theme }) => theme.borderRadius.borderRadiusM}
         imageURL={data.diaryimage || data.bookimage}
       />
       <div className="mid">
@@ -82,14 +76,18 @@ const ContentCard = ({ data, isDiary, onClick }) => {
             {isDiary ? (
               <>
                 <FiMessageSquare />
-                <Text fontsize={fontSize.fontSizeS}>{data.totalComment}</Text>
+                <Text fontsize={({ theme }) => theme.fontSize.fontSizeS}>
+                  {data.totalComment}
+                </Text>
                 <HiHeart />
-                <Text fontsize={fontSize.fontSizeS}>{data.totalLike}</Text>
+                <Text fontsize={({ theme }) => theme.fontSize.fontSizeS}>
+                  {data.totalLike}
+                </Text>
               </>
             ) : (
               <>
                 <FiBook />
-                <Text fontsize={fontSize.fontSizeS}>
+                <Text fontsize={({ theme }) => theme.fontSize.fontSizeS}>
                   {data.total_diary_count}
                 </Text>
               </>

@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { fontSize } from '../../assets/styles/theme';
 
 const DateText = styled.p`
   text-align: end;
   font-size: ${(props) =>
-    props.fontsize ? props.fontsize : fontSize.fontSizeM};
+    props.fontsize ? props.fontSize : ({ theme }) => theme.fontSize.fontSizeM};
 `;
 
 const Date = ({ date, ...props }) => {

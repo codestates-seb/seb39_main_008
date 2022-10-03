@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import UserCard from '../components/common/UserCard';
-import { space } from '../assets/styles/theme';
 import { getMembers } from '../lib/axios';
 import PeopleFilter from '../components/People/PeopleFilter';
 import LoadingUnit from '../components/common/LoadingUnit';
@@ -14,10 +13,10 @@ const PeopleContainer = styled.div`
 
   > div:first-child {
     display: grid;
-    column-gap: ${space.spaceM};
-    row-gap: ${space.spaceL};
+    column-gap: ${({ theme }) => theme.space.spaceM};
+    row-gap: ${({ theme }) => theme.space.spaceL};
     grid-template-columns: repeat(auto-fill, minmax(150px, auto));
-    padding: 0 ${space.spaceM};
+    padding: 0 ${({ theme }) => theme.space.spaceM};
   }
 
   > div > div {
@@ -28,7 +27,7 @@ const PeopleContainer = styled.div`
 const NoticeContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: ${space.spaceL};
+  margin-top: ${({ theme }) => theme.space.spaceL};
 `;
 
 const People = ({ setHeaderData }) => {

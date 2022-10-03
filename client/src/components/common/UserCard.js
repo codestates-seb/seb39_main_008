@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { theme } from '../../assets/styles/theme';
 import { FiUserCheck, FiUserX, FiBook } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -9,21 +8,21 @@ const UserCardContainer = styled.div`
   width: 150px;
   height: auto;
   flex: 0 0 auto;
-  padding: ${theme.space.spaceS};
-  border-radius: ${theme.borderRadius.borderRadiusS};
-  box-shadow: ${theme.boxShadow.shadowS};
+  padding: ${({ theme }) => theme.space.spaceS};
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
+  box-shadow: ${({ theme }) => theme.boxShadow.shadowS};
 `;
 
 const UserCardContent = styled.div`
-  font-size: ${theme.fontSize.fontSizeS};
+  font-size: ${({ theme }) => theme.fontSize.fontSizeS};
 
   > p {
-    color: ${theme.colors.text4};
-    padding: ${theme.space.spaceS} 0;
+    color: ${({ theme }) => theme.colors.text4};
+    padding: ${({ theme }) => theme.space.spaceS} 0;
   }
 
   > p:hover {
-    color: ${theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   > div {
@@ -32,7 +31,7 @@ const UserCardContent = styled.div`
   }
 
   > div > p {
-    margin-left: ${theme.space.spaceS};
+    margin-left: ${({ theme }) => theme.space.spaceS};
   }
 
   > div > div > svg {
@@ -77,7 +76,7 @@ const UserCard = ({
         imageURL={userImage}
         width={'100%'}
         height={'131px'}
-        borderRadius={theme.borderRadius.borderRadiusS}
+        borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusS}`}
       />
       <UserCardContent>
         <p>

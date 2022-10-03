@@ -2,23 +2,23 @@ import ContentCard from '../components/common/ContentCard';
 import { useEffect, useState } from 'react';
 import { getDiaries, getMembers } from '../lib/axios';
 import styled from 'styled-components';
-import { space, fontSize } from '../assets/styles/theme';
 import UserCard from '../components/common/UserCard';
 
 const MainContainer = styled.div`
   & > div:last-child {
-    padding: ${space.spaceM};
+    padding: ${({ theme }) => theme.space.spaceM};
   }
 `;
 
 const PopularPeopleContainer = styled.div`
   max-width: 835px;
-  margin: 0 ${space.spaceM};
+  margin: 0 ${({ theme }) => theme.space.spaceM};
 
   > div {
-    padding: ${space.spaceL} ${space.spaceS};
-    padding-top: ${space.spaceM};
-    margin-bottom: ${space.spaceM};
+    padding: ${({ theme }) => theme.space.spaceL};
+    ${({ theme }) => theme.space.spaceS};
+    padding-top: ${({ theme }) => theme.space.spaceM};
+    margin-bottom: ${({ theme }) => theme.space.spaceM};
     gap: 20px;
     display: flex;
     flex-wrap: no-wrap;
@@ -31,7 +31,7 @@ export const ContentCardGridContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-columns: minmax(350px, 407px);
   grid-auto-rows: 286px;
-  grid-gap: ${space.spaceM};
+  grid-gap: ${({ theme }) => theme.space.spaceM};
 `;
 
 const TitleFilterBox = styled.div`
@@ -39,13 +39,13 @@ const TitleFilterBox = styled.div`
   justify-content: space-between;
 
   > div {
-    padding: 0 ${space.spaceM};
+    padding: 0 ${({ theme }) => theme.space.spaceM};
   }
 `;
 
 const SubTitle = styled.p`
-  font-size: ${fontSize.fontSizeL};
-  padding: 0 ${space.spaceM};
+  font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+  padding: 0 ${({ theme }) => theme.space.spaceM};
 `;
 
 const Main = ({ setHeaderData }) => {

@@ -1,10 +1,10 @@
-import ContentCard from '../components/common/ContentCard';
 import { useEffect, useState } from 'react';
-import { getBook } from '../lib/axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ContentCardGridContainer } from './Main';
+import { getBook } from '../lib/axios';
+import ContentCard from '../components/common/ContentCard';
 import MakeButton from '../components/common/MakeButton';
 import styled from 'styled-components';
+import { ContentCardGridContainer } from './Main';
 
 const Container = styled.div``;
 
