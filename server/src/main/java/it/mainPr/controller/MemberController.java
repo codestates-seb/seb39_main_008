@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -46,8 +47,14 @@ public class MemberController {
 
     @GetMapping("/v1/members/{memberId}")
     public ResponseEntity<MemberResponseDto> getMember(@PathVariable long memberId) {
-        SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(System.out::println);
+
         return ResponseEntity.ok(memberService.findMember(memberId));
+    }
+
+    @GetMapping("/v1/members/current")
+    public ResponseEntity<MemberResponseDto> currentMember() {
+
+        return ResponseEntity.ok(memberService.currentMember());
     }
 
     @GetMapping("/v1/members")

@@ -7,8 +7,10 @@ public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
     DIARY_NOT_FOUND(404, "Post not found"),
     BOOK_NOT_FOUND(404, "Book not found"),
+
     UNDEFINED(99, "Undefined"),
 
+    TOKEN_EXPIRED(401, "Token Expired"),
     MEMBER_EXISTS(409, "Member exists");
 
     @Getter

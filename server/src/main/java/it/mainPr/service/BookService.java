@@ -15,6 +15,8 @@ import it.mainPr.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,13 +38,14 @@ public class BookService {
                 .bookSubTitle(bookPostDto.getBookSubTitle())
                 .bookImageUrl(bookPostDto.getBookImageUrl())
                 .build();
+
         newBook.setMember(member);
         bookRepository.save(newBook);
 
         return BookResponseDto.of(newBook);
     }
 
-    public BookResponseDto updateBook(BookPatchDto bookPatchDto, long bookId) {
+    public BookResponseDto updateBook(BookPatchDto bookPatchDto, long bookId){
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
                 new BusinessLogicalException(ExceptionCode.DIARY_NOT_FOUND));
 
@@ -81,7 +84,7 @@ public class BookService {
         return listBooks;
     }
 
-    public void deleteBook(long bookId) {
+    public void deleteBook(long bookId){
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
                 new BusinessLogicalException(ExceptionCode.BOOK_NOT_FOUND));
         checkPermission(book);
@@ -89,7 +92,7 @@ public class BookService {
         bookRepository.deleteById(bookId);
     }
 
-    public void checkPermission(Book book) {
+    public void checkPermission(Book book){
         String memberEmail = SecurityUtils.getCurrentMemberEmail();
         Member member = memberService.findVerifiedMember(memberEmail);
 

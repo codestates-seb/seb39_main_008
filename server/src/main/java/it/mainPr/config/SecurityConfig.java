@@ -8,6 +8,7 @@ import it.mainPr.auth.handler.MemberAuthenticationFailureHandler;
 import it.mainPr.auth.handler.MemberAuthenticationSuccessHandler;
 import it.mainPr.auth.jwt.JwtTokenizer;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
+import it.mainPr.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

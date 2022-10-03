@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletException;
+import java.io.IOException;
 import java.util.List;
 
 @Service

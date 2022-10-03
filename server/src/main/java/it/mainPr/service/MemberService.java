@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,7 +67,6 @@ public class MemberService {
                 String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
                 Map<String, Object> verifiedClaims = jwtTokenizer.getClaims(authorizationHeader, base64EncodedSecretKey).getBody();
 
-                // 디버깅 결과 username이 안 얻어지고 있는 상태임. 이거 해결하면 끝날듯.
                 String username = (String) verifiedClaims.get("username");
                 System.out.println(username);
                 Member member = findVerifiedMember(username);
@@ -120,6 +120,15 @@ public class MemberService {
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
     }
+
+    //로그인중인 회원 정보
+    @Transactional(readOnly = true)
+    public MemberResponseDto currentMember() {
+        String currentMemberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member currentMember = findVerifiedMember(currentMemberEmail);
+
+        return MemberResponseDto.of(currentMember);
+    }
     //회원 리스트 보기
     public List<MemberResponseDto> findAllMembers() {
         return memberRepository.findAll().stream()
@@ -131,6 +140,19 @@ public class MemberService {
         Member findMember = findVerifiedMember(memberId);
 
         memberRepository.delete(findMember);
+    }
+
+    public void addFollow(String followerEmail, String memberEmail) throws Exception {
+        Member followerMember = memberRepository.findByEmail(followerEmail)
+                .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member member = memberRepository.findByEmail(memberEmail)
+                .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        followerMember.getMemberFollowing().getFollowingList().add(member);
+        followerMember.getFollowingList().add(member);
+
+        member.getMemberFollower().getFollowerList().add(followerMember);
+        member.getFollowerList().add(followerMember);
     }
 
     @Transactional(readOnly = true)

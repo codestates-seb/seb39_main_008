@@ -5,6 +5,9 @@ import it.mainPr.exception.ExceptionCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.servlet.ServletException;
+import java.io.IOException;
+
 public class SecurityUtils {
 
     public SecurityUtils() {
