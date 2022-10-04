@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getBookList } from '../lib/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import MakeButton from '../components/common/MakeButton';
+import { getBookList } from '../lib/axios';
 import ContentCard from '../components/common/ContentCard';
 import { ContentCardGridContainer } from './Main';
 
@@ -24,7 +24,7 @@ const BookList = ({ setHeaderData }) => {
       title: `${USERDATA.nickname}의 일기장`,
       description: `총 ${booklist.data.length}개의 일기장을 사용하고 있습니다.`,
     });
-  }, []);
+  }, [memberId]);
 
   return (
     <ContentCardGridContainer>
