@@ -26,18 +26,18 @@ public class DiariesDto {
         String content;
         String diaryImgUrl;
         Member member;
-        Integer likeCount;
-        Integer followCount;
+        Integer total_heart;
+        Integer total_follow;
 
         @Builder
-        public PostDto(String diary_title, String diary_subtitle, String content, String diaryImgUrl, Member member, Integer likeCount, Integer followCount) {
+        public PostDto(String diary_title, String diary_subtitle, String content, String diaryImgUrl, Member member, Integer total_heart, Integer total_follow) {
             this.diary_title = diary_title;
             this.diary_subtitle = diary_subtitle;
             this.content = content;
             this.diaryImgUrl = diaryImgUrl;
             this.member = member;
-            this.likeCount = likeCount;
-            this.followCount = followCount;
+            this.total_heart = total_heart;
+            this.total_follow = total_follow;
         }
     }
 
@@ -68,38 +68,22 @@ public class DiariesDto {
     }
 
     @Getter
+    @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     public static class DiaryResponseDto {
         private Long diaryId;
         private String diary_title;
         private String diary_subtitle;
         private String content;
-        private String information;
-        private Member member;
         private String diaryImgUrl;
         private String total_hearts;
         private String total_comments;
+        private Member member;
         private List<CommentsDto.ResponseDto> comments;
         private List<HeartResponseDto> hearts;
         private Diary.Category category;
-
         private List<BookResponseDto> books;
 
-        @Builder
-        public DiaryResponseDto(Long diaryId, String diary_title, String diary_subtitle, String content, String information, Member member, String diaryImgUrl, String total_hearts, String total_comments, List<CommentsDto.ResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category, List<BookResponseDto> books) {
-            this.diaryId = diaryId;
-            this.diary_title = diary_title;
-            this.diary_subtitle = diary_subtitle;
-            this.content = content;
-            this.information = information;
-            this.member = member;
-            this.diaryImgUrl = diaryImgUrl;
-            this.total_hearts = total_hearts;
-            this.total_comments = total_comments;
-            this.comments = comments;
-            this.hearts = hearts;
-            this.category = category;
-            this.books = books;
-        }
     }
-    }
+}

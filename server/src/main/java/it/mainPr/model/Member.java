@@ -24,13 +24,20 @@ public class Member extends BaseTime {
     private String name;
     private String nickname;
     private String information;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "STATUS")
+    private MemberStatus memberStatus = MemberStatus.MEMBER_EXIST;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String imgUrl;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Book> book = new ArrayList<>();
+
+    private List<Book> book;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Diary> diary;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
@@ -55,4 +62,15 @@ public class Member extends BaseTime {
     private List<String> roles = new ArrayList<>();
 
 
+    public enum MemberStatus {
+        MEMBER_EXIST("존재하는 유저"),
+        MEMBER_NOT_EXIST("존재하지 않는 유저");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
 }

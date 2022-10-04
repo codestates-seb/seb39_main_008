@@ -1,5 +1,6 @@
 package it.mainPr.dto.bookDto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.mainPr.dto.heartDto.HeartResponseDto;
 import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Book;
@@ -20,11 +21,10 @@ public class BookResponseDto {
     @NotBlank
     private String bookSubTitle;
     private String bookImageUrl;
+    @JsonIgnore
 
-    private long memberId;
-    private String email;
-    private String name;
-    private String nickname;
+    private Member member;
+    @JsonIgnore
     private List<Diary> diary;
 
     @Builder
@@ -33,10 +33,7 @@ public class BookResponseDto {
         this.bookTitle = bookTitle;
         this.bookSubTitle = bookSubTitle;
         this.bookImageUrl = bookImageUrl;
-        this.memberId = member.getMemberId();
-        this.email = member.getEmail();
-        this.name = member.getName();
-        this.nickname = member.getNickname();
+        this.member = member;
         this.diary = diary;
     }
 

@@ -1,72 +1,81 @@
 package it.mainPr.service;
 
 import it.mainPr.dto.memberDto.MemberResponseDto;
+import it.mainPr.exception.BusinessLogicalException;
+import it.mainPr.exception.ExceptionCode;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Heart;
 import it.mainPr.model.Member;
 import it.mainPr.repository.DiaryRepository;
 import it.mainPr.repository.HeartRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
-@Transactional(readOnly = true)
+@AllArgsConstructor
 public class HeartService {
     private final HeartRepository heartRepository;
-    private final DiaryRepository diaryRepository;
-    private final MemberService memberService;
 
-    public HeartService(HeartRepository heartRepository, DiaryRepository diaryRepository, MemberService memberService) {
-        this.heartRepository = heartRepository;
-        this.diaryRepository = diaryRepository;
-        this.memberService = memberService;
+    @Transactional
+    public Heart createHeart(Heart heart){
+
+        verifyExistHeart(heart.getMember(),heart.getDiary());//이미 등록된 하트인지 확인
+
+        return heartRepository.save(heart);
     }
 
-    public boolean createHeart(MemberResponseDto member, long diaryId) {
-        //다이어리 존재 확인
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow();
+    @Transactional
+    public Heart updateHeart(Heart heart){
 
-        //중복 좋아요 방지
-//        if(isNotAlreadyHeart(member, diary)) {
-//            heartRepository.save(new Heart(member, diary));
-//            return true;
-//        }
-        return false;/**/
+        Heart findHeart = findExistHeart(heart.getMember(),heart.getDiary());//등록된 하트면 반환->등록된 하트가 아니면 에러 발생
+
+        Optional.ofNullable(heart.getHeartStatus())//하트 삭제
+                .ifPresent(heartStatus -> findHeart.setHeartStatus(heartStatus));
+
+        return findHeart;
     }
 
-    public List<String> count(long diaryId) {
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow();
-        MemberResponseDto member = MemberResponseDto.of(diary.getMember());
+//    public Page<Heart> findHearts(MemberService memberService, int page, int size){//해당 유저가 누른 하트에 pagenation과 최신순 sort 구현
+//        Member member = memberService.getLoginMember(); //해당토큰의 유저 가져오기
+//        Page<Heart> hearts = heartRepository.findByMemberAndHeartStatus(//삭제된 하트 빼고 해당 유저의 전체 하트 가져옴
+//                PageRequest.of(page,size, Sort.by("createdAt").descending()),
+//                member,
+//                Heart.HeartStatus.HEART_EXIST);
+//        verifiedNoHeart(hearts);//findAllHeart안의 반환된 데이터가 없으면 예외발생
+//
+//        return hearts;
+//    }
 
-        Integer heartCount = heartRepository.countByDiary(diary).orElse(0);
-
-        List<String> result =
-                new ArrayList<>(Arrays.asList(String.valueOf(heartCount)));
-
-        if(Objects.nonNull(member.getMemberId())) {
-            result.add(String.valueOf(isNotAlreadyHeart(member, diary)));
-            return result;
+    private void verifiedNoHeart(Page<Heart> hearts){
+        if(hearts.getTotalElements()==0){
+            throw new BusinessLogicalException(ExceptionCode.HEART_NOT_FOUND);
         }
-        return result;
     }
 
-    public void deleteHeart(MemberResponseDto member, long diaryId) {
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow();
-        Heart heart = heartRepository.findByMemberAndDiary(member, diary).orElseThrow();
+    private Heart findExistHeart(Member member, Diary diary){//등록된 하트면 반환->등록된 하트가 아니면 에러!
 
-        heartRepository.delete(heart);
-    }
-    //좋아요 중복 체크
-    private boolean isNotAlreadyHeart(MemberResponseDto member, Diary diary) {
-        return heartRepository.findByMemberAndDiary(member, diary).isEmpty();
+        Optional<Heart> heart = heartRepository.findByMemberAndDiaryAndHeartStatus(member,diary, Heart.HeartStatus.HEART_EXIST);
+        if(!heart.isPresent()) //등록된 하트가 아니면 에러!
+            throw new BusinessLogicalException(ExceptionCode.HEART_NOT_FOUND);
+
+        return heart.get();
     }
 
-    public List<Heart> findMemberHeart(Member member) {
-        return heartRepository.findByMember(member);
+    private void verifyExistHeart(Member member, Diary diary){//이미 등록된 하트인지 확인
+
+        Optional<Heart> heart = heartRepository.findByMemberAndDiaryAndHeartStatus(member,diary, Heart.HeartStatus.HEART_EXIST);
+        if(heart.isPresent()) //이미 등록된 하트면 예외처리!
+            throw new BusinessLogicalException(ExceptionCode.HEART_EXIST);
+
     }
+    public List<Heart> findExistHeartsByDiary(Diary diary){ //해당 store의 하트중에 Status가 HEART_EXIST인 하트들만 반환
+        return heartRepository.findByDiaryAndHeartStatus(diary, Heart.HeartStatus.HEART_EXIST);
+    }
+
 }

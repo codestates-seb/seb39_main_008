@@ -35,6 +35,6 @@ public class CommentsDto {
         private String content;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private MemberResponseDto member;
+//        private MemberResponseDto member;
     }
 }

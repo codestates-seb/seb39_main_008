@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -76,6 +77,22 @@ public class DiaryService {
         if(diary.getMember().getMemberId() != member.getMemberId()) {
             throw new BusinessLogicalException(ExceptionCode.NO_AUTHORIZED);
         }
+    }
+    public Diary findVerifiedDiary(long diaryId){
+        Optional<Diary> optionalDiary = diaryRepository.findById(diaryId);
+
+        Diary findDiary=optionalDiary.orElseThrow(()-> //만일 db에 저장된 스토어 정보 없으면 예외발생
+                new BusinessLogicalException(ExceptionCode.DIARY_NOT_FOUND));
+
+        if(findDiary.getDiaryStatus() == Diary.DiaryStatus.DIARY_NOT_EXIST){// 만일 삭제된 스토어라면 예외발생
+            throw new BusinessLogicalException(ExceptionCode.DIARY_NOT_FOUND);
+        }
+        return findDiary;
+    }
+
+    public Member findMemberAtDiary(long diaryId){//해당 스토어의 주인유저 반환
+        Diary findDiary = findVerifiedDiary(diaryId);//만약 스토어가 DB에 없거나 삭제된 스토어면 예외 발생
+        return findDiary.getMember();
     }
 
 

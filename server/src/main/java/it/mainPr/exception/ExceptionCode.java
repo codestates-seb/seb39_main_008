@@ -8,6 +8,8 @@ public enum ExceptionCode {
     DIARY_NOT_FOUND(404, "Post not found"),
     BOOK_NOT_FOUND(404, "Book not found"),
     UNDEFINED(99, "Undefined"),
+    HEART_EXIST(409,"Heart exists"),
+    HEART_NOT_FOUND(404,"Heart not found"),
 
     MEMBER_EXISTS(409, "Member exists");
 

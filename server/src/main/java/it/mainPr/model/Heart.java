@@ -7,10 +7,9 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@Setter
+@NoArgsConstructor
 @Table(name = "HEART")
-@Builder
 public class Heart extends BaseTime {
 
     @Id
@@ -25,8 +24,20 @@ public class Heart extends BaseTime {
     @JoinColumn(name = "diary_id")
     private Diary diary;
 
-    public Heart(Member member, Diary diary) {
-        this.member = member;
-        this.diary = diary;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "STATUS")
+    private HeartStatus heartStatus = HeartStatus.HEART_EXIST;
+
+
+    public enum HeartStatus {
+        HEART_EXIST("존재하는 하트"),
+        HEART_NOT_EXIST("존재하지 않는 하트");
+
+        @Getter
+        private String status;
+
+        HeartStatus(String status) {
+            this.status = status;
+        }
     }
 }

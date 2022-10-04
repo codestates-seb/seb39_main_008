@@ -35,6 +35,12 @@ public class Diary extends BaseTime {
     @JsonIgnore
     private Member member;
 
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "STATUS")
+    private DiaryStatus diaryStatus = DiaryStatus.DIARY_EXIST;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     @JsonIgnore
@@ -49,6 +55,7 @@ public class Diary extends BaseTime {
     private List<Heart> heart;
 
     @Enumerated(value = EnumType.STRING)
+    @JsonIgnore
     private Category category;
 
     @Builder
@@ -104,4 +111,17 @@ public class Diary extends BaseTime {
 
         private String description;
     }
+
+    public enum DiaryStatus {
+        DIARY_EXIST("존재하는 장소"),
+        DIARY_NOT_EXIST("존재하지 않는 장소");
+
+        @Getter
+        private String status;
+
+        DiaryStatus(String status) {
+            this.status = status;
+        }
+    }
+
 }
