@@ -1,5 +1,6 @@
 package it.mainPr.controller;
 
+import it.mainPr.auth.utils.SecurityUtils;
 import it.mainPr.dto.bookDto.BookPatchDto;
 import it.mainPr.dto.bookDto.BookPostDto;
 import it.mainPr.service.BookService;
@@ -8,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -18,7 +21,6 @@ public class BookController {
 
     @PostMapping("/v1/books")
     public ResponseEntity createBook(@RequestBody BookPostDto bookPostDto) {
-
         return ResponseEntity.ok(bookService.createBook(bookPostDto));
     }
 

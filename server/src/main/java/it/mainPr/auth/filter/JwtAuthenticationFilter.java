@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.mainPr.auth.jwt.JwtTokenizer;
 import it.mainPr.dto.memberDto.LoginDto;
 import it.mainPr.model.Member;
+import it.mainPr.service.MemberService;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -59,9 +60,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Map<String, String> tokens = new HashMap<>();
         tokens.put("Authorization", "Bearer " + accessToken);
         tokens.put("Refresh", "Bearer " + accessToken);
+
+        Map<String, String> loginInfo = new HashMap<>();
+        loginInfo.put("information", member.getInformation());
+        loginInfo.put("nickname", member.getNickname());
+        loginInfo.put("name", member.getName());
+        loginInfo.put("email", member.getEmail());
         response.setContentType(APPLICATION_JSON_VALUE);
 
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        new ObjectMapper().writeValue(response.getOutputStream(), loginInfo);
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
