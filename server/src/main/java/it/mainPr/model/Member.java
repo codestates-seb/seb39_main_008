@@ -39,10 +39,12 @@ public class Member extends BaseTime {
     private List<Comment> comment;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn
     private Member memberFollowing = this;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn
     private Member memberFollower = this;
 
@@ -51,29 +53,6 @@ public class Member extends BaseTime {
 
     @OneToMany(mappedBy = "memberFollower")
     private List<Member> followerList = new ArrayList<>();
-
-    public void addFollowing(Member following) {
-        this.followingList.add(following);
-
-        if(! following.getFollowerList().contains(this)) {
-            following.getFollowerList().add(this);
-        }
-        if(! following.getMemberFollower().getFollowerList().contains(this)) {
-            following.getMemberFollower().getFollowerList().add(this);
-        }
-    }
-
-    public void addFollower(Member follower) {
-        this.followerList.add(follower);
-
-        if(! follower.getFollowingList().contains(this)) {
-            follower.getFollowingList().add(this);
-        }
-
-        if(! follower.getMemberFollowing().getFollowingList().contains(this)) {
-            follower.getMemberFollower().getFollowingList().add(this);
-        }
-    }
 
     @Builder
     public Member(long memberId, String email, String password, String name, String nickname, String information, String imgUrl) {

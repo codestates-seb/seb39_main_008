@@ -3,6 +3,7 @@ package it.mainPr.controller;
 import it.mainPr.dto.memberDto.MemberPatchDto;
 import it.mainPr.dto.memberDto.MemberPostDto;
 import it.mainPr.dto.memberDto.MemberResponseDto;
+import it.mainPr.model.Member;
 import it.mainPr.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,5 +74,24 @@ public class MemberController {
     @GetMapping("/v1/auth/reissue")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         memberService.reissue(request, response);
+    }
+
+    @PostMapping("/v1/follow")
+    public ResponseEntity follow(@RequestParam(name = "member-id") long memberId) {
+        if(memberService.isFollowing(memberId)) {
+            return ResponseEntity.ok(memberService.unDoFollow(memberId));
+        } else {
+            return ResponseEntity.ok(memberService.doFollow(memberId));
+        }
+    }
+
+    @GetMapping("/v1/follow/following")
+    public ResponseEntity<List<Member>> getFollowing(@RequestParam(name = "member-id") long memberId) {
+        return ResponseEntity.ok(memberService.getFollowingList(memberId));
+    }
+
+    @GetMapping("/v1/follow/follower")
+    public ResponseEntity<List<Member>> getFollower(@RequestParam(name = "member-id") long memberId) {
+        return ResponseEntity.ok(memberService.getFollowerList(memberId));
     }
 }

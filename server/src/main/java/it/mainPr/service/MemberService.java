@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -142,17 +141,70 @@ public class MemberService {
         memberRepository.delete(findMember);
     }
 
-    public void addFollow(String followerEmail, String memberEmail) throws Exception {
-        Member followerMember = memberRepository.findByEmail(followerEmail)
-                .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
-        Member member = memberRepository.findByEmail(memberEmail)
+    public String doFollow(long memberId) {
+        String memberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member currentMember = findVerifiedMember(memberEmail);
+
+        Member member = memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
 
-        followerMember.getMemberFollowing().getFollowingList().add(member);
-        followerMember.getFollowingList().add(member);
+        currentMember.getMemberFollowing().getFollowingList().add(member);
+        currentMember.getFollowingList().add(member);
 
-        member.getMemberFollower().getFollowerList().add(followerMember);
-        member.getFollowerList().add(followerMember);
+        member.getMemberFollower().getFollowerList().add(currentMember);
+        member.getFollowerList().add(currentMember);
+
+        memberRepository.save(currentMember);
+        memberRepository.save(member);
+
+        return member.getEmail() + " 팔로우 완료";
+    }
+
+    public String unDoFollow(long memberId) {
+        String memberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member currentMember = findVerifiedMember(memberEmail);
+
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new BusinessLogicalException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        currentMember.getMemberFollowing().getFollowingList().remove(member);
+        currentMember.getFollowingList().remove(member);
+
+        member.getMemberFollower().getFollowerList().remove(currentMember);
+        member.getFollowerList().remove(currentMember);
+
+        memberRepository.save(currentMember);
+        memberRepository.save(member);
+
+        return member.getEmail() + " 팔로우 취소 완료";
+    }
+
+    public List<Member> getFollowerList(long memberId) {
+        Member member = findVerifiedMember(memberId);
+
+        return member.getMemberFollower().getFollowerList();
+    }
+
+    public boolean isFollower(long memberId) {
+        String currentMemberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member currentMember = findVerifiedMember(currentMemberEmail);
+        Member member = findVerifiedMember(memberId);
+
+        return currentMember.getMemberFollower().getFollowerList().contains(member);
+    }
+
+    public List<Member> getFollowingList(long memberId) {
+        Member member = findVerifiedMember(memberId);
+
+        return member.getMemberFollowing().getFollowingList();
+    }
+
+    public boolean isFollowing(long memberId) {
+        String currentMemberEmail = SecurityUtils.getCurrentMemberEmail();
+        Member currentMember = findVerifiedMember(currentMemberEmail);
+        Member member = findVerifiedMember(memberId);
+
+        return currentMember.getMemberFollowing().getFollowingList().contains(member);
     }
 
     @Transactional(readOnly = true)
