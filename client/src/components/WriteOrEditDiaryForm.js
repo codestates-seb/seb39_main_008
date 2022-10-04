@@ -313,12 +313,12 @@ export const Mid = styled.div`
 
     & > p {
       font-size: var(--fontSizeL);
-      color: ${({ theme }) => theme.colors.text4};
+      color: ${({ theme }) => theme.colors.text2};
     }
 
     &:hover {
       & > p {
-        color: ${({ theme }) => theme.colors.text3};
+        color: ${({ theme }) => theme.colors.text1};
       }
     }
   }
@@ -359,7 +359,7 @@ export const Bottom = styled.div`
 
   .quill {
     * {
-      color: ${({ theme }) => theme.colors.text2};
+      color: ${({ theme }) => theme.colors.text1};
     }
     border-top: 1px solid ${({ theme }) => theme.colors.border};
     z-index: 2000;

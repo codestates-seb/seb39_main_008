@@ -15,7 +15,7 @@ const Wraper = styled.div`
   * {
     font-size: var(--fontSizeL);
     box-sizing: border-box;
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   padding: var(--spaceL);
@@ -36,13 +36,13 @@ const Wraper = styled.div`
   height: 249px;
 
   .target {
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   button {
     width: 124px;
     height: 42px;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.text1};
     border-radius: var(--borderRadiusS);
     box-shadow: var(--shadowM);
   }

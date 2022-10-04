@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   box-sizing: border-box;
+  background-color: ${({ theme }) => theme.colors.main};
   width: ${(props) => props.width || 'auto'};
   color: ${({ theme }) => theme.colors.text1};
   font-size: ${(props) => props.fontSize || `var(--fontSizeS)`};
@@ -12,7 +13,7 @@ const Button = styled.button`
   &:after {
     display: block;
     content: '';
-    border-bottom: solid 1.2px ${({ theme }) => theme.colors.text5};
+    border-bottom: solid 1.2px ${({ theme }) => theme.colors.text3};
     transform: scaleX(0);
     transition: transform 300ms ease-in-out;
   }
@@ -22,15 +23,14 @@ const Button = styled.button`
   }
 
   &:hover {
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   .container {
     height: ${(props) => props.height || 'auto'};
-    border: 1.2px solid ${({ theme }) => theme.colors.text6};
+    border: 1.2px solid ${({ theme }) => theme.colors.text4};
     padding: 2px;
     border-radius: var(--borderRadiusS);
-    background-color: ${({ theme }) => theme.colors.white};
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -40,7 +40,7 @@ const Button = styled.button`
   .container:hover {
     border: 1.2px solid transparent;
     transition: 0.5s ease-out;
-    background-color: ${({ theme }) => theme.colors.text6};
+    background-color: ${({ theme }) => theme.colors.text4};
   }
 
   .container:not(:hover) {

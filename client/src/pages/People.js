@@ -26,6 +26,7 @@ const NoticeContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: var(--spaceL);
+  color: ${({ theme }) => theme.colors.text1};
 `;
 
 const People = ({ setHeaderData }) => {

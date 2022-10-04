@@ -33,6 +33,8 @@ export const Container = styled.div`
   box-shadow: var(--shadowS);
   border-radius: var(--borderRadiusM);
   display: flex;
+  color: ${({ theme }) => theme.colors.text1};
+  background-color: ${({ theme }) => theme.colors.main};
 
   @media screen and (min-width: 576px) and (max-width: 991.98px) {
     width: 100%;
@@ -54,6 +56,7 @@ export const HeaderBox = styled.div`
   margin: var(--spaceL);
 
   & > p {
+    color: black;
     font-size: var(--fontSizeL);
   }
 

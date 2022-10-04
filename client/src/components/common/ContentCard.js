@@ -47,7 +47,7 @@ const Labels = styled.div`
 const Label = styled.span`
   margin-left: auto;
   align-self: flex-end;
-  background-color: ${({ theme }) => theme.colors.text1};
+  background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
   padding: 3px 10px;
   border-radius: var(--borderRadiusS);

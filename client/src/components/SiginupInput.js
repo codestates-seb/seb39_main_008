@@ -17,10 +17,11 @@ const InputBox = styled.div`
   input::placeholder {
     font-size: var(--fontSizeS);
     text-align: right;
+    color: ${({ theme }) => theme.colors.text4};
   }
 
   input:placeholder-shown + label {
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
     top: 1.2rem;
   }
 

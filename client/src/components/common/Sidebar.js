@@ -29,7 +29,6 @@ const Wraper = styled.div`
   position: sticky;
   top: 0;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.white};
 
   .auto {
     margin-top: auto;
@@ -60,7 +59,7 @@ const UserBox = styled.div`
     margin-top: var(--spaceM);
 
     & > div {
-      color: ${({ theme }) => theme.colors.text2};
+      color: ${({ theme }) => theme.colors.text1};
       text-align: left;
     }
 
@@ -82,7 +81,7 @@ const UserBox = styled.div`
 
   & > button:hover {
     & > svg {
-      color: ${({ theme }) => theme.colors.text3};
+      color: ${({ theme }) => theme.colors.text1};
     }
   }
 
@@ -97,7 +96,7 @@ const List = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
 
     & > svg {
       color: ${({ theme }) => theme.colors.text4};
@@ -108,7 +107,7 @@ const List = styled.div`
     color: ${({ theme }) => theme.colors.text4};
 
     & > svg {
-      color: ${({ theme }) => theme.colors.text3};
+      color: ${({ theme }) => theme.colors.text1};
     }
   }
 `;

@@ -7,7 +7,7 @@ const Text = styled.span`
 
   &:hover {
     color: ${(props) =>
-      props.hoverColor ? props.hoverColor : ({ theme }) => theme.colors.text3};
+      props.hoverColor ? props.hoverColor : ({ theme }) => theme.colors.text1};
     cursor: pointer;
   }
 `;

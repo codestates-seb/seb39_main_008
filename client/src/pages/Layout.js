@@ -25,7 +25,7 @@ const Content = styled.section`
   margin-left: ${(props) => (props.hasCommon ? `var(--spaceM)` : '0px')};
   width: 100%;
   max-width: ${(props) => (props.hasCommon ? '977px' : '1200px')};
-  padding: var(--spaceL);
+  padding: ${(props) => (props.hasCommon ? `var(--spaceL)` : '0px')};
 
   @media screen and (max-width: 991.98px) {
     margin-left: 0px;

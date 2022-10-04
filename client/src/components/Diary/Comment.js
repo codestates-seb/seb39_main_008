@@ -9,7 +9,7 @@ const Container = styled.div`
   & > * {
     font-size: var(--fontSizeS);
     line-height: var(--fontSizeM);
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   width: 100%;
@@ -39,7 +39,7 @@ const Right = styled.div`
   }
 
   textarea {
-    border: 0.3px solid ${({ theme }) => theme.colors.text5};
+    border: 0.3px solid ${({ theme }) => theme.colors.border};
     border-radius: var(--borderRadiusS);
     resize: none;
     white-space: pre-wrap;
@@ -53,7 +53,7 @@ const Top = styled.div`
 
   & > span {
     margin-right: var(--spaceS);
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   & > span + p {

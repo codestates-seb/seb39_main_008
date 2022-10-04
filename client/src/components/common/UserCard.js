@@ -16,14 +16,14 @@ const UserCardContainer = styled.div`
 
 const UserCardContent = styled.div`
   font-size: var(--fontSizeS);
-  color: ${({ theme }) => theme.colors.text2};
+  color: ${({ theme }) => theme.colors.text1};
   > p {
     color: ${({ theme }) => theme.colors.text4};
     padding: var(--spaceS) 0;
   }
 
   > p:hover {
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   > div {

@@ -86,12 +86,12 @@ const Container = styled.div`
 const Titles = styled.div`
   h1 {
     font-size: var(--fontSizeLL);
-    color: ${({ theme }) => theme.colors.text3};
+    color: ${({ theme }) => theme.colors.text1};
     margin-bottom: var(--spaceM);
   }
 
   h2 {
-    color: ${({ theme }) => theme.colors.text4};
+    color: ${({ theme }) => theme.colors.text2};
     font-size: var(--fontSizeL);
     margin-bottom: var(--spaceM);
   }

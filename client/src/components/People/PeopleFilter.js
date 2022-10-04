@@ -15,7 +15,7 @@ const PeopleFilterContainer = styled.div`
   }
 
   > button.active {
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 `;
 

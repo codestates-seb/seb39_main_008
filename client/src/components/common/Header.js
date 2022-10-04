@@ -26,7 +26,7 @@ const Title = styled.p`
 
 const Description = styled.p`
   font-size: var(--fontSizeM);
-  color: ${({ theme }) => theme.colors.text3};
+  color: ${({ theme }) => theme.colors.text2};
   margin: var(--spaceS);
   margin-top: 0;
 `;

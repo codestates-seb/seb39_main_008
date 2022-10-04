@@ -10,12 +10,12 @@ const Container = styled.div`
 
   &:hover {
     & > svg {
-      color: ${({ theme }) => theme.colors.text3};
+      color: ${({ theme }) => theme.colors.text1};
     }
   }
 
   & > p {
-    color: ${({ theme }) => theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
     font-size: var(--fontSizeLL);
   }
 
