@@ -12,7 +12,7 @@ const BackGround = styled.div`
   align-items: center;
 
   & > h1 {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeM};
+    font-size: var(--fontSizeM);
   }
 `;
 

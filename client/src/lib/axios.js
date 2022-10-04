@@ -11,8 +11,8 @@ const headers = {
 //   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoidGVzdHN3YW5AZ21haWwuY29tIiwic3ViIjoidGVzdHN3YW5AZ21haWwuY29tIiwiaWF0IjoxNjY0NzgwMTgzLCJleHAiOjE2NjQ3ODAyNDN9.mdRoUYLsp7bsJw2TXnrvcBQbj9pj4IQo39xowFrCmuM';
 // console.log(authorizationToken);
 // console.log(refreshToken);
-// eslint-disable-next-line no-undef
 
+// eslint-disable-next-line no-undef
 const url = process.env.REACT_APP_API_URL;
 
 export const signup = async (data) => {

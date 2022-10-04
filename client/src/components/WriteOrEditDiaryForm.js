@@ -179,14 +179,14 @@ const WriteOrEditDiaryForm = (props) => {
             width="120px"
             height="40px"
             type="submit"
-            fontSize={`${({ theme }) => theme.fontSize.fontSizeM}`}
+            fontSize={`var(--fontSizeM)`}
             text={props.isEdit ? '수정하기' : '기록하기'}
           />
           <BorderButton
             text="취소"
             width="120px"
             height="40px"
-            fontSize={`${({ theme }) => theme.fontSize.fontSizeM}`}
+            fontSize={`var(--fontSizeM)`}
             onClick={() => {
               setConfirm(!confirm);
             }}
@@ -215,7 +215,7 @@ export const Mid = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 ${({ theme }) => theme.space.spaceS};
+  padding: 0 var(--spaceS);
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 
   & > div {
@@ -224,7 +224,7 @@ export const Mid = styled.div`
 
   & input {
     padding: 0;
-    margin-top: ${({ theme }) => theme.space.spaceM};
+    margin-top: var(--spaceM);
     overflow: visible;
     width: 100%;
     height: 100%;
@@ -236,7 +236,7 @@ export const Mid = styled.div`
     width: 30%;
     border: none;
     background-color: ${({ theme }) => theme.colors.dimGrey};
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
+    border-radius: var(--borderRadiusS);
   }
 
   & input:focus-visible {
@@ -245,44 +245,44 @@ export const Mid = styled.div`
 
   .title {
     height: 50px;
-    font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
+    font-size: var(--fontSizeLL);
   }
 
   .title::placeholder {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
+    font-size: var(--fontSizeLL);
   }
 
   .subtitle {
     height: 50px;
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
   }
 
   .subtitle::placeholder {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
   }
 
   label {
-    margin-top: ${({ theme }) => theme.space.spaceM};
+    margin-top: var(--spaceM);
     width: 50px;
     display: inline-block;
   }
 
   .booktitle {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeM};
+    font-size: var(--fontSizeM);
   }
 
   .radioBox {
-    margin-top: ${({ theme }) => theme.space.spaceM};
-    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+    margin-top: var(--spaceM);
+    font-size: var(--fontSizeS);
 
     p {
-      margin-bottom: ${({ theme }) => theme.space.spaceS};
+      margin-bottom: var(--spaceS);
     }
 
     input,
     label {
       cursor: pointer;
-      margin: calc(${({ theme }) => theme.space.spaceS} / 3);
+      margin: calc(var(--spaceS) / 3);
       display: inline;
     }
 
@@ -294,17 +294,18 @@ export const Mid = styled.div`
 
   .addImgButton {
     cursor: pointer;
-    margin: ${({ theme }) => theme.space.spaceM} 0
-      ${({ theme }) => theme.space.spaceM} ${({ theme }) => theme.space.spaceS};
+    margin: var(--spaceM) 0 var(--spaceM) var(--spaceS);
     width: 50%;
     height: 427.5px;
     overflow: hidden;
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
+    border-radius: var(--borderRadiusM);
     border: 1px dashed ${({ theme }) => theme.colors.dimGrey};
-    ${({ theme }) => theme.layout.flexCenter}
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     & > p {
-      font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+      font-size: var(--fontSizeL);
       color: ${({ theme }) => theme.colors.text4};
     }
 
@@ -319,7 +320,7 @@ export const Mid = styled.div`
     display: none;
   }
 
-  @media ${({ theme }) => theme.screen.mobile} {
+  @media screen and (max-width: 576px) {
     align-items: center;
     flex-direction: column;
     & > div {
@@ -327,7 +328,7 @@ export const Mid = styled.div`
     }
 
     .addImgButton {
-      margin: ${({ theme }) => theme.space.spaceM} 0;
+      margin: var(--spaceM) 0;
       width: 100%;
     }
   }
@@ -335,39 +336,36 @@ export const Mid = styled.div`
 
 export const Bottom = styled.div`
   width: 100%;
-  padding-bottom: ${({ theme }) => theme.space.spaceL};
+  padding-bottom: var(--spaceL);
 
   .preview {
     p {
-      font-size: ${({ theme }) => theme.fontSize.fontSizeM};
-      padding: ${({ theme }) => theme.space.spaceS}
-        ${({ theme }) => theme.space.spaceS} 0
-        ${({ theme }) => theme.space.spaceS};
+      font-size: var(--fontSizeM);
+      padding: var(--spaceS) var(--spaceS) 0 var(--spaceS);
     }
   }
 
   .previewImg {
-    padding: ${({ theme }) => theme.space.spaceS};
+    padding: var(--spaceS);
     width: 100%;
   }
 
   .quill {
     border-top: 1px solid ${({ theme }) => theme.colors.grey};
     z-index: 2000;
-    padding: ${({ theme }) => theme.space.spaceM};
-    ${({ theme }) => theme.space.spaceS};
+    padding: var(--spaceM) var(--spaceS);
     color: ${({ theme }) => theme.colors.text2};
     min-height: 20rem;
   }
 
   .ql-editor {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeM};
+    font-size: var(--fontSizeM);
     padding: 0px;
   }
 
   .rightbox {
     & > * {
-      margin-right: ${({ theme }) => theme.space.spaceS};
+      margin-right: var(--spaceS);
     }
 
     & > button:last-child {
@@ -376,11 +374,11 @@ export const Bottom = styled.div`
     display: flex;
     justify-content: end;
     align-items: flex-end;
-    margin: ${({ theme }) => theme.space.spaceM} 0;
+    margin: var(--spaceM) 0;
   }
 
   .Error {
-    font-size: calc(${({ theme }) => theme.fontSize.fontSizeS} * 1.2);
+    font-size: calc(var(--fontSizeS) * 1.2);
     color: ${({ theme }) => theme.colors.red};
     display: inline-block;
   }

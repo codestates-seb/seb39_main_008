@@ -20,53 +20,6 @@ export const light = {
     text2: '#232629',
     text1: '#0c0d0e',
   },
-  fontSize: {
-    fontSizeLL: '36px',
-    fontSizeL: '24px',
-    fontSizeM: '16px',
-    fontSizeS: '12px',
-  },
-
-  boxShadow: {
-    shadowXS: 'rgba(0, 0, 0, 0.3) 0px 3px 6px, rgba(0, 0, 0, 0.22) 0px 3px 4px',
-    shadowS: 'rgba(0, 0, 0, 0.3) 0px 7px 14px, rgba(0, 0, 0, 0.22) 0px 6px 6px',
-    shadowM:
-      'rgba(0, 0, 0, 0.3) 0px 11px 22px, rgba(0, 0, 0, 0.22) 0px 9px 8px',
-    shadowL:
-      'rgba(0, 0, 0, 0.3) 0px 15px 30px, rgba(0, 0, 0, 0.22) 0px 12px 10px',
-    shadowXL:
-      'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
-  },
-  borderRadius: {
-    borderRadiusL: '12px',
-    borderRadiusM: '8px',
-    borderRadiusS: '4px',
-  },
-  space: {
-    spaceL: '40px',
-    spaceM: '20px',
-    spaceS: '10px',
-  },
-  screen: {
-    mobile: `(max-width: 576px)`,
-    tablet: `(min-width: 576px) and (max-width: 991.98px)`,
-    mobileAndTablet: `(max-width: 991.98px)`,
-    desktop: `(min-width: 992px)`,
-  },
-
-  layout: {
-    flexCenter: `
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`,
-    flexCenterColumn: `
-display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`,
-  },
 };
 export const night = {
   colors: {
@@ -89,52 +42,5 @@ export const night = {
     text3: '#3b4045',
     text2: '#232629',
     text1: '#0c0d0e',
-  },
-  fontSize: {
-    fontSizeLL: '36px',
-    fontSizeL: '24px',
-    fontSizeM: '16px',
-    fontSizeS: '12px',
-  },
-
-  boxShadow: {
-    shadowXS: 'rgba(0, 0, 0, 0.3) 0px 3px 6px, rgba(0, 0, 0, 0.22) 0px 3px 4px',
-    shadowS: 'rgba(0, 0, 0, 0.3) 0px 7px 14px, rgba(0, 0, 0, 0.22) 0px 6px 6px',
-    shadowM:
-      'rgba(0, 0, 0, 0.3) 0px 11px 22px, rgba(0, 0, 0, 0.22) 0px 9px 8px',
-    shadowL:
-      'rgba(0, 0, 0, 0.3) 0px 15px 30px, rgba(0, 0, 0, 0.22) 0px 12px 10px',
-    shadowXL:
-      'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
-  },
-  borderRadius: {
-    borderRadiusL: '12px',
-    borderRadiusM: '8px',
-    borderRadiusS: '4px',
-  },
-  space: {
-    spaceL: '40px',
-    spaceM: '20px',
-    spaceS: '10px',
-  },
-  screen: {
-    mobile: `(max-width: 576px)`,
-    tablet: `(min-width: 576px) and (max-width: 991.98px)`,
-    mobileAndTablet: `(max-width: 991.98px)`,
-    desktop: `(min-width: 992px)`,
-  },
-
-  layout: {
-    flexCenter: `
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`,
-    flexCenterColumn: `
-display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`,
   },
 };

@@ -9,7 +9,7 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileContentsBox = styled.div`
-  margin-left: ${({ theme }) => theme.space.spaceS};
+  margin-left: var(--spaceS);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -19,12 +19,12 @@ const ProfileContentsBox = styled.div`
   }
 
   > p:first-child {
-    margin-bottom: ${({ theme }) => theme.space.spaceS};
+    margin-bottom: var(--spaceS);
   }
 
   > p:last-child {
     color: ${({ theme }) => theme.colors.text4};
-    margin-bottom: calc(${({ theme }) => theme.space.spaceS} / 3);
+    margin-bottom: calc(var(--spaceS) / 3);
   }
 
   > p:last-child:hover {
@@ -56,7 +56,7 @@ const Profile = ({ userImage, isFollow, nickname, memberId }) => {
         imageURL={userImage}
         width={'50px'}
         height={'50px'}
-        borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusL}`}
+        borderRadius={`var(--borderRadiusL)`}
       />
       <ProfileContentsBox>
         <p>

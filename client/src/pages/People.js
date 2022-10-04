@@ -8,15 +8,13 @@ import LoadingUnit from '../components/common/LoadingUnit';
 const PeopleContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
-  position: relative;
-  z-index: -1;
 
   > div:first-child {
     display: grid;
-    column-gap: ${({ theme }) => theme.space.spaceM};
-    row-gap: ${({ theme }) => theme.space.spaceL};
+    column-gap: var(--spaceM);
+    row-gap: var(--spaceL);
     grid-template-columns: repeat(auto-fill, minmax(150px, auto));
-    padding: 0 ${({ theme }) => theme.space.spaceM};
+    padding: 0 var(--spaceM);
   }
 
   > div > div {
@@ -27,7 +25,7 @@ const PeopleContainer = styled.div`
 const NoticeContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: ${({ theme }) => theme.space.spaceL};
+  margin-top: var(--spaceL);
 `;
 
 const People = ({ setHeaderData }) => {

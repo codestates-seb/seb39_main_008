@@ -15,7 +15,7 @@ const DiaryCardContainer = styled.div`
   z-index: 2;
 
   cursor: pointer;
-  padding: ${({ theme }) => theme.space.spaceS};
+  padding: var(--spaceS);
 
   > div {
   }

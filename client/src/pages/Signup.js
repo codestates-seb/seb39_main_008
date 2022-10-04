@@ -30,17 +30,20 @@ export const Container = styled.div`
   width: 50rem;
   height: 37rem;
   margin: auto;
-  box-shadow: ${({ theme }) => theme.boxShadow.shadowS};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
+  box-shadow: var(--shadowS);
+  border-radius: var(--borderRadiusM);
   display: flex;
 
-  @media ${({ theme }) => theme.screen.tablet} {
+  @media screen and (min-width: 576px) and (max-width: 991.98px) {
     width: 100%;
     height: 100%;
   }
 
-  @media ${({ theme }) => theme.screen.mobile} {
-    ${({ theme }) => theme.layout.flexColumnCenter};
+  @media screen and (max-width: 576px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     flex-direction: column;
@@ -48,21 +51,23 @@ export const Container = styled.div`
 `;
 
 export const HeaderBox = styled.div`
-  margin: ${({ theme }) => theme.space.spaceL};
+  margin: var(--spaceL);
 
   & > p {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
   }
 
-  @media ${({ theme }) => theme.screen.mobile} {
+  @media screen and(min-width: 576px) {
     margin: 0;
     width: 100%;
     height: 100%;
     background-color: ${({ theme }) => theme.colors.dimGrey};
-    ${({ theme }) => theme.layout.flexCenter}
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     & > p {
-      font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+      font-size: var(--fontSizeL);
     }
   }
 `;
@@ -70,7 +75,7 @@ export const ImageBox = styled.div`
   width: 25rem;
   background: url(${signinImg}) no-repeat center;
 
-  @media ${({ theme }) => theme.screen.mobile} {
+  @media screen and (max-width: 576px) {
     min-width: 400px;
     width: 100%;
     height: 10%;
@@ -81,13 +86,13 @@ export const FormBox = styled.div`
   height: 100%;
   width: 50%;
   min-width: 400px;
-  padding: ${({ theme }) => theme.space.spaceL};
+  padding: var(--spaceL);
   display: flex;
   flex-direction: column;
 
   & > p {
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
     margin-bottom: 20px;
   }
 
@@ -97,27 +102,27 @@ export const FormBox = styled.div`
   }
 
   & > form > .checkKeepLogin {
-    width: ${({ theme }) => theme.fontSize.fontSizeS};
-    height: ${({ theme }) => theme.fontSize.fontSizeS};
-    margin-right: calc(${({ theme }) => theme.fontSize.fontSizeS} / 2);
+    width: var(--fontSizeS);
+    height: var(--fontSizeS);
+    margin-right: calc(var(--fontSizeS) / 2);
     cursor: pointer;
   }
 
   & > form > button + p,
   & > form > .checkKeepLogin + span {
     display: inline-block;
-    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
-    margin: ${({ theme }) => theme.space.spaceS} 0;
+    font-size: var(--fontSizeS);
+    margin: var(--spaceS) 0;
   }
 
-  @media ${({ theme }) => theme.screen.mobile} {
+  @media screen and(min-width: 576px) {
     width: 100%;
     height: 100%;
 
     & > p {
       text-align: center;
-      font-size: ${({ theme }) => theme.fontSize.fontSizeL};
-      margin-bottom: ${({ theme }) => theme.space.spaceL};
+      font-size: var(--fontSizeL);
+      margin-bottom: var(--spaceL);
     }
 
     & > form {
@@ -126,7 +131,7 @@ export const FormBox = styled.div`
     }
 
     & > form > button {
-      margin-top: ${({ theme }) => theme.space.spaceL};
+      margin-top: var(--spaceL);
     }
   }
 `;

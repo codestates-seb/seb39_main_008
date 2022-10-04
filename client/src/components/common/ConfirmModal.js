@@ -13,14 +13,14 @@ const Container = styled.div`
 
 const Wraper = styled.div`
   * {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
     box-sizing: border-box;
     color: ${({ theme }) => theme.colors.text2};
   }
 
-  padding: ${({ theme }) => theme.space.spaceL};
-  padding-top: ${({ theme }) => theme.space.spaceS};
-  box-shadow: ${({ theme }) => theme.boxShadow.shadowM};
+  padding: var(--spaceL);
+  padding-top: var(--spaceS);
+  box-shadow: var(--shadowM);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ const Wraper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
+  border-radius: var(--borderRadiusM);
   width: 466px;
   height: 249px;
 
@@ -43,8 +43,8 @@ const Wraper = styled.div`
     width: 124px;
     height: 42px;
     color: ${({ theme }) => theme.colors.white};
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
-    box-shadow: ${({ theme }) => theme.boxShadow.shadowM};
+    border-radius: var(--borderRadiusS);
+    box-shadow: var(--shadowM);
   }
   .btns {
     padding: 0 40px;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const DateText = styled.p`
   text-align: end;
   font-size: ${(props) =>
-    props.fontsize ? props.fontSize : ({ theme }) => theme.fontSize.fontSizeM};
+    props.fontsize ? props.fontSize : `var(--fontSizeM)`};
 `;
 
 const Date = ({ date, ...props }) => {

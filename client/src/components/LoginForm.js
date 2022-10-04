@@ -17,6 +17,7 @@ const SCHEMA = yup.object().shape({
     .string()
     .required('영문 숫자 특수문자 포함 8~16자를 입력해주세요'),
 });
+
 const data = {
   email: {
     id: 'email',
@@ -72,7 +73,7 @@ const LoginForm = () => {
       <BorderButton
         width={'100%'}
         height={'2.2rem'}
-        fontSize={`${({ theme }) => theme.fontSize.fontSizeM}`}
+        fontSize={`var(--fontSizeM)`}
         type="submit"
         text={'Login'}
       />

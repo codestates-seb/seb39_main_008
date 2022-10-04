@@ -4,7 +4,7 @@ const Button = styled.button`
   box-sizing: border-box;
   width: ${(props) => props.width || 'auto'};
   color: ${({ theme }) => theme.colors.text1};
-  font-size: ${(props) => props.fontSize || props.theme.fontSize.fontSizeS};
+  font-size: ${(props) => props.fontSize || `var(--fontSizeS)`};
   margin: 0px;
   padding: 0;
   border: none;
@@ -29,10 +29,12 @@ const Button = styled.button`
     height: ${(props) => props.height || 'auto'};
     border: 1.2px solid ${({ theme }) => theme.colors.black050};
     padding: 2px;
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
+    border-radius: var(borderRadiusS);
     background-color: ${({ theme }) => theme.colors.white};
     white-space: nowrap;
-    ${({ theme }) => theme.layout.flexCenter};
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .container:hover {
@@ -47,7 +49,9 @@ const Button = styled.button`
 
   .icon {
     margin-left: 4px;
-    ${({ theme }) => theme.layout.flexCenter};
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .text {

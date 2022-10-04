@@ -7,18 +7,18 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   & > * {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
-    line-height: ${({ theme }) => theme.fontSize.fontSizeM};
+    font-size: var(--fontSizeS);
+    line-height: var(--fontSizeM);
   }
 
   width: 100%;
   height: 100%;
-  padding: ${({ theme }) => theme.space.spaceS};
+  padding: var(--spaceS);
   display: flex;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 
   & > img {
-    margin-right: ${({ theme }) => theme.space.spaceS};
+    margin-right: var(--spaceS);
   }
 
   .edit {
@@ -39,19 +39,19 @@ const Right = styled.div`
 
   textarea {
     border: 0.3px solid ${({ theme }) => theme.colors.text5};
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
+    border-radius: var(--borderRadiusS);
     resize: none;
     white-space: pre-wrap;
   }
 `;
 
 const Top = styled.div`
-  margin-bottom: ${({ theme }) => theme.space.spaceS};
+  margin-bottom: var(--spaceS);
   display: flex;
   align-items: center;
 
   & > span {
-    margin-right: ${({ theme }) => theme.space.spaceS};
+    margin-right: var(--spaceS);
     color: ${({ theme }) => theme.colors.text3};
   }
 
@@ -65,7 +65,7 @@ const Top = styled.div`
 
   & > button:nth-child(3) {
     margin-left: auto;
-    margin-right: ${({ theme }) => theme.space.spaceS};
+    margin-right: var(--spaceS);
   }
 `;
 
@@ -96,16 +96,13 @@ const Comment = ({ data }) => {
         imageURL={data.profile}
         width={'50px'}
         height={'50px'}
-        borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusL}`}
+        borderRadius={`var(--borderRadiusL)`}
       />
       <Right>
         <Top>
           <span>{data.nickname}</span>
           {data.content ? (
-            <Date
-              fontsize={`${({ theme }) => theme.fontSize.fontSizeS}`}
-              date={data.createdAt}
-            />
+            <Date fontsize={`var(--fontSizeS)`} date={data.createdAt} />
           ) : null}
           {/* todo 로그인 유저와 댓글 단 유저 비교해서 수정, 삭제 권한 */}
           {data.content ? (

@@ -43,6 +43,7 @@ const SCHEMA = yup.object().shape({
 
 const SigninForm = () => {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -112,7 +113,7 @@ const SigninForm = () => {
       <BorderButton
         width={'100%'}
         height={'2.2rem'}
-        fontSize={`${({ theme }) => theme.fontSize.fontSizeM}`}
+        fontSize={`var(--fontSizeM)`}
         type="submit"
         text={'Sign up'}
       />

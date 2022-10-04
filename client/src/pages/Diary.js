@@ -80,27 +80,27 @@ const Diary = ({ setHeaderData }) => {
 };
 
 const Container = styled.div`
-  padding: 0 ${({ theme }) => theme.space.spaceM};
+  padding: 0 var(--spaceM);
 `;
 
 const Titles = styled.div`
   h1 {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
-    margin-bottom: ${({ theme }) => theme.space.spaceM};
+    font-size: var(--fontSizeLL);
+    margin-bottom: var(--spaceM);
   }
 
   h2 {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
-    margin-bottom: ${({ theme }) => theme.space.spaceM};
+    font-size: var(--fontSizeL);
+    margin-bottom: var(--spaceM);
   }
 
   p {
-    margin-top: ${({ theme }) => theme.space.spaceS};
+    margin-top: var(--spaceS);
   }
 `;
 
 const Contents = styled.div`
-  margin: ${({ theme }) => theme.space.spaceM} 0;
+  margin: var(--spaceM) 0;
   display: flex;
   flex-direction: column;
 
@@ -110,17 +110,17 @@ const Contents = styled.div`
   }
 
   .thumbnail {
-    padding: ${({ theme }) => theme.space.spaceL};
+    padding: var(--spaceL);
     width: 100%;
   }
 `;
 
 const Comments = styled.div`
-  padding: ${({ theme }) => theme.space.spaceM} 0;
+  padding: var(--spaceM) 0;
   border-top: 1px solid ${({ theme }) => theme.colors.grey};
 
   & > p:first-child {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
   }
 `;
 

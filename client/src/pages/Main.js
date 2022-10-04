@@ -6,19 +6,19 @@ import UserCard from '../components/common/UserCard';
 
 const MainContainer = styled.div`
   & > div:last-child {
-    padding: ${({ theme }) => theme.space.spaceM};
+    padding: var(--spaceM);
   }
 `;
 
 const PopularPeopleContainer = styled.div`
   max-width: 835px;
-  margin: 0 ${({ theme }) => theme.space.spaceM};
+  margin: 0 var(--spaceM);
 
   > div {
-    padding: ${({ theme }) => theme.space.spaceL};
-    ${({ theme }) => theme.space.spaceS};
-    padding-top: ${({ theme }) => theme.space.spaceM};
-    margin-bottom: ${({ theme }) => theme.space.spaceM};
+    padding: var(--spaceL);
+    var(--spaceS);
+    padding-top: var(--spaceM);
+    margin-bottom: var(--spaceM);
     gap: 20px;
     display: flex;
     flex-wrap: no-wrap;
@@ -31,7 +31,7 @@ export const ContentCardGridContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-columns: minmax(350px, 407px);
   grid-auto-rows: 286px;
-  grid-gap: ${({ theme }) => theme.space.spaceM};
+  grid-gap: var(--spaceM);
 `;
 
 const TitleFilterBox = styled.div`
@@ -39,13 +39,13 @@ const TitleFilterBox = styled.div`
   justify-content: space-between;
 
   > div {
-    padding: 0 ${({ theme }) => theme.space.spaceM};
+    padding: 0 var(--spaceM);
   }
 `;
 
 const SubTitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.fontSizeL};
-  padding: 0 ${({ theme }) => theme.space.spaceM};
+  font-size: var(--fontSizeL);
+  padding: 0 var(--spaceM);
 `;
 
 const Main = ({ setHeaderData }) => {

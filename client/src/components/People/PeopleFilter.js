@@ -4,15 +4,14 @@ import FilterModal from './FilterModal';
 const PeopleFilterContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-right: calc(
-    ${({ theme }) => theme.space.spaceL} + ${({ theme }) => theme.space.spaceM}
-  );
+  padding-right: var(--spaceM);
+  margin-bottom: var(--spaceL);
   position: relative;
 
   > button {
     color: ${({ theme }) => theme.colors.text4};
-    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
-    padding-left: ${({ theme }) => theme.space.spaceS};
+    font-size: var(--fontSizeS);
+    padding-left: var(--spaceS);
   }
 
   > button.active {

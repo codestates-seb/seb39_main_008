@@ -8,17 +8,17 @@ import Date from './Date';
 const Container = styled.article`
   cursor: pointer;
   overflow: hidden;
-  padding: ${({ theme }) => theme.space.spaceS};
+  padding: var(--spaceS);
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.boxShadow.shadowM};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
+  box-shadow: var(--shadowM);
+  border-radius: var(--borderRadiusM);
 
   .mid {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: ${({ theme }) => theme.space.spaceM};
-    margin-top: ${({ theme }) => theme.space.spaceS};
+    margin-bottom: var(--spaceM);
+    margin-top: var(--spaceS);
   }
 `;
 
@@ -27,7 +27,7 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: calc(${({ theme }) => theme.space.spaceS} / 3);
+  padding-bottom: calc(var(--spaceS) / 3);
 `;
 
 const Labels = styled.div`
@@ -46,12 +46,12 @@ const Label = styled.span`
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
   padding: 3px 10px;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
+  border-radius: var(--borderRadiusS);
 `;
 
 const Text = styled.p`
   font-size: ${(props) =>
-    props.fontsize ? props.fontsize : ({ theme }) => theme.fontSize.fontSizeM};
+    props.fontsize ? props.fontsize : `var(--fontSizeM)`};
 `;
 
 const ContentCard = ({ data, isDiary, onClick }) => {
@@ -59,7 +59,7 @@ const ContentCard = ({ data, isDiary, onClick }) => {
     <Container onClick={onClick}>
       <Thumbnail
         height="166px"
-        borderRadius={({ theme }) => theme.borderRadius.borderRadiusM}
+        borderRadius={`var(--borderRadiusM)`}
         imageURL={data.diaryimage || data.bookimage}
       />
       <div className="mid">
@@ -76,18 +76,14 @@ const ContentCard = ({ data, isDiary, onClick }) => {
             {isDiary ? (
               <>
                 <FiMessageSquare />
-                <Text fontsize={({ theme }) => theme.fontSize.fontSizeS}>
-                  {data.totalComment}
-                </Text>
+                <Text fontsize={`var(--fontSizeS)`}>{data.totalComment}</Text>
                 <HiHeart />
-                <Text fontsize={({ theme }) => theme.fontSize.fontSizeS}>
-                  {data.totalLike}
-                </Text>
+                <Text fontsize={`var(--fontSizeS)`}>{data.totalLike}</Text>
               </>
             ) : (
               <>
                 <FiBook />
-                <Text fontsize={({ theme }) => theme.fontSize.fontSizeS}>
+                <Text fontsize={`var(--fontSizeS)`}>
                   {data.total_diary_count}
                 </Text>
               </>

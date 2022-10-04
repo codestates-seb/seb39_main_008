@@ -1,30 +1,33 @@
 import styled from 'styled-components';
+
 const Container = styled.div`
   display: block;
-  padding-bottom: ${({ theme }) => theme.space.spaceL};
+  padding-bottom: var(--spaceL);
   max-width: 954px;
 `;
+
 const Wraper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
 const Title = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
-  margin-bottom: ${({ theme }) => theme.space.spaceM};
+  font-size: var(--fontSizeLL);
+  margin-bottom: var(--spaceM);
   color: ${({ theme }) => theme.colors.text1};
 
-  @media ${({ theme }) => theme.screen.tablet} {
-    font-size: calc(${({ theme }) => theme.fontSize.fontSizeM} * 2);
+  @media screen and (min-width: 576px) and (max-width: 991.98px) {
+    font-size: calc(var(--fontSizeM) * 2);
   }
-  @media ${({ theme }) => theme.screen.mobile} {
-    font-size: calc(${({ theme }) => theme.fontSize.fontSizeM} * 1.5);
+
+  @media screen and (max-width: 576px) {
+    font-size: calc(var(--fontSizeM) * 1.5);
   }
 `;
 
 const Description = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.fontSizeM};
+  font-size: var(--fontSizeM);
   color: ${({ theme }) => theme.colors.text3};
-  margin: ${({ theme }) => theme.space.spaceS};
+  margin: var(--spaceS);
   margin-top: 0;
 `;
 

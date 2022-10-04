@@ -5,15 +5,15 @@ const FilterModalContainer = styled.div`
   position: absolute;
   z-index: 1;
   top: 30px;
-  padding: ${({ theme }) => theme.space.spaceM};
+  padding: var(--spaceM);
   background: #fff;
   box-shadow: ${({ theme }) => theme.boxShadow.shadowXS};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
-  font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+  border-radius: var(--borderRadiusM);
+  font-size: var(--fontSizeS);
   color: ${({ theme }) => theme.colors.text4};
 
   > div {
-    margin-bottom: ${({ theme }) => theme.space.spaceS};
+    margin-bottom: var(--spaceS);
   }
 
   > div:last-child {
@@ -31,8 +31,8 @@ const FilterModalContainer = styled.div`
   > div > div.title {
     display: block;
     width: 100%;
-    font-size: ${({ theme }) => theme.fontSize.fontSizeM};
-    margin-bottom: ${({ theme }) => theme.space.spaceS};
+    font-size: var(--fontSizeM);
+    margin-bottom: var(--spaceS);
     color: ${({ theme }) => theme.colors.text2};
   }
 

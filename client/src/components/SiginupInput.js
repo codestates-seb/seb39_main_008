@@ -15,7 +15,7 @@ const InputBox = styled.div`
   }
 
   input::placeholder {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+    font-size: var(--fontSizeS);
     text-align: right;
   }
 
@@ -46,9 +46,9 @@ const InputBox = styled.div`
   }
 
   .error {
-    margin-top: calc(${({ theme }) => theme.space.spaceS} / 3);
+    margin-top: calc(var(--spaceS) / 3);
     color: ${({ theme }) => theme.colors.red};
-    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+    font-size: var(--fontSizeS);
   }
 `;
 const SiginupInput = ({ option, ...props }) => {

@@ -9,12 +9,11 @@ import Sidebar from './Sidebar';
 const NavContainer = styled.div`
   display: none;
   width: 100%;
-  padding: calc(${({ theme }) => theme.space.spaceS} / 3)
-    ${({ theme }) => theme.space.spaceS};
+  padding: calc(var(--spaceS) / 3) var(--spaceS);
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
-  @media ${({ theme }) => theme.screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     display: flex;
     justify-content: space-between;
   }
@@ -25,7 +24,7 @@ const Toggle = styled.div`
   position: relative;
   display: flex;
   height: 100%;
-  padding: 0 ${({ theme }) => theme.space.spaceS} 0 0;
+  padding: 0 var(--spaceS) 0 0;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
@@ -158,7 +157,7 @@ const Navbar = () => {
           width="40px"
           height="40px"
           imageURL={USERDATA.profileURL}
-          borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusL}`}
+          borderRadius={`var(--borderRadiusL)`}
         />
       </NavContainer>
     </>

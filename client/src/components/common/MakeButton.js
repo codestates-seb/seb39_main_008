@@ -5,7 +5,7 @@ import { FiPenTool } from 'react-icons/fi';
 const Container = styled.div`
   & > svg {
     color: ${({ theme }) => theme.colors.text4};
-    margin-bottom: ${({ theme }) => theme.space.spaceM};
+    margin-bottom: var(--spaceM);
   }
 
   &:hover {
@@ -16,13 +16,16 @@ const Container = styled.div`
 
   & > p {
     color: ${({ theme }) => theme.colors.text2};
-    font-size: ${({ theme }) => theme.fontSize.fontSizeLL};
+    font-size: var(--fontSizeLL);
   }
 
   background-color: ${({ theme }) => theme.colors.grey};
-  box-shadow: ${({ theme }) => theme.boxShadow.shadowM};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusM};
-  ${({ theme }) => theme.layout.flexCenterColumn};
+  box-shadow: var(--shadowM);
+  border-radius: var(--borderRadiusM);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 `;
 

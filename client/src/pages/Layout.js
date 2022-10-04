@@ -9,33 +9,33 @@ const Container = styled.div`
   max-width: 1200px;
   display: flex;
 
-  @media ${({ theme }) => theme.screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     flex-direction: column;
   }
 `;
 
 const Content = styled.section`
   overflow-x: hidden;
-  margin-left: ${(props) => (props.hasCommon ? '20px' : '0px')};
+  margin-left: ${(props) => (props.hasCommon ? `var(--spaceM)` : '0px')};
   width: 100%;
   max-width: ${(props) => (props.hasCommon ? '977px' : '1200px')};
-  padding: ${({ theme }) => theme.space.spaceL};
+  padding: var(--spaceL);
 
-  @media ${({ theme }) => theme.screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     margin-left: 0px;
   }
 
-  @media ${({ theme }) => theme.screen.tablet} {
-    padding: ${({ theme }) => theme.space.spaceM};
+  @media screen and (min-width: 576px) and (max-width: 991.98px) {
+    padding: var(--spaceM);
   }
 
-  @media ${({ theme }) => theme.screen.mobile} {
-    padding: calc(${({ theme }) => theme.space.spaceS} + 6px);
+  @media screen and (max-width: 576px) {
+    padding: calc(var(--spaceS) + 6px);
   }
 `;
 
 const Aside = styled.aside`
-  @media ${({ theme }) => theme.screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     display: none;
   }
 `;
@@ -43,13 +43,12 @@ const Aside = styled.aside`
 const NavContainer = styled.div`
   display: none;
 
-  @media ${({ theme }) => theme.screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     display: flex;
     position: sticky;
     top: 0;
   }
 `;
-
 function Layout({ hasCommon = true, children }) {
   const [headerData, setHeaderData] = useState({});
 

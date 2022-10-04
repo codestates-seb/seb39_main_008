@@ -13,28 +13,28 @@ const UserInfoContainer = styled.div`
   display: flex;
 
   > div {
-    margin-left: ${({ theme }) => theme.space.spaceM};
+    margin-left: var(--spaceM);
     align-self: flex-end;
   }
 
   > div > p {
-    padding-bottom: ${({ theme }) => theme.space.spaceM};
+    padding-bottom: var(--spaceM);
     color: ${({ theme }) => theme.colors.text4};
   }
 
   > div > p:first-child {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
     color: ${({ theme }) => theme.colors.text2};
   }
 
   > div > div {
     display: flex;
-    padding-bottom: ${({ theme }) => theme.space.spaceM};
+    padding-bottom: var(--spaceM);
     color: ${({ theme }) => theme.colors.text3};
   }
 
   > div > div > svg {
-    margin-left: ${({ theme }) => theme.space.spaceS};
+    margin-left: var(--spaceS);
   }
 
   > div > div > svg:hover {
@@ -42,7 +42,7 @@ const UserInfoContainer = styled.div`
   }
 
   > div > div > p:last-child {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+    font-size: var(--fontSizeS);
   }
 `;
 
@@ -58,8 +58,8 @@ const AvatarContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  padding: ${({ theme }) => theme.space.spaceM};
-  padding-top: ${({ theme }) => theme.space.spaceL};
+  padding: var(--spaceM);
+  padding-top: var(--spaceL);
 `;
 
 const BookAndDiaries = styled.div`
@@ -72,8 +72,8 @@ const BookAndDiaries = styled.div`
 
   > div:last-child {
     display: flex;
-    gap: ${({ theme }) => theme.space.spaceM};
-    padding: ${({ theme }) => theme.space.spaceM};
+    gap: var(--spaceM);
+    padding: var(--spaceM);
   }
 `;
 
@@ -105,7 +105,7 @@ const Userpage = ({ setHeaderData }) => {
             imageURL={user.profile}
             width={'183px'}
             height={'197px'}
-            borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusM}`}
+            borderRadius={`var(--borderRadiusM)`}
             isShadow={true}
           />
           {/* 로그인 기능 추가시 프로필 사진 변경 로직 변경 */}

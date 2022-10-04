@@ -16,12 +16,12 @@ import ConfirmModal from './ConfirmModal';
 
 const Wraper = styled.div`
   * {
-    font-size: ${({ theme }) => theme.fontSize.fontSizeM};
+    font-size: var(--fontSizeM);
   }
 
   z-index: 1000;
   display: flex;
-  padding: ${({ theme }) => theme.space.spaceM};
+  padding: var(--spaceM);
   width: 223px;
   min-width: 223px;
   height: 100vh;
@@ -36,12 +36,12 @@ const Wraper = styled.div`
   }
 
   .auto + div {
-    margin-top: ${({ theme }) => theme.space.spaceS};
+    margin-top: var(--spaceS);
   }
 
-  @media ${({ theme }) => theme.screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     position: absolute;
-    left: -${({ theme }) => theme.space.spaceS};
+    left: -var(--spaceS);
     height: calc(100vh - 50px);
     top: 49px;
 
@@ -57,7 +57,7 @@ const UserBox = styled.div`
   & > button {
     width: 100%;
     position: relative;
-    margin-top: ${({ theme }) => theme.space.spaceM};
+    margin-top: var(--spaceM);
 
     & > div {
       color: ${({ theme }) => theme.colors.text2};
@@ -86,12 +86,12 @@ const UserBox = styled.div`
     }
   }
 
-  @media ${({ theme }) => theme.screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     margin-top: 0px;
   }
 `;
 const List = styled.div`
-  margin-top: ${({ theme }) => theme.space.spaceL};
+  margin-top: var(--spaceL);
 
   & > button {
     width: 100%;
@@ -212,7 +212,7 @@ const Sidebar = ({ hasSidebar }) => {
             isShadow={true}
             height="197px"
             imageURL={USERDATA.profileURL}
-            borderRadius={({ theme }) => theme.borderRadius.borderRadiusL}
+            borderRadius={`var(--borderRadiusL)`}
           />
           <button onClick={USERDATA.onClick}>
             <div>

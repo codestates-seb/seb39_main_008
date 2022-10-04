@@ -8,17 +8,17 @@ const UserCardContainer = styled.div`
   width: 150px;
   height: auto;
   flex: 0 0 auto;
-  padding: ${({ theme }) => theme.space.spaceS};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadiusS};
-  box-shadow: ${({ theme }) => theme.boxShadow.shadowS};
+  padding: var(--spaceS);
+  border-radius: var(--borderRadiusS);
+  box-shadow: var(--shadowS);
 `;
 
 const UserCardContent = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.fontSizeS};
+  font-size: var(--fontSizeS);
 
   > p {
     color: ${({ theme }) => theme.colors.text4};
-    padding: ${({ theme }) => theme.space.spaceS} 0;
+    padding: var(--spaceS) 0;
   }
 
   > p:hover {
@@ -31,7 +31,7 @@ const UserCardContent = styled.div`
   }
 
   > div > p {
-    margin-left: ${({ theme }) => theme.space.spaceS};
+    margin-left: var(--spaceS);
   }
 
   > div > div > svg {
@@ -76,7 +76,7 @@ const UserCard = ({
         imageURL={userImage}
         width={'100%'}
         height={'131px'}
-        borderRadius={`${({ theme }) => theme.borderRadius.borderRadiusS}`}
+        borderRadius={`var(--borderRadiusS)`}
       />
       <UserCardContent>
         <p>

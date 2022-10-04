@@ -2,7 +2,7 @@ import styled from 'styled-components';
 const Text = styled.span`
   color: ${({ theme }) => theme.colors.text4};
   font-size: ${(props) =>
-    props.fontSize ? props.fontSize : ({ theme }) => theme.fontSize.fontSizeS};
+    props.fontSize ? props.fontSize : `var(--fontSizeS)`};
   cursor: pointer;
 
   &:hover {
