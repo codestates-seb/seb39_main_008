@@ -38,21 +38,11 @@ public class Member extends BaseTime {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> comment;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn
-    private Member memberFollowing = this;
+    @OneToMany(mappedBy = "followee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Follow> followings;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn
-    private Member memberFollower = this;
-
-    @OneToMany(mappedBy = "memberFollowing")
-    private List<Member> followingList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "memberFollower")
-    private List<Member> followerList = new ArrayList<>();
+    @OneToMany(mappedBy = "follower", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Follow> followers;
 
     @Builder
     public Member(long memberId, String email, String password, String name, String nickname, String information, String imgUrl) {
@@ -67,6 +57,4 @@ public class Member extends BaseTime {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
-
-
 }

@@ -14,6 +14,7 @@ import it.mainPr.repository.BookRepository;
 import it.mainPr.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -28,7 +29,6 @@ public class BookService {
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
     private final MemberService memberService;
-
     public BookResponseDto createBook(BookPostDto bookPostDto) {
         String memberEmail = SecurityUtils.getCurrentMemberEmail();
         Member member = memberService.findVerifiedMember(memberEmail);
