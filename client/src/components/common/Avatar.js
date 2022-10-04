@@ -5,6 +5,7 @@ const ProfileURL = styled.img`
   border-radius: ${(props) => props.borderRadius || 0};
   object-fit: cover;
   box-shadow: ${(props) => (props.isShadow ? `var(--shadowXS)` : 'none')};
+  background-color: ${({ theme }) => theme.colors.custom5};
 `;
 
 const Avatar = ({ imageURL, isShadow = false, ...props }) => {

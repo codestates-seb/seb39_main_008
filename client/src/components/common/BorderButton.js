@@ -27,9 +27,9 @@ const Button = styled.button`
 
   .container {
     height: ${(props) => props.height || 'auto'};
-    border: 1.2px solid ${({ theme }) => theme.colors.black050};
+    border: 1.2px solid ${({ theme }) => theme.colors.text6};
     padding: 2px;
-    border-radius: var(borderRadiusS);
+    border-radius: var(--borderRadiusS);
     background-color: ${({ theme }) => theme.colors.white};
     white-space: nowrap;
     display: flex;
@@ -40,7 +40,7 @@ const Button = styled.button`
   .container:hover {
     border: 1.2px solid transparent;
     transition: 0.5s ease-out;
-    background-color: ${({ theme }) => theme.colors.black050};
+    background-color: ${({ theme }) => theme.colors.text6};
   }
 
   .container:not(:hover) {

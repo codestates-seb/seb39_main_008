@@ -4,10 +4,16 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import Navbar from '../components/common/Navbar';
 
+const Background = styled.div`
+  margin: 0;
+  background-color: ${({ theme }) => theme.colors.custom2};
+`;
+
 const Container = styled.div`
   margin: 0 auto;
   max-width: 1200px;
   display: flex;
+  background-color: ${({ theme }) => theme.colors.custom3};
 
   @media screen and (max-width: 991.98px) {
     flex-direction: column;
@@ -35,12 +41,14 @@ const Content = styled.section`
 `;
 
 const Aside = styled.aside`
+  background-color: ${({ theme }) => theme.colors.custom1};
   @media screen and (max-width: 991.98px) {
     display: none;
   }
 `;
 
 const NavContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.custom1};
   display: none;
 
   @media screen and (max-width: 991.98px) {
@@ -53,22 +61,24 @@ function Layout({ hasCommon = true, children }) {
   const [headerData, setHeaderData] = useState({});
 
   return (
-    <Container>
-      {hasCommon && (
-        <>
-          <Aside>
-            <Sidebar />
-          </Aside>
-          <NavContainer>
-            <Navbar />
-          </NavContainer>
-        </>
-      )}
-      <Content hasCommon={hasCommon}>
-        {hasCommon && <Header header={headerData} />}
-        {React.cloneElement(children, { setHeaderData })}
-      </Content>
-    </Container>
+    <Background>
+      <Container>
+        {hasCommon && (
+          <>
+            <Aside>
+              <Sidebar />
+            </Aside>
+            <NavContainer>
+              <Navbar />
+            </NavContainer>
+          </>
+        )}
+        <Content hasCommon={hasCommon}>
+          {hasCommon && <Header header={headerData} />}
+          {React.cloneElement(children, { setHeaderData })}
+        </Content>
+      </Container>
+    </Background>
   );
 }
 

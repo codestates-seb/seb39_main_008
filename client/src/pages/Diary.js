@@ -86,15 +86,18 @@ const Container = styled.div`
 const Titles = styled.div`
   h1 {
     font-size: var(--fontSizeLL);
+    color: ${({ theme }) => theme.colors.text3};
     margin-bottom: var(--spaceM);
   }
 
   h2 {
+    color: ${({ theme }) => theme.colors.text4};
     font-size: var(--fontSizeL);
     margin-bottom: var(--spaceM);
   }
 
   p {
+    color: ${({ theme }) => theme.colors.text1};
     margin-top: var(--spaceS);
   }
 `;
@@ -103,6 +106,7 @@ const Contents = styled.div`
   margin: var(--spaceM) 0;
   display: flex;
   flex-direction: column;
+  color: ${({ theme }) => theme.colors.text1};
 
   .like,
   .quill + div {
@@ -117,10 +121,11 @@ const Contents = styled.div`
 
 const Comments = styled.div`
   padding: var(--spaceM) 0;
-  border-top: 1px solid ${({ theme }) => theme.colors.grey};
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 
   & > p:first-child {
     font-size: var(--fontSizeL);
+    color: ${({ theme }) => theme.colors.text1};
   }
 `;
 

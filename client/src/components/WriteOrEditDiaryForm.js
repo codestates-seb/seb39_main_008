@@ -216,7 +216,7 @@ export const Mid = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 var(--spaceS);
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   & > div {
     width: 50%;
@@ -230,6 +230,8 @@ export const Mid = styled.div`
     height: 100%;
     border: none;
     display: inline-block;
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   & select {
@@ -237,6 +239,7 @@ export const Mid = styled.div`
     border: none;
     background-color: ${({ theme }) => theme.colors.dimGrey};
     border-radius: var(--borderRadiusS);
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   & input:focus-visible {
@@ -250,6 +253,7 @@ export const Mid = styled.div`
 
   .title::placeholder {
     font-size: var(--fontSizeLL);
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   .subtitle {
@@ -259,12 +263,14 @@ export const Mid = styled.div`
 
   .subtitle::placeholder {
     font-size: var(--fontSizeL);
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   label {
     margin-top: var(--spaceM);
     width: 50px;
     display: inline-block;
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   .booktitle {
@@ -276,6 +282,7 @@ export const Mid = styled.div`
     font-size: var(--fontSizeS);
 
     p {
+      color: ${({ theme }) => theme.colors.text1};
       margin-bottom: var(--spaceS);
     }
 
@@ -299,7 +306,7 @@ export const Mid = styled.div`
     height: 427.5px;
     overflow: hidden;
     border-radius: var(--borderRadiusM);
-    border: 1px dashed ${({ theme }) => theme.colors.dimGrey};
+    border: 1px dashed ${({ theme }) => theme.colors.border};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -351,7 +358,10 @@ export const Bottom = styled.div`
   }
 
   .quill {
-    border-top: 1px solid ${({ theme }) => theme.colors.grey};
+    * {
+      color: ${({ theme }) => theme.colors.text2};
+    }
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
     z-index: 2000;
     padding: var(--spaceM) var(--spaceS);
     color: ${({ theme }) => theme.colors.text2};
@@ -376,7 +386,12 @@ export const Bottom = styled.div`
     align-items: flex-end;
     margin: var(--spaceM) 0;
   }
-
+  .ql-tooltip-arrow {
+    border-bottom: transparent !important;
+  }
+  .ql-tooltip {
+    left: 0px !important;
+  }
   .Error {
     font-size: calc(var(--fontSizeS) * 1.2);
     color: ${({ theme }) => theme.colors.red};

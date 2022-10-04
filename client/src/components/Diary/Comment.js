@@ -9,13 +9,14 @@ const Container = styled.div`
   & > * {
     font-size: var(--fontSizeS);
     line-height: var(--fontSizeM);
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   width: 100%;
   height: 100%;
   padding: var(--spaceS);
   display: flex;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   & > img {
     margin-right: var(--spaceS);
@@ -52,7 +53,7 @@ const Top = styled.div`
 
   & > span {
     margin-right: var(--spaceS);
-    color: ${({ theme }) => theme.colors.text3};
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   & > span + p {

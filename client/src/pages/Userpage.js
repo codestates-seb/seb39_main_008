@@ -68,7 +68,7 @@ const BookAndDiaries = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   > div:last-child {
     display: flex;

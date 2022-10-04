@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 
 const UserCardContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.custom5};
   width: 150px;
   height: auto;
   flex: 0 0 auto;
@@ -15,7 +16,7 @@ const UserCardContainer = styled.div`
 
 const UserCardContent = styled.div`
   font-size: var(--fontSizeS);
-
+  color: ${({ theme }) => theme.colors.text2};
   > p {
     color: ${({ theme }) => theme.colors.text4};
     padding: var(--spaceS) 0;
@@ -95,7 +96,7 @@ const UserCard = ({
             )}
           </div>
           <p>
-            {total_content}{' '}
+            {total_content}
             <Link to={`/books/${memberId}`}>
               <FiBook />
             </Link>

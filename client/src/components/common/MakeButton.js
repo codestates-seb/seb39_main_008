@@ -19,7 +19,7 @@ const Container = styled.div`
     font-size: var(--fontSizeLL);
   }
 
-  background-color: ${({ theme }) => theme.colors.grey};
+  background-color: ${({ theme }) => theme.colors.dimGrey};
   box-shadow: var(--shadowM);
   border-radius: var(--borderRadiusM);
   display: flex;

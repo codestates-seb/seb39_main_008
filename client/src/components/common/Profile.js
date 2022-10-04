@@ -16,6 +16,7 @@ const ProfileContentsBox = styled.div`
 
   > p > svg {
     cursor: pointer;
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   > p:first-child {

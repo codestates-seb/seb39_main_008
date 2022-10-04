@@ -10,9 +10,8 @@ const NavContainer = styled.div`
   display: none;
   width: 100%;
   padding: calc(var(--spaceS) / 3) var(--spaceS);
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.white};
   @media screen and (max-width: 991.98px) {
     display: flex;
     justify-content: space-between;
@@ -32,7 +31,7 @@ const Toggle = styled.div`
   & > .hamberger {
     width: 16px;
     height: 2px;
-    background-color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.text1};
     position: relative;
     box-sizing: border-box;
     cursor: pointer;
@@ -48,7 +47,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.text1};
   }
 
   & > .hamberger:before {
@@ -61,7 +60,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.text1};
   }
 
   & > .X-mark {
@@ -83,7 +82,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.text1};
   }
 
   & > .X-mark:after {
@@ -96,7 +95,7 @@ const Toggle = styled.div`
     transition-timing-function: ease-in-out;
     width: 16px;
     height: 2px;
-    background-color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.text1};
   }
 `;
 const Navbar = () => {

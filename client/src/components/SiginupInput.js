@@ -9,7 +9,7 @@ const InputBox = styled.div`
     color: ${({ theme }) => theme.colors.text2};
     background: transparent;
     border: none;
-    border-bottom: solid 1px ${({ theme }) => theme.colors.grey};
+    border-bottom: solid 1px ${({ theme }) => theme.colors.border};
     padding: 20px 0px 5px 10px;
     width: 100%;
   }
@@ -40,7 +40,7 @@ const InputBox = styled.div`
 
   input:focus,
   input:not(:placeholder-shown) {
-    border-bottom: solid 1px ${({ theme }) => theme.colors.black};
+    border-bottom: solid 1px ${({ theme }) => theme.colors.text1};
     outline: none;
     background-color: none;
   }

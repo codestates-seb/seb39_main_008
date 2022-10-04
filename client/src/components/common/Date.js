@@ -4,6 +4,7 @@ const DateText = styled.p`
   text-align: end;
   font-size: ${(props) =>
     props.fontsize ? props.fontSize : `var(--fontSizeM)`};
+  color: ${({ theme }) => theme.colors.text1};
 `;
 
 const Date = ({ date, ...props }) => {

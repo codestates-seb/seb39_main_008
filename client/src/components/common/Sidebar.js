@@ -18,14 +18,14 @@ const Wraper = styled.div`
   * {
     font-size: var(--fontSizeM);
   }
-
+  background-color: ${({ theme }) => theme.colors.custom1};
   z-index: 1000;
   display: flex;
   padding: var(--spaceM);
   width: 223px;
   min-width: 223px;
   height: 100vh;
-  border-right: 2px solid ${({ theme }) => theme.colors.grey};
+  border-right: 2px solid ${({ theme }) => theme.colors.border};
   position: sticky;
   top: 0;
   flex-direction: column;

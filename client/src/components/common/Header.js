@@ -7,7 +7,7 @@ const Container = styled.div`
 `;
 
 const Wraper = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const Title = styled.p`

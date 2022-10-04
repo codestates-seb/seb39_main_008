@@ -15,8 +15,7 @@ const PopularPeopleContainer = styled.div`
   margin: 0 var(--spaceM);
 
   > div {
-    padding: var(--spaceL);
-    var(--spaceS);
+    padding: var(--spaceL) var(--spaceS);
     padding-top: var(--spaceM);
     margin-bottom: var(--spaceM);
     gap: 20px;
@@ -46,6 +45,7 @@ const TitleFilterBox = styled.div`
 const SubTitle = styled.p`
   font-size: var(--fontSizeL);
   padding: 0 var(--spaceM);
+  color: ${({ theme }) => theme.colors.text2};
 `;
 
 const Main = ({ setHeaderData }) => {

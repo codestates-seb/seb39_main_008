@@ -9,7 +9,7 @@ const Container = styled.article`
   cursor: pointer;
   overflow: hidden;
   padding: var(--spaceS);
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.custom4};
   box-shadow: var(--shadowM);
   border-radius: var(--borderRadiusM);
 
@@ -38,18 +38,23 @@ const Labels = styled.div`
   & > p {
     margin: 0 10px 0 4px;
   }
+
+  & svg {
+    color: ${({ theme }) => theme.colors.text1};
+  }
 `;
 
 const Label = styled.span`
   margin-left: auto;
   align-self: flex-end;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.text1};
   color: ${({ theme }) => theme.colors.white};
   padding: 3px 10px;
   border-radius: var(--borderRadiusS);
 `;
 
 const Text = styled.p`
+  color: ${({ theme }) => theme.colors.text1};
   font-size: ${(props) =>
     props.fontsize ? props.fontsize : `var(--fontSizeM)`};
 `;
@@ -89,7 +94,8 @@ const ContentCard = ({ data, isDiary, onClick }) => {
               </>
             )}
             <Label>
-              {isDiary ? data.category : data.public ? '전체공개' : '비공개'}
+              {/* {isDiary ? data.category : data.public ? '전체공개' : '비공개'} */}
+              {'전체공개'}
             </Label>
           </Labels>
           <Date date={data.createdAt} />
