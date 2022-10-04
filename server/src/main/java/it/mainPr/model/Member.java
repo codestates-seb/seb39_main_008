@@ -40,9 +40,11 @@ public class Member extends BaseTime {
     @JsonIgnore
     private List<Diary> diary;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Heart> heart;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> comment;
 

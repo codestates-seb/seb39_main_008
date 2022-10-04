@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import it.mainPr.auth.jwt.JwtTokenizer;
+import it.mainPr.auth.userDetails.MemberDetails;
+import it.mainPr.auth.userDetails.MemberDetailsService;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import it.mainPr.auth.utils.SecurityUtils;
 import it.mainPr.dto.memberDto.MemberPatchDto;
@@ -15,6 +17,7 @@ import it.mainPr.mapper.MemberMapper;
 import it.mainPr.model.Member;
 import it.mainPr.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -157,21 +160,21 @@ public class MemberService {
     }
 
 
-//    @Transactional(readOnly = true)
-//    public Member getLoginMember(){ //로그인된 유저가 옳바른 지 확인하고 정보 가져옴
-//        return findMember(getMemberByToken());
-//    }
+    @Transactional(readOnly = true)
+    public Member getLoginMember(){ //로그인된 유저가 옳바른 지 확인하고 정보 가져옴
+        return findMember(getMemberByToken());
+    }
 //
-//    @Transactional(readOnly = true)
-//    private Member findMember(Member member){// 아래 getUserByToken 쓸거임
-//        return findVerifiedMember(member.getMemberId());
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public Member getMemberByToken(){
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        PrincipalDetails principalDetails = (PrincipalDetails)principal;
-//
-//        return principalDetails.getUser();
-//    }
+    @Transactional(readOnly = true)
+    private Member findMember(Member member){// 아래 getUserByToken 쓸거임
+        return findVerifiedMember(member.getMemberId());
+    }
+
+    @Transactional(readOnly = true)
+    public Member getMemberByToken(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MemberDetails memberDetails = (MemberDetails) principal;
+
+        return memberDetails.getMember();
+    }
 }

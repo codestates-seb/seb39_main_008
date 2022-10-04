@@ -1,17 +1,13 @@
 package it.mainPr.service;
 
 
-import it.mainPr.dto.commentDto.CommentsDto;
-import it.mainPr.mapper.CommentMapper;
+import it.mainPr.exception.BusinessLogicalException;
+import it.mainPr.exception.ExceptionCode;
 import it.mainPr.model.Comment;
-import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
 import it.mainPr.repository.CommentRepository;
-import it.mainPr.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,45 +15,57 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Slf4j
 public class CommentService {
-    private final CommentMapper mapper;
     private final CommentRepository commentRepository;
-    private final DiaryRepository diaryRepository;
 
-
-    public Comment writeComment(Long diaryId, Comment comment, Member member) {
-        Diary diary = diaryRepository.findById(diaryId).orElseThrow();
-        comment.setDiary(diary);
-        comment.setMember(member);
+    @Transactional
+    public Comment createComment(Comment comment) {
         return commentRepository.save(comment);
     }
 
-    public Comment findComment(Long commentId) {
-        return findVerifiedComment(commentId);
-    }
+    @Transactional
+    public Comment updateComment(Comment comment) {
+        Comment findComment = findVerifiedComment(comment.getCommentId());
 
-    public Page<Comment> findComments(int page, int size) {
-        return commentRepository.findAll(PageRequest.of(page,size, Sort.by("commentId").descending()));
-    }
+        if(findComment.getCommentStatus() == Comment.CommentStatus.COMMENT_NOT_EXIST) {
+            throw new BusinessLogicalException(ExceptionCode.COMMENT_NOT_FOUND);
+        }
 
-    public Comment updateComment(long commentId, CommentsDto.PatchDto patchDto) {
-        Comment comment = findVerifiedComment(commentId);
-        mapper.updateEntityFromDto(patchDto, comment);
+        log.info("댓글이 존재함 {}", comment.getCommentId().toString());
 
-        return commentRepository.save(comment);
-    }
+        Optional.ofNullable(comment.getContent())
+                .ifPresent(findComment::setContent);
 
-    public void deleteComment(long commentId) {
-        Comment comment = findVerifiedComment(commentId);
-        commentRepository.delete(comment);
+        Optional.ofNullable(comment.getModifiedAt())
+                .ifPresent(findComment::setModifiedAt);
+
+        Optional.ofNullable(comment.getCommentStatus())
+                .ifPresent(findComment::setCommentStatus);
+
+        return findComment;
+
     }
 
     public Comment findVerifiedComment(long commentId) {
-        Optional<Comment> optionalComment =
-                commentRepository.findById(commentId);
-        Comment findComment = optionalComment.orElseThrow(() -> new RuntimeException("COMMENT_NOT_FOUND"));
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        Comment findComment = optionalComment.orElseThrow(() ->
+                new BusinessLogicalException(ExceptionCode.COMMENT_NOT_FOUND));
+        return findComment;
+    }
+
+    public Member findCommentMember(long commentId) {
+        Comment findComment = findVerifiedComment(commentId);
+        return findComment.getMember();
+    }
+
+    @Transactional
+    public Comment deleteComment(Comment comment) {
+        Comment findComment = findVerifiedComment(comment.getCommentId());
+
+        findComment.setCommentStatus(Comment.CommentStatus.COMMENT_NOT_EXIST);
 
         return findComment;
     }
+
 }

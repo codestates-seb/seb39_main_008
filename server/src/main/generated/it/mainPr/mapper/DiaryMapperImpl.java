@@ -1,7 +1,6 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.commentDto.CommentsDto.ResponseDto;
-import it.mainPr.dto.commentDto.CommentsDto.ResponseDto.ResponseDtoBuilder;
+import it.mainPr.dto.commentDto.CommentResponseDto;
 import it.mainPr.dto.diaryDto.DiariesDto.DiaryResponseDto;
 import it.mainPr.dto.diaryDto.DiariesDto.DiaryResponseDto.DiaryResponseDtoBuilder;
 import it.mainPr.dto.diaryDto.DiariesDto.PostDto;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-04T15:42:18+0900",
+    date = "2022-10-05T00:41:29+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Amazon.com Inc.)"
 )
 @Component
@@ -53,9 +52,9 @@ public class DiaryMapperImpl implements DiaryMapper {
         diaryResponseDto.diary_title( diary.getDiary_title() );
         diaryResponseDto.diary_subtitle( diary.getDiary_subtitle() );
         diaryResponseDto.content( diary.getContent() );
-        diaryResponseDto.member( diary.getMember() );
         diaryResponseDto.diaryImgUrl( diary.getDiaryImgUrl() );
-        diaryResponseDto.comments( commentListToResponseDtoList( diary.getComments() ) );
+        diaryResponseDto.member( diary.getMember() );
+        diaryResponseDto.comments( commentListToCommentResponseDtoList( diary.getComments() ) );
         diaryResponseDto.category( diary.getCategory() );
 
         return diaryResponseDto.build();
@@ -92,30 +91,31 @@ public class DiaryMapperImpl implements DiaryMapper {
         return memberResponseDto.build();
     }
 
-    protected ResponseDto commentToResponseDto(Comment comment) {
+    protected CommentResponseDto commentToCommentResponseDto(Comment comment) {
         if ( comment == null ) {
             return null;
         }
 
-        ResponseDtoBuilder responseDto = ResponseDto.builder();
+        CommentResponseDto commentResponseDto = new CommentResponseDto();
 
-        responseDto.commentId( comment.getCommentId() );
-        responseDto.content( comment.getContent() );
-        responseDto.createdAt( comment.getCreatedAt() );
-        responseDto.modifiedAt( comment.getModifiedAt() );
-        responseDto.member( memberToMemberResponseDto( comment.getMember() ) );
+        commentResponseDto.setCommentId( comment.getCommentId() );
+        commentResponseDto.setCommentStatus( comment.getCommentStatus() );
+        commentResponseDto.setContent( comment.getContent() );
+        commentResponseDto.setMember( memberToMemberResponseDto( comment.getMember() ) );
+        commentResponseDto.setCreatedAt( comment.getCreatedAt() );
+        commentResponseDto.setModifiedAt( comment.getModifiedAt() );
 
-        return responseDto.build();
+        return commentResponseDto;
     }
 
-    protected List<ResponseDto> commentListToResponseDtoList(List<Comment> list) {
+    protected List<CommentResponseDto> commentListToCommentResponseDtoList(List<Comment> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<ResponseDto> list1 = new ArrayList<ResponseDto>( list.size() );
+        List<CommentResponseDto> list1 = new ArrayList<CommentResponseDto>( list.size() );
         for ( Comment comment : list ) {
-            list1.add( commentToResponseDto( comment ) );
+            list1.add( commentToCommentResponseDto( comment ) );
         }
 
         return list1;

@@ -10,10 +10,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-//    @Query(value = "select c from Comment c join fetch c.diary r join fetch r.member m where m.id = :memberId",
-//            countQuery = "select count(c) from Comment c diary c.diary r join r.member m where m.id = :memberId")
-//    Page<Comment> findAllByDiaryWriterId(@Param("memberId") Long diaryWriterId, Pageable pageable);
-//
-//    @Query(value = "select c from Comment c join c.diary where c.diary.id = :diaryId")
-//    Page<Comment> findAllByDiaryId(@Param("diaryId") Long diaryId, Pageable pageable);
 }

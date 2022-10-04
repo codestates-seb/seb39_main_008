@@ -1,10 +1,8 @@
 package it.mainPr.dto.diaryDto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.mainPr.dto.bookDto.BookResponseDto;
+import it.mainPr.dto.commentDto.CommentResponseDto;
 import it.mainPr.dto.heartDto.HeartResponseDto;
-import it.mainPr.dto.commentDto.CommentsDto;
-import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
 import lombok.*;
@@ -68,9 +66,7 @@ public class DiariesDto {
     }
 
     @Getter
-    @AllArgsConstructor
     @NoArgsConstructor
-    @Builder
     public static class DiaryResponseDto {
         private Long diaryId;
         private String diary_title;
@@ -80,10 +76,26 @@ public class DiariesDto {
         private String total_hearts;
         private String total_comments;
         private Member member;
-        private List<CommentsDto.ResponseDto> comments;
+        private List<CommentResponseDto> comments;
         private List<HeartResponseDto> hearts;
         private Diary.Category category;
         private List<BookResponseDto> books;
 
+        @Builder
+        public DiaryResponseDto(Long diaryId, String diary_title, String diary_subtitle, String content, String diaryImgUrl, String total_hearts, String total_comments, Member member, List<CommentResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category, List<BookResponseDto> books) {
+            this.diaryId = diaryId;
+            this.diary_title = diary_title;
+            this.diary_subtitle = diary_subtitle;
+            this.content = content;
+            this.diaryImgUrl = diaryImgUrl;
+            this.total_hearts = total_hearts;
+            this.total_comments = total_comments;
+            this.member = member;
+            this.comments = comments;
+            this.hearts = hearts;
+            this.category = category;
+            this.books = books;
+        }
     }
+
 }

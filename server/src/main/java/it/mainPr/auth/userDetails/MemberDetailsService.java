@@ -5,6 +5,7 @@ import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 import it.mainPr.model.Member;
 import it.mainPr.repository.MemberRepository;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,40 +33,48 @@ public class MemberDetailsService implements UserDetailsService {
         return new MemberDetails(findMember);
     }
 
-    private final class MemberDetails extends Member implements UserDetails {
-        MemberDetails(Member member) {
-            setMemberId(member.getMemberId());
-            setEmail(member.getEmail());
-            setPassword(member.getPassword());
-            setRoles(member.getRoles());
-        }
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return authorityUtils.createAuthorities(this.getRoles());
-        }
-        @Override
-        public String getUsername() {
-            return getEmail();
-        }
-
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isAccountNonLocked() {
-            return true;
-        }
-
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return true;
-        }
-    }
+//    @Getter
+//    public final class MemberDetails extends Member implements UserDetails {
+//        MemberDetails(Member member) {
+//            setMemberId(member.getMemberId());
+//            setEmail(member.getEmail());
+//            setPassword(member.getPassword());
+//            setRoles(member.getRoles());
+//        }
+//
+//    private Member member;
+//
+//    public Member getUser(){
+//        return member;
+//    }
+//
+//        @Override
+//        public Collection<? extends GrantedAuthority> getAuthorities() {
+//            return authorityUtils.createAuthorities(this.getRoles());
+//        }
+//        @Override
+//        public String getUsername() {
+//            return getEmail();
+//        }
+//
+//        @Override
+//        public boolean isAccountNonExpired() {
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean isAccountNonLocked() {
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean isCredentialsNonExpired() {
+//            return true;
+//        }
+//
+//        @Override
+//        public boolean isEnabled() {
+//            return true;
+//        }
+//    }
 }

@@ -20,7 +20,11 @@ public class Comment extends BaseTime {
     @Column(name = "comment_id")
     private Long commentId;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "STATUS")
+    private CommentStatus commentStatus = CommentStatus.COMMENT_EXIST;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,5 +40,17 @@ public class Comment extends BaseTime {
         this.content = content;
         this.member = member;
         this.diary = diary;
+    }
+
+    public enum CommentStatus {
+        COMMENT_EXIST("존재하는 댓글"),
+        COMMENT_NOT_EXIST("존재하지 않는 댓글");
+
+        @Getter
+        private String status;
+
+        CommentStatus(String status) {
+            this.status = status;
+        }
     }
 }

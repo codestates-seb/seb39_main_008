@@ -3,15 +3,15 @@ package it.mainPr.dto.heartDto;
 import it.mainPr.dto.diaryDto.DiariesDto;
 import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Heart;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class HeartResponseDto {
      private long heartId;
      private LocalDateTime createdAt;
