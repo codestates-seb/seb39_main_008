@@ -5,7 +5,7 @@ import BorderButton from '../components/common/BorderButton';
 import ImageInput from '../components/common/ImageInput';
 import ConfirmModal from './common/ConfirmModal';
 import { Container, Mid, Bottom } from './WriteOrEditDiaryForm';
-// import { addBook } from '../lib/axios';
+import { addBook } from '../lib/api';
 
 const MakeorEditBookForm = (props) => {
   const [fileURL, setFileURL] = useState(null);
@@ -23,7 +23,6 @@ const MakeorEditBookForm = (props) => {
   const onFileChange = (imgURL) => {
     setFileURL(imgURL);
     console.log(fileURL);
-    // setPreview(imgURL);
   };
 
   useEffect(() => {
@@ -37,8 +36,10 @@ const MakeorEditBookForm = (props) => {
 
   const onMakeBook = async (data) => {
     console.log('make', data);
-    // const res = await addBook(data);
-    // console.log(res);
+    const res = await addBook(data);
+    console.log(res);
+    //todo 멤버아이디로..
+    navigate(`/books/1`);
   };
 
   const onCancle = () => {

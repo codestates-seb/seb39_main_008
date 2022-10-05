@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getDiary } from '../lib/axios';
+import { getDiary } from '../lib/api';
 import Date from '../components/common/Date';
 import Profile from '../components/common/Profile';
 import TextEditor from '../components/TextEditor';

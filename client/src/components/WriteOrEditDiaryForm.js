@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import {
   //  addDiary,
   getBookList,
-} from '../lib/axios';
+} from '../lib/api';
 
 const WriteOrEditDiaryForm = (props) => {
   const [fileURL, setFileURL] = useState(null);

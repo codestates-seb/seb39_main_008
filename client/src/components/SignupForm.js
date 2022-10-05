@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import SiginupInput from './SiginupInput';
 import BorderButton from './common/BorderButton';
 import TextButton from './common/TextButton';
-import { signup } from '../lib/axios';
+import { signup } from '../lib/api';
 
 const SCHEMA = yup.object().shape({
   name: yup
@@ -54,7 +54,7 @@ const SigninForm = () => {
 
   const submitForm = async (data) => {
     console.log(data);
-    alert('Sign up successful');
+
     const userData = {
       email: data.email,
       password: data.password,
@@ -63,6 +63,7 @@ const SigninForm = () => {
     };
     const res = await signup(userData);
     console.log(res);
+    // if (res.errEmailMsg) alert('중복된 이메일 주소 입니다.');
   };
 
   const OPTION = {

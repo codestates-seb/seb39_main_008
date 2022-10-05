@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import UserCard from '../components/common/UserCard';
-import { getMembers } from '../lib/axios';
+import { getMembers } from '../lib/api';
 import PeopleFilter from '../components/People/PeopleFilter';
 import LoadingUnit from '../components/common/LoadingUnit';
 import useInfinityScroll from '../lib/useInfinityScroll';

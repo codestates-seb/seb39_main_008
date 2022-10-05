@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import WriteOrEditDiaryForm from '../components/WriteOrEditDiaryForm';
-import { getDiary } from '../lib/axios';
+import { getDiary } from '../lib/api';
 
 const EditDiary = ({ setHeaderData }) => {
   const { diaryId } = useParams();

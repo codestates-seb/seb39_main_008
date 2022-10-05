@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import MakeButton from '../components/common/MakeButton';
-import { getBookList } from '../lib/axios';
+import { getBookList } from '../lib/api';
 import ContentCard from '../components/common/ContentCard';
 import { ContentCardGridContainer } from './Main';
 

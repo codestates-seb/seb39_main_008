@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBookList, getMember, getDiaries } from '../lib/axios';
+import { getBookList, getMember, getDiaries } from '../lib/api';
 import Avatar from '../components/common/Avatar';
 import styled from 'styled-components';
 import DiaryCard from '../components/common/DiaryCard';

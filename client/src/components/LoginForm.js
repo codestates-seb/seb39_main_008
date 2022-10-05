@@ -6,7 +6,8 @@ import * as yup from 'yup';
 import SiginupInput from './SiginupInput';
 import BorderButton from './common/BorderButton';
 import TextButton from './common/TextButton';
-import { login } from '../lib/axios';
+import { login } from '../lib/api';
+import { setToLocalStorage } from '../lib/localStorage';
 
 const SCHEMA = yup.object().shape({
   email: yup
@@ -45,9 +46,12 @@ const LoginForm = () => {
   });
 
   const submitForm = async (data) => {
-    console.log(data);
     const res = await login(data);
     console.log(res);
+    setToLocalStorage('accessToken', res.Authorization);
+    setToLocalStorage('accesrefreshTokensToken', res.Refresh);
+    navigate('/');
+    //todo 이메일, 비밀번호 불일치 처리 안됨
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getBook } from '../lib/axios';
+import { getBook } from '../lib/api';
 import ContentCard from '../components/common/ContentCard';
 import MakeButton from '../components/common/MakeButton';
 import styled from 'styled-components';

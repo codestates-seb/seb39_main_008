@@ -1,6 +1,6 @@
 import ContentCard from '../components/common/ContentCard';
 import { useEffect, useState } from 'react';
-import { getDiaries, getMembers } from '../lib/axios';
+import { getDiaries, getMembers } from '../lib/api';
 import styled from 'styled-components';
 import UserCard from '../components/common/UserCard';
 
@@ -61,8 +61,10 @@ const Main = ({ setHeaderData }) => {
     // api 연동 및 필러팅 기능 추가시 수정
     setCurrentTitle('최신글');
     const resDiaries = await getDiaries();
+    console.log(resDiaries);
     setData(resDiaries.data);
     const resPeople = await getMembers(1, 10, 'followdesc');
+    console.log(resPeople);
     setPopularPeople(resPeople.data);
   }, []);
 
