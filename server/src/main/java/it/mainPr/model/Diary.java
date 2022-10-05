@@ -12,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "Diary")
 public class Diary extends BaseTime {
@@ -54,9 +55,8 @@ public class Diary extends BaseTime {
     @JsonIgnore
     private List<Heart> heart;
 
-    @Enumerated(value = EnumType.STRING)
-    @JsonIgnore
-    private Category category;
+    @Column(nullable = false)
+    private String category;
 
     @Builder
     public Diary(String diary_title, String diary_subtitle, String nickname, String content, String diaryImgUrl, Member member) {
@@ -103,14 +103,14 @@ public class Diary extends BaseTime {
         comments.add(comment);
     }
 
-    @Getter
-    @AllArgsConstructor
-    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-    public enum Category {
-        CATEGORY_0("일상공유"), CATEGORY_1("공감과치유");
-
-        private String description;
-    }
+//    @Getter
+//    @AllArgsConstructor
+//    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
+//    public enum Category {
+//        CATEGORY_0("일상공유"), CATEGORY_1("공감과치유");
+//
+//        private String description;
+//    }
 
     public enum DiaryStatus {
         DIARY_EXIST("존재하는 장소"),

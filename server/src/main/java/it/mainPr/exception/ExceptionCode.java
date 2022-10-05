@@ -10,6 +10,7 @@ public enum ExceptionCode {
     UNDEFINED(99, "Undefined"),
     HEART_EXIST(409,"Heart exists"),
     HEART_NOT_FOUND(404,"Heart not found"),
+    ACCESS_DENIED_MEMBER(401,"Access Denied"),
     COMMENT_NOT_FOUND(404, "Comment not found"),
 
     MEMBER_EXISTS(409, "Member exists");

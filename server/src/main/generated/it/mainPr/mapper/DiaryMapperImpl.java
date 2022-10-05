@@ -2,7 +2,6 @@ package it.mainPr.mapper;
 
 import it.mainPr.dto.commentDto.CommentResponseDto;
 import it.mainPr.dto.diaryDto.DiariesDto.DiaryResponseDto;
-import it.mainPr.dto.diaryDto.DiariesDto.DiaryResponseDto.DiaryResponseDtoBuilder;
 import it.mainPr.dto.diaryDto.DiariesDto.PostDto;
 import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.dto.memberDto.MemberResponseDto.MemberResponseDtoBuilder;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-05T00:41:29+0900",
+    date = "2022-10-05T17:46:18+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Amazon.com Inc.)"
 )
 @Component
@@ -46,18 +45,19 @@ public class DiaryMapperImpl implements DiaryMapper {
             return null;
         }
 
-        DiaryResponseDtoBuilder diaryResponseDto = DiaryResponseDto.builder();
+        DiaryResponseDto diaryResponseDto = new DiaryResponseDto();
 
-        diaryResponseDto.diaryId( diary.getDiaryId() );
-        diaryResponseDto.diary_title( diary.getDiary_title() );
-        diaryResponseDto.diary_subtitle( diary.getDiary_subtitle() );
-        diaryResponseDto.content( diary.getContent() );
-        diaryResponseDto.diaryImgUrl( diary.getDiaryImgUrl() );
-        diaryResponseDto.member( diary.getMember() );
-        diaryResponseDto.comments( commentListToCommentResponseDtoList( diary.getComments() ) );
-        diaryResponseDto.category( diary.getCategory() );
+        diaryResponseDto.setDiaryId( diary.getDiaryId() );
+        diaryResponseDto.setDiary_title( diary.getDiary_title() );
+        diaryResponseDto.setDiary_subtitle( diary.getDiary_subtitle() );
+        diaryResponseDto.setContent( diary.getContent() );
+        diaryResponseDto.setDiaryImgUrl( diary.getDiaryImgUrl() );
+        diaryResponseDto.setDiaryStatus( diary.getDiaryStatus() );
+        diaryResponseDto.setMember( memberToMemberResponseDto( diary.getMember() ) );
+        diaryResponseDto.setComments( commentListToCommentResponseDtoList( diary.getComments() ) );
+        diaryResponseDto.setCategory( diary.getCategory() );
 
-        return diaryResponseDto.build();
+        return diaryResponseDto;
     }
 
     @Override

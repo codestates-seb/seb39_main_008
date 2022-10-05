@@ -54,7 +54,7 @@ public interface HeartMapper {
         heartResponseDto.setModifiedAt(heart.getModifiedAt());
         heartResponseDto.setCreatedAt(heart.getCreatedAt());
 
-        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryListToResponseDtoList(List<Diary> diaries);
+        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryToDiaryResponseDto(diaryService, heartService, diaryMapper, memberMapper, heart.getDiary());
         heartResponseDto.setDiary(diaryResponseDto);
 
         MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(heart.getMember());

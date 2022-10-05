@@ -1,52 +1,57 @@
 package it.mainPr.dto.diaryDto;
 
+import it.mainPr.audit.BaseTime;
 import it.mainPr.dto.bookDto.BookResponseDto;
 import it.mainPr.dto.commentDto.CommentResponseDto;
 import it.mainPr.dto.heartDto.HeartResponseDto;
+import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Validated
 public class DiariesDto {
 
     @Getter
+    @Setter
     @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class PostDto {
         @NotBlank
-        String diary_title;
-        String diary_subtitle;
+        private String diary_title;
+        private String diary_subtitle;
         @NotBlank
-        String content;
-        String diaryImgUrl;
-        Member member;
-        Integer total_heart;
-        Integer total_follow;
+        private String content;
+        private String diaryImgUrl;
 
-        @Builder
-        public PostDto(String diary_title, String diary_subtitle, String content, String diaryImgUrl, Member member, Integer total_heart, Integer total_follow) {
-            this.diary_title = diary_title;
-            this.diary_subtitle = diary_subtitle;
-            this.content = content;
-            this.diaryImgUrl = diaryImgUrl;
-            this.member = member;
-            this.total_heart = total_heart;
-            this.total_follow = total_follow;
-        }
+        @NotBlank
+        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" +
+                "|(^여행기록$)|(^자유$)",message = "카테고리 중에 선택해주세요")
+        private String category;
+        private Member member;
+        private Integer total_heart;
+        private Integer total_follow;
+
     }
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class PatchDto {
         private Long diaryId;
-        private String title;
-        private String subtitle;
+        private String diary_title;
+        private String diary_subtitle;
         private String content;
-
+        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" +
+                "|(^여행기록$)|(^자유$)",message = "카테고리 중에 선택해주세요")
+        private String category;
+        private Diary.DiaryStatus diaryStatus;
         private String information;
         private String diaryImgUrl;
 
@@ -54,48 +59,26 @@ public class DiariesDto {
             this.diaryId = diaryId;
         }
 
-        @Builder
-        public PatchDto(Long diaryId, String title, String subtitle, String content, String information, String diaryImgUrl) {
-            this.diaryId = diaryId;
-            this.title = title;
-            this.subtitle = subtitle;
-            this.content = content;
-            this.information = information;
-            this.diaryImgUrl = diaryImgUrl;
-        }
     }
 
     @Getter
-    @NoArgsConstructor
+    @Setter
     public static class DiaryResponseDto {
         private Long diaryId;
         private String diary_title;
         private String diary_subtitle;
         private String content;
         private String diaryImgUrl;
+        private Diary.DiaryStatus diaryStatus;
         private String total_hearts;
         private String total_comments;
-        private Member member;
+        private MemberResponseDto member;
         private List<CommentResponseDto> comments;
         private List<HeartResponseDto> hearts;
-        private Diary.Category category;
+        private String category;
         private List<BookResponseDto> books;
+        private List<Long> heartMemberId;
 
-        @Builder
-        public DiaryResponseDto(Long diaryId, String diary_title, String diary_subtitle, String content, String diaryImgUrl, String total_hearts, String total_comments, Member member, List<CommentResponseDto> comments, List<HeartResponseDto> hearts, Diary.Category category, List<BookResponseDto> books) {
-            this.diaryId = diaryId;
-            this.diary_title = diary_title;
-            this.diary_subtitle = diary_subtitle;
-            this.content = content;
-            this.diaryImgUrl = diaryImgUrl;
-            this.total_hearts = total_hearts;
-            this.total_comments = total_comments;
-            this.member = member;
-            this.comments = comments;
-            this.hearts = hearts;
-            this.category = category;
-            this.books = books;
-        }
     }
 
 }

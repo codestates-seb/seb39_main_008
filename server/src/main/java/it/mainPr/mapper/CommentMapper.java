@@ -9,7 +9,6 @@ import it.mainPr.exception.ExceptionCode;
 import it.mainPr.model.Comment;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
-import it.mainPr.repository.CommentRepository;
 import it.mainPr.service.CommentService;
 import it.mainPr.service.DiaryService;
 import it.mainPr.service.MemberService;

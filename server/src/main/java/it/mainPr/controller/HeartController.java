@@ -70,20 +70,20 @@ public class HeartController {
     }
 
     /**
-     * 하트 누른 가게 목록리스트 가져오기API
+     * 하트 누른 목록리스트 가져오기API
      * **/
-//    @GetMapping("/api/v1/heart/list")
-//    public ResponseEntity getHearts(@Positive @RequestParam("page") int page,
-//                                    @Positive @RequestParam("size") int size){
-//
-//        Page<Heart> pageHearts = heartService.findHearts(memberService,page-1,size);
-//
-//        List<Heart> hearts = pageHearts.getContent();
-//
-//        return new ResponseEntity<>(new MultiResponseDto<>(
-//                mapper.heartsToHeartResponseDtos(diaryService,heartService,diaryMapper,memberMapper,hearts),
-//                pageHearts),HttpStatus.OK);
-//    }
+    @GetMapping("/api/v1/heart/list")
+    public ResponseEntity getHearts(@Positive @RequestParam("page") int page,
+                                    @Positive @RequestParam("size") int size){
+
+        Page<Heart> pageHearts = heartService.findHearts(memberService,page-1,size);
+
+        List<Heart> hearts = pageHearts.getContent();
+
+        return new ResponseEntity<>(new MultiResponseDto<>(
+                mapper.heartsToHeartResponseDtos(diaryService,heartService,diaryMapper,memberMapper,hearts),
+                pageHearts),HttpStatus.OK);
+    }
 
 
 

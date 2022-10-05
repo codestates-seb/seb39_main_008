@@ -41,16 +41,16 @@ public class HeartService {
         return findHeart;
     }
 
-//    public Page<Heart> findHearts(MemberService memberService, int page, int size){//해당 유저가 누른 하트에 pagenation과 최신순 sort 구현
-//        Member member = memberService.getLoginMember(); //해당토큰의 유저 가져오기
-//        Page<Heart> hearts = heartRepository.findByMemberAndHeartStatus(//삭제된 하트 빼고 해당 유저의 전체 하트 가져옴
-//                PageRequest.of(page,size, Sort.by("createdAt").descending()),
-//                member,
-//                Heart.HeartStatus.HEART_EXIST);
-//        verifiedNoHeart(hearts);//findAllHeart안의 반환된 데이터가 없으면 예외발생
-//
-//        return hearts;
-//    }
+    public Page<Heart> findHearts(MemberService memberService, int page, int size){//해당 유저가 누른 하트에 pagenation과 최신순 sort 구현
+        Member member = memberService.getLoginMember(); //해당토큰의 유저 가져오기
+        Page<Heart> hearts = heartRepository.findByMemberAndHeartStatus(//삭제된 하트 빼고 해당 유저의 전체 하트 가져옴
+                PageRequest.of(page,size, Sort.by("createdAt").descending()),
+                member,
+                Heart.HeartStatus.HEART_EXIST);
+        verifiedNoHeart(hearts);//findAllHeart안의 반환된 데이터가 없으면 예외발생
+
+        return hearts;
+    }
 
     private void verifiedNoHeart(Page<Heart> hearts){
         if(hearts.getTotalElements()==0){
