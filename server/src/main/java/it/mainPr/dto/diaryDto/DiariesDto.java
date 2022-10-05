@@ -30,7 +30,7 @@ public class DiariesDto {
         private String content;
         private String diaryImgUrl;
 
-        @NotBlank
+//        @NotBlank
         @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" +
                 "|(^여행기록$)|(^자유$)",message = "카테고리 중에 선택해주세요")
         private String category;

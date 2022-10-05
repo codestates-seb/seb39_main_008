@@ -24,5 +24,5 @@ mail:
     admin: admin@gmail.com
 jwt:
   secret-key: "dadlkfadskfjldkjflkadjflkadflkadfkjlkdsjafa"    # 민감한 정보는 시스템 환경 변수에서 로드한다.
-  access-token-expiration-minutes: 1
+  access-token-expiration-minutes: 5
   refresh-token-expiration-minutes: 420

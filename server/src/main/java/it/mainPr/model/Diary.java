@@ -55,16 +55,17 @@ public class Diary extends BaseTime {
     @JsonIgnore
     private List<Heart> heart;
 
-    @Column(nullable = false)
+    @Column//(nullable = false)
     private String category;
 
     @Builder
-    public Diary(String diary_title, String diary_subtitle, String nickname, String content, String diaryImgUrl, Member member) {
+    public Diary(String diary_title, String diary_subtitle, Book book, String content, String diaryImgUrl, Member member) {
         this.diary_title = diary_title;
         this.diary_subtitle = diary_subtitle;
         this.content = content;
         this.DiaryImgUrl = diaryImgUrl;
         this.member = member;
+        this.book = book;
     }
 
 

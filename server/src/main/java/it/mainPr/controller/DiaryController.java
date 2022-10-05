@@ -35,9 +35,10 @@ import javax.validation.Valid;
     private final CommentService commentService;
 
     @PostMapping("/api/v1/diaries")
-    public ResponseEntity writeDiary(@Valid @RequestBody DiariesDto.PostDto postDto) {
+    public ResponseEntity writeDiary(@RequestParam(name = "book_id") long bookId,
+                                     @Valid @RequestBody DiariesDto.PostDto postDto) {
         Diary diary = diaryMapper.postDtoToDiary(postDto);
-        DiariesDto.DiaryResponseDto responseDto = diaryService.writeDiary(postDto);
+        DiariesDto.DiaryResponseDto responseDto = diaryService.writeDiary(bookId, postDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 

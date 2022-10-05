@@ -2,6 +2,7 @@ package it.mainPr.dto.commentDto;
 
 import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Comment;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +20,5 @@ public class CommentResponseDto {
     private Long diaryId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+
 }

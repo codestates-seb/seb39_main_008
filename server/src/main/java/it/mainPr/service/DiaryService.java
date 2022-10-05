@@ -6,8 +6,10 @@ import it.mainPr.dto.global.MultiResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 import it.mainPr.mapper.DiaryMapper;
+import it.mainPr.model.Book;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Member;
+import it.mainPr.repository.BookRepository;
 import it.mainPr.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,13 +27,18 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
     private final DiaryMapper diaryMapper;
     private final MemberService memberService;
+    private final BookRepository bookRepository;
 
-    public DiariesDto.DiaryResponseDto writeDiary(DiariesDto.PostDto postDto) {
+    public DiariesDto.DiaryResponseDto writeDiary(long bookId, DiariesDto.PostDto postDto) {
         String memberEmail = SecurityUtils.getCurrentMemberEmail();
         Member member = memberService.findVerifiedMember(memberEmail);
 
+        Book book = bookRepository.findById(bookId).orElseThrow(() ->
+                 new BusinessLogicalException(ExceptionCode.BOOK_NOT_FOUND));
+
         Diary diary = diaryMapper.postDtoToDiary(postDto);
         diary.setMember(member);
+        diary.setBook(book);
         diaryRepository.save(diary);
         //이미지 클래스 추가 후 주석 제거
 //        if(postDto.getDiaryImgUrl() != null) {

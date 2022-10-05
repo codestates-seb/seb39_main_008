@@ -21,9 +21,12 @@ public class BookResponseDto {
     @NotBlank
     private String bookSubTitle;
     private String bookImageUrl;
-    @JsonIgnore
-    private Member member;
-    @JsonIgnore
+
+    private long memberId;
+    private String email;
+    private String name;
+    private String nickname;
+
     private List<Diary> diary;
 
     @Builder
@@ -32,7 +35,10 @@ public class BookResponseDto {
         this.bookTitle = bookTitle;
         this.bookSubTitle = bookSubTitle;
         this.bookImageUrl = bookImageUrl;
-        this.member = member;
+        this.memberId = member.getMemberId();
+        this.email = member.getEmail();
+        this.name = member.getName();
+        this.nickname = member.getNickname();;
         this.diary = diary;
     }
 
