@@ -33,7 +33,6 @@ public class Member extends BaseTime {
     private String imgUrl;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-
     private List<Book> book;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)

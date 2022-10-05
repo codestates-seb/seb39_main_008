@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +22,17 @@ public class Book {
     @Column(name = "book_id")
     private Long bookId;
 
+    @NotBlank
     private String bookTitle;
     private String bookSubTitle;
     private String bookImageUrl;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Diary> diary = new ArrayList<>();
 
     @Builder

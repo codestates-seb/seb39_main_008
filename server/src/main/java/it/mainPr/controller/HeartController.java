@@ -42,48 +42,48 @@ public class HeartController {
     /**
      * Diary 하트등록 API
      * **/
-    @PostMapping("/api/v1/member/heart/register")
-    public ResponseEntity postHeart(@Valid @RequestBody HeartPostDto heartPostDto){
-        Heart heart = mapper.heartPostDtoToHeart(diaryService,memberService,heartPostDto);
-        Heart createdHeart = heartService.createHeart(heart);
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,createdHeart)),
-                HttpStatus.CREATED
-        );
-    }
+//    @PostMapping("/api/v1/member/heart/register")
+//    public ResponseEntity postHeart(@Valid @RequestBody HeartPostDto heartPostDto){
+//        Heart heart = mapper.heartPostDtoToHeart(diaryService,memberService,heartPostDto);
+//        Heart createdHeart = heartService.createHeart(heart);
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(mapper.heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,createdHeart)),
+//                HttpStatus.CREATED
+//        );
+//    }
 
     /**
      * Diary 하트등록 취소 API
      * **/
-    @PatchMapping("/api/v1/heart/cancel")
-    public ResponseEntity patchHeart(@Valid @RequestBody HeartPatchDto heartPatchDto){
-
-        Heart heart = mapper.heartPatchDtoToHeart(diaryService,memberService,heartPatchDto);
-
-        Heart updatedHeart = heartService.updateHeart(heart);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,updatedHeart)),
-                HttpStatus.OK
-        );
-
-    }
+//    @PatchMapping("/api/v1/heart/cancel")
+//    public ResponseEntity patchHeart(@Valid @RequestBody HeartPatchDto heartPatchDto){
+//
+//        Heart heart = mapper.heartPatchDtoToHeart(diaryService,memberService,heartPatchDto);
+//
+//        Heart updatedHeart = heartService.updateHeart(heart);
+//
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(mapper.heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,updatedHeart)),
+//                HttpStatus.OK
+//        );
+//
+//    }
 
     /**
      * 하트 누른 목록리스트 가져오기API
      * **/
-    @GetMapping("/api/v1/heart/list")
-    public ResponseEntity getHearts(@Positive @RequestParam("page") int page,
-                                    @Positive @RequestParam("size") int size){
-
-        Page<Heart> pageHearts = heartService.findHearts(memberService,page-1,size);
-
-        List<Heart> hearts = pageHearts.getContent();
-
-        return new ResponseEntity<>(new MultiResponseDto<>(
-                mapper.heartsToHeartResponseDtos(diaryService,heartService,diaryMapper,memberMapper,hearts),
-                pageHearts),HttpStatus.OK);
-    }
+//    @GetMapping("/api/v1/heart/list")
+//    public ResponseEntity getHearts(@Positive @RequestParam("page") int page,
+//                                    @Positive @RequestParam("size") int size){
+//
+//        Page<Heart> pageHearts = heartService.findHearts(memberService,page-1,size);
+//
+//        List<Heart> hearts = pageHearts.getContent();
+//
+//        return new ResponseEntity<>(new MultiResponseDto<>(
+//                mapper.heartsToHeartResponseDtos(diaryService,heartService,diaryMapper,memberMapper,hearts),
+//                pageHearts),HttpStatus.OK);
+//    }
 
 
 

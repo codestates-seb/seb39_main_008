@@ -18,19 +18,15 @@ import java.util.List;
 public class DiariesDto {
 
     @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
     public static class PostDto {
         @NotBlank
         private String diary_title;
         private String diary_subtitle;
         @NotBlank
         private String content;
-        private String diaryImgUrl;
+        private List<DiaryImageDto> diaryImgUrl;
 
-        @NotBlank
+//        @NotBlank
         @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" +
                 "|(^여행기록$)|(^자유$)",message = "카테고리 중에 선택해주세요")
         private String category;
@@ -41,26 +37,18 @@ public class DiariesDto {
     }
 
     @Getter
-    @Setter
-    @NoArgsConstructor
     public static class PatchDto {
         private Long diaryId;
         private String diary_title;
         private String diary_subtitle;
         private String content;
-        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" +
-                "|(^여행기록$)|(^자유$)",message = "카테고리 중에 선택해주세요")
+        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" + "|(^여행기록$)|(^자유$)", message = "카테고리 중에 선택해주세요")
         private String category;
         private Diary.DiaryStatus diaryStatus;
         private String information;
-        private String diaryImgUrl;
-
-        public void setDiaryId(long diaryId) {
-            this.diaryId = diaryId;
-        }
+        private List<DiaryImageDto> diaryImgUrl;
 
     }
-
     @Getter
     @Setter
     public static class DiaryResponseDto {
@@ -68,7 +56,7 @@ public class DiariesDto {
         private String diary_title;
         private String diary_subtitle;
         private String content;
-        private String diaryImgUrl;
+        private List<DiaryImageResponseDto> diaryImgUrl;
         private Diary.DiaryStatus diaryStatus;
         private String total_hearts;
         private String total_comments;

@@ -16,6 +16,7 @@ public enum ExceptionCode {
     FILE_SIZE_EXCEED(431,"file size exceed"),
     COMMENT_NOT_FOUND(404, "Comment not found"),
     COMMENT_EXISTS(409, "Comment exists"),
+    SORT_NOT_FOUND(404, "Sort not found"),
 
 
     MEMBER_EXISTS(409, "Member exists");

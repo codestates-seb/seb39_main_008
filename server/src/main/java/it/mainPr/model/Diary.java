@@ -1,9 +1,6 @@
 package it.mainPr.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.mainPr.audit.BaseTime;
 import lombok.*;
 
@@ -22,14 +19,19 @@ public class Diary extends BaseTime {
     @Column(name = "diary_id")
     private Long diaryId;
 
+    @Column(nullable = false)
     private String diary_title;
-
+    @Column(nullable = false)
     private String diary_subtitle;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    private String DiaryImgUrl;
+    @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    private List<DiaryImage> diaryImgUrl;
+
+    @Column(nullable = false)
+    private String category;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -55,16 +57,14 @@ public class Diary extends BaseTime {
     @JsonIgnore
     private List<Heart> heart;
 
-    @Column(nullable = false)
-    private String category;
-
     @Builder
-    public Diary(String diary_title, String diary_subtitle, String nickname, String content, String diaryImgUrl, Member member) {
+    public Diary(String diary_title, String diary_subtitle, Book book, String content, List<DiaryImage> diaryImgUrl, Member member) {
         this.diary_title = diary_title;
         this.diary_subtitle = diary_subtitle;
         this.content = content;
-        this.DiaryImgUrl = diaryImgUrl;
+        this.diaryImgUrl = diaryImgUrl;
         this.member = member;
+        this.book = book;
     }
 
 

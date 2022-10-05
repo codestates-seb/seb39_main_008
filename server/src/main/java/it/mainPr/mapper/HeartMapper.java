@@ -47,26 +47,26 @@ public interface HeartMapper {
         return heart;
     }
 
-    default HeartResponseDto heartToHeartResponseDto(DiaryService diaryService, HeartService heartService, DiaryMapper diaryMapper, MemberMapper memberMapper, Heart heart) {
-        HeartResponseDto heartResponseDto = new HeartResponseDto();
-        heartResponseDto.setHeartId(heart.getHeartId());
-        heartResponseDto.setHeartStatus(heart.getHeartStatus());
-        heartResponseDto.setModifiedAt(heart.getModifiedAt());
-        heartResponseDto.setCreatedAt(heart.getCreatedAt());
+//    default HeartResponseDto heartToHeartResponseDto(DiaryService diaryService, HeartService heartService, DiaryMapper diaryMapper, MemberMapper memberMapper, Heart heart) {
+//        HeartResponseDto heartResponseDto = new HeartResponseDto();
+//        heartResponseDto.setHeartId(heart.getHeartId());
+//        heartResponseDto.setHeartStatus(heart.getHeartStatus());
+//        heartResponseDto.setModifiedAt(heart.getModifiedAt());
+//        heartResponseDto.setCreatedAt(heart.getCreatedAt());
+//
+//        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryToDiaryResponseDto(diaryService, heartService, diaryMapper, memberMapper, heart.getDiary());
+//        heartResponseDto.setDiary(diaryResponseDto);
+//
+//        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(heart.getMember());
+//        heartResponseDto.setMember(memberResponseDto);
+//
+//
+//
+//        return heartResponseDto;
+//    }
 
-        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryToDiaryResponseDto(diaryService, heartService, diaryMapper, memberMapper, heart.getDiary());
-        heartResponseDto.setDiary(diaryResponseDto);
-
-        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(heart.getMember());
-        heartResponseDto.setMember(memberResponseDto);
-
-
-
-        return heartResponseDto;
-    }
-
-    default List<HeartResponseDto> heartsToHeartResponseDtos(DiaryService diaryService, HeartService heartService,DiaryMapper diaryMapper,MemberMapper memberMapper,List<Heart> hearts) {
-        return hearts.stream().map(heart -> heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,heart))
-                .collect(Collectors.toList());
-    };
+//    default List<HeartResponseDto> heartsToHeartResponseDtos(DiaryService diaryService, HeartService heartService,DiaryMapper diaryMapper,MemberMapper memberMapper,List<Heart> hearts) {
+//        return hearts.stream().map(heart -> heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,heart))
+//                .collect(Collectors.toList());
+//    };
 }
