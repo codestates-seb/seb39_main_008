@@ -11,7 +11,12 @@ public enum ExceptionCode {
     HEART_EXIST(409,"Heart exists"),
     HEART_NOT_FOUND(404,"Heart not found"),
     ACCESS_DENIED_MEMBER(401,"Access Denied"),
+    PHOTO_NOT_FOUND(404, "photo not found"),
+    FILE_UPLOAD_FAILED(417, "file upload failed"),
+    FILE_SIZE_EXCEED(431,"file size exceed"),
     COMMENT_NOT_FOUND(404, "Comment not found"),
+    COMMENT_EXISTS(409, "Comment exists"),
+
 
     MEMBER_EXISTS(409, "Member exists");
 
