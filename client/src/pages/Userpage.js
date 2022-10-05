@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getBookList, getMember, getDiaries } from '../lib/axios';
-import { borderRadius, space, fontSize, colors } from '../assets/styles/theme';
 import Avatar from '../components/common/Avatar';
 import styled from 'styled-components';
 import DiaryCard from '../components/common/DiaryCard';
@@ -14,36 +13,36 @@ const UserInfoContainer = styled.div`
   display: flex;
 
   > div {
-    margin-left: ${space.spaceM};
+    margin-left: var(--spaceM);
     align-self: flex-end;
   }
 
   > div > p {
-    padding-bottom: ${space.spaceM};
-    color: ${colors.text4};
+    padding-bottom: var(--spaceM);
+    color: ${({ theme }) => theme.colors.text4};
   }
 
   > div > p:first-child {
-    font-size: ${fontSize.fontSizeL};
-    color: ${colors.text2};
+    font-size: var(--fontSizeL);
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   > div > div {
     display: flex;
-    padding-bottom: ${space.spaceM};
-    color: ${colors.text3};
+    padding-bottom: var(--spaceM);
+    color: ${({ theme }) => theme.colors.text3};
   }
 
   > div > div > svg {
-    margin-left: ${space.spaceS};
+    margin-left: var(--spaceS);
   }
 
   > div > div > svg:hover {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   > div > div > p:last-child {
-    font-size: ${fontSize.fontSizeS};
+    font-size: var(--fontSizeS);
   }
 `;
 
@@ -59,8 +58,8 @@ const AvatarContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  padding: ${space.spaceM};
-  padding-top: ${space.spaceL};
+  padding: var(--spaceM);
+  padding-top: var(--spaceL);
 `;
 
 const BookAndDiaries = styled.div`
@@ -69,12 +68,12 @@ const BookAndDiaries = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   > div:last-child {
     display: flex;
-    gap: ${space.spaceM};
-    padding: ${space.spaceM};
+    gap: var(--spaceM);
+    padding: var(--spaceM);
   }
 `;
 
@@ -106,7 +105,7 @@ const Userpage = ({ setHeaderData }) => {
             imageURL={user.profile}
             width={'183px'}
             height={'197px'}
-            borderRadius={borderRadius.borderRadiusM}
+            borderRadius={`var(--borderRadiusM)`}
             isShadow={true}
           />
           {/* 로그인 기능 추가시 프로필 사진 변경 로직 변경 */}

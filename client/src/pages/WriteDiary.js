@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import WriteOrEditDiaryForm from '../components/WriteOrEditDiaryForm';
-
+import styled from 'styled-components';
+const Container = styled.div``;
 const WriteDiary = ({ setHeaderData }) => {
   useEffect(async () => {
     setHeaderData({
@@ -9,7 +10,11 @@ const WriteDiary = ({ setHeaderData }) => {
     });
   }, []);
 
-  return <WriteOrEditDiaryForm />;
+  return (
+    <Container>
+      <WriteOrEditDiaryForm />
+    </Container>
+  );
 };
 
 export default WriteDiary;

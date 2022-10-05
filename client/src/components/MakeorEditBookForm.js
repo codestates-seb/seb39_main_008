@@ -5,12 +5,14 @@ import BorderButton from '../components/common/BorderButton';
 import ImageInput from '../components/common/ImageInput';
 import ConfirmModal from './common/ConfirmModal';
 import { Container, Mid, Bottom } from './WriteOrEditDiaryForm';
-import { fontSize } from '../assets/styles/theme';
+// import { addBook } from '../lib/axios';
 
 const MakeorEditBookForm = (props) => {
   const [fileURL, setFileURL] = useState(null);
   const [confirm, setConfirm] = useState(false);
+
   const navigate = useNavigate();
+
   const {
     register,
     setValue,
@@ -33,8 +35,10 @@ const MakeorEditBookForm = (props) => {
     console.log('update', data);
   };
 
-  const onMakeBook = (data) => {
+  const onMakeBook = async (data) => {
     console.log('make', data);
+    // const res = await addBook(data);
+    // console.log(res);
   };
 
   const onCancle = () => {
@@ -130,14 +134,14 @@ const MakeorEditBookForm = (props) => {
             width="120px"
             height="40px"
             type="submit"
-            fontSize={fontSize.fontSizeM}
+            fontSize={`var(--fontSizeM)`}
             text={props.isEdit ? '수정하기' : '만들기'}
           />
           <BorderButton
             text="취소"
             width="120px"
             height="40px"
-            fontSize={fontSize.fontSizeM}
+            fontSize={`var(--fontSizeM)`}
             onClick={() => {
               setConfirm(!confirm);
             }}

@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 import Thumbnail from './Thumbnail';
-import {
-  borderRadius,
-  space,
-  colors,
-  fontSize,
-  boxShadow,
-} from '../../assets/styles/theme';
 import { FiMessageSquare, FiBook } from 'react-icons/fi';
 import { HiHeart } from 'react-icons/hi';
 import Profile from './Profile';
@@ -15,25 +8,26 @@ import Date from './Date';
 const Container = styled.article`
   cursor: pointer;
   overflow: hidden;
-  padding: ${space.spaceS};
-  background-color: ${colors.white};
-  box-shadow: ${boxShadow.shadowM};
-  border-radius: ${borderRadius.borderRadiusM};
+  padding: var(--spaceS);
+  background-color: ${({ theme }) => theme.colors.contentCard};
+  box-shadow: var(--shadowM);
+  border-radius: var(--borderRadiusM);
 
   .mid {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: ${space.spaceM};
-    margin-top: ${space.spaceS};
+    margin-bottom: var(--spaceM);
+    margin-top: var(--spaceS);
   }
 `;
+
 const Details = styled.div`
   margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: calc(${space.spaceS} / 3);
+  padding-bottom: calc(var(--spaceS) / 3);
 `;
 
 const Labels = styled.div`
@@ -44,20 +38,25 @@ const Labels = styled.div`
   & > p {
     margin: 0 10px 0 4px;
   }
+
+  & svg {
+    color: ${({ theme }) => theme.colors.text1};
+  }
 `;
 
 const Label = styled.span`
   margin-left: auto;
   align-self: flex-end;
-  background-color: ${colors.black};
-  color: ${colors.white};
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
   padding: 3px 10px;
-  border-radius: ${borderRadius.borderRadiusS};
+  border-radius: var(--borderRadiusS);
 `;
 
 const Text = styled.p`
+  color: ${({ theme }) => theme.colors.text1};
   font-size: ${(props) =>
-    props.fontsize ? props.fontsize : fontSize.fontSizeM};
+    props.fontsize ? props.fontsize : `var(--fontSizeM)`};
 `;
 
 const ContentCard = ({ data, isDiary, onClick }) => {
@@ -65,7 +64,7 @@ const ContentCard = ({ data, isDiary, onClick }) => {
     <Container onClick={onClick}>
       <Thumbnail
         height="166px"
-        borderRadius={borderRadius.borderRadiusM}
+        borderRadius={`var(--borderRadiusM)`}
         imageURL={data.diaryimage || data.bookimage}
       />
       <div className="mid">
@@ -82,21 +81,19 @@ const ContentCard = ({ data, isDiary, onClick }) => {
             {isDiary ? (
               <>
                 <FiMessageSquare />
-                <Text fontsize={fontSize.fontSizeS}>{data.totalComment}</Text>
+                <Text fontsize={`var(--fontSizeS)`}>{data.totalComment}</Text>
                 <HiHeart />
-                <Text fontsize={fontSize.fontSizeS}>{data.totalLike}</Text>
+                <Text fontsize={`var(--fontSizeS)`}>{data.totalLike}</Text>
               </>
             ) : (
               <>
                 <FiBook />
-                <Text fontsize={fontSize.fontSizeS}>
+                <Text fontsize={`var(--fontSizeS)`}>
                   {data.total_diary_count}
                 </Text>
               </>
             )}
-            <Label>
-              {isDiary ? data.category : data.public ? '전체공개' : '비공개'}
-            </Label>
+            <Label>{'전체공개'}</Label>
           </Labels>
           <Date date={data.createdAt} />
         </Details>

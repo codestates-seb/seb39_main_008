@@ -2,13 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Logo from './Logo';
 import Avatar from './Avatar';
-import {
-  fontSize,
-  screen,
-  space,
-  colors,
-  borderRadius,
-} from '../../assets/styles/theme';
 import { useNavigate } from 'react-router-dom';
 import {
   FiPenTool,
@@ -23,31 +16,32 @@ import ConfirmModal from './ConfirmModal';
 
 const Wraper = styled.div`
   * {
-    font-size: ${fontSize.fontSizeM};
+    font-size: var(--fontSizeM);
   }
+
+  background-color: ${({ theme }) => theme.colors.sidebar};
   z-index: 1000;
   display: flex;
-  padding: ${space.spaceM};
+  padding: var(--spaceM);
   width: 223px;
   min-width: 223px;
   height: 100vh;
-  border-right: 2px solid ${colors.grey};
+  border-right: 2px solid ${({ theme }) => theme.colors.border};
   position: sticky;
   top: 0;
   flex-direction: column;
-  background-color: ${colors.white};
 
   .auto {
     margin-top: auto;
   }
 
   .auto + div {
-    margin-top: ${space.spaceS};
+    margin-top: var(--spaceS);
   }
 
-  @media ${screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     position: absolute;
-    left: -${space.spaceS};
+    left: -var(--spaceS);
     height: calc(100vh - 50px);
     top: 49px;
 
@@ -56,29 +50,30 @@ const Wraper = styled.div`
     }
   }
 `;
+
 const UserBox = styled.div`
   margin-top: 20px;
 
   & > button {
     width: 100%;
     position: relative;
-    margin-top: ${space.spaceM};
+    margin-top: var(--spaceM);
 
     & > div {
-      color: ${colors.text2};
+      color: ${({ theme }) => theme.colors.text1};
       text-align: left;
     }
 
     & > div:hover {
-      color: ${colors.text4};
+      color: ${({ theme }) => theme.colors.text4};
     }
 
     & > p:nth-child(2) {
-      color: ${colors.text4};
+      color: ${({ theme }) => theme.colors.text4};
     }
 
     & > svg {
-      color: ${colors.text4};
+      color: ${({ theme }) => theme.colors.text4};
       position: absolute;
       bottom: 0;
       right: 0;
@@ -87,33 +82,33 @@ const UserBox = styled.div`
 
   & > button:hover {
     & > svg {
-      color: ${colors.text3};
+      color: ${({ theme }) => theme.colors.text1};
     }
   }
 
-  @media ${screen.mobileAndTablet} {
+  @media screen and (max-width: 991.98px) {
     margin-top: 0px;
   }
 `;
 const List = styled.div`
-  margin-top: ${space.spaceL};
+  margin-top: var(--spaceL);
 
   & > button {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
 
     & > svg {
-      color: ${colors.text4};
+      color: ${({ theme }) => theme.colors.text4};
     }
   }
 
   & > button:hover {
-    color: ${colors.text4};
+    color: ${({ theme }) => theme.colors.text4};
 
     & > svg {
-      color: ${colors.text3};
+      color: ${({ theme }) => theme.colors.text1};
     }
   }
 `;
@@ -182,14 +177,14 @@ const Sidebar = ({ hasSidebar }) => {
       text: '테마설정',
       icon: <IoColorPaletteOutline size={20} />,
       onClick: () => {
-        console.log('set theme');
+        navigate('/theme');
       },
     },
   };
 
   const list = Object.values(LISTDATA);
 
-  const userData = {
+  const USERDATA = {
     name: '김코딩',
     profileURL:
       'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -208,7 +203,7 @@ const Sidebar = ({ hasSidebar }) => {
           <ConfirmModal
             message={'로그아웃 하시겠습니까?'}
             onComfirm={confirmLogout}
-            target={`${userData.nickname} 님`}
+            target={`${USERDATA.nickname} 님`}
           />
         )}
 
@@ -216,15 +211,15 @@ const Sidebar = ({ hasSidebar }) => {
           <Avatar
             isShadow={true}
             height="197px"
-            imageURL={userData.profileURL}
-            borderRadius={borderRadius.borderRadiusL}
+            imageURL={USERDATA.profileURL}
+            borderRadius={`var(--borderRadiusL)`}
           />
-          <button onClick={userData.onClick}>
+          <button onClick={USERDATA.onClick}>
             <div>
-              <p>{userData.name}</p>
-              <p>{userData.nickname}</p>
+              <p>{USERDATA.name}</p>
+              <p>{USERDATA.nickname}</p>
             </div>
-            {userData.icon}
+            {USERDATA.icon}
           </button>
         </UserBox>
         {list.map((el, idx) => {

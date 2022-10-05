@@ -9,7 +9,7 @@ const ErrorContainer = styled.div`
   font-size: 24px;
   padding-top: 50px;
   height: 100vh;
-  color: var(--black-800);
+  color: ${({ theme }) => theme.colors.text1};
 
   > div {
     margin-bottom: 30px;
@@ -20,11 +20,11 @@ const ErrorContainer = styled.div`
     border: none;
     outline: none;
     background: none;
-    color: var(--black-500);
+    color: ${({ theme }) => theme.colors.text3};
     cursor: pointer;
 
     &:hover {
-      color: var(--black-800);
+      color: ${({ theme }) => theme.colors.text1};
     }
   }
 `;

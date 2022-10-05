@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { theme } from '../../assets/styles/theme';
 import { FiUserCheck, FiUserX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -10,26 +9,27 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileContentsBox = styled.div`
-  margin-left: ${theme.space.spaceS};
+  margin-left: var(--spaceS);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 
   > p > svg {
     cursor: pointer;
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   > p:first-child {
-    margin-bottom: ${theme.space.spaceS};
+    margin-bottom: var(--spaceS);
   }
 
   > p:last-child {
-    color: ${theme.colors.text4};
-    margin-bottom: calc(${theme.space.spaceS} / 3);
+    color: ${({ theme }) => theme.colors.text4};
+    margin-bottom: calc(var(--spaceS) / 3);
   }
 
   > p:last-child:hover {
-    color: ${theme.colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
 `;
 
@@ -57,7 +57,7 @@ const Profile = ({ userImage, isFollow, nickname, memberId }) => {
         imageURL={userImage}
         width={'50px'}
         height={'50px'}
-        borderRadius={theme.borderRadius.borderRadiusL}
+        borderRadius={`var(--borderRadiusL)`}
       />
       <ProfileContentsBox>
         <p>

@@ -1,29 +1,33 @@
 import styled from 'styled-components';
-import { colors, fontSize, space } from '../assets/styles/theme';
 const InputBox = styled.div`
   width: 100%;
   height: 80px;
   position: relative;
   background-color: transparent;
+
   input {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
     background: transparent;
     border: none;
-    border-bottom: solid 1px ${colors.grey};
+    border-bottom: solid 1px ${({ theme }) => theme.colors.border};
     padding: 20px 0px 5px 10px;
     width: 100%;
   }
+
   input::placeholder {
-    font-size: ${fontSize.fontSizeS};
+    font-size: var(--fontSizeS);
     text-align: right;
+    color: ${({ theme }) => theme.colors.text4};
   }
+
   input:placeholder-shown + label {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
     top: 1.2rem;
   }
+
   input:focus + label,
   label {
-    color: ${colors.text4};
+    color: ${({ theme }) => theme.colors.text4};
     font-size: 0.9rem;
     pointer-events: none;
     position: absolute;
@@ -34,17 +38,18 @@ const InputBox = styled.div`
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
   }
+
   input:focus,
   input:not(:placeholder-shown) {
-    border-bottom: solid 1px ${colors.black};
+    border-bottom: solid 1px ${({ theme }) => theme.colors.text1};
     outline: none;
     background-color: none;
   }
 
   .error {
-    margin-top: calc(${space.spaceS} / 3);
-    color: ${colors.red};
-    font-size: ${fontSize.fontSizeS};
+    margin-top: calc(var(--spaceS) / 3);
+    color: ${({ theme }) => theme.colors.red};
+    font-size: var(--fontSizeS);
   }
 `;
 const SiginupInput = ({ option, ...props }) => {

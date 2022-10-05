@@ -5,8 +5,9 @@ import * as yup from 'yup';
 import SiginupInput from './SiginupInput';
 import BorderButton from './common/BorderButton';
 import TextButton from './common/TextButton';
-import { theme } from '../assets/styles/theme';
-const schema = yup.object().shape({
+import { signup } from '../lib/axios';
+
+const SCHEMA = yup.object().shape({
   name: yup
     .string()
     .min(2, '2자 이상으로 적어주세요')
@@ -42,19 +43,29 @@ const schema = yup.object().shape({
 
 const SigninForm = () => {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SCHEMA),
   });
 
-  const submitForm = (data) => {
+  const submitForm = async (data) => {
     console.log(data);
     alert('Sign up successful');
+    const userData = {
+      email: data.email,
+      password: data.password,
+      nickname: data.nickname,
+      name: data.name,
+    };
+    const res = await signup(userData);
+    console.log(res);
   };
-  const data = {
+
+  const OPTION = {
     name: {
       id: 'name',
       type: 'text',
@@ -86,9 +97,10 @@ const SigninForm = () => {
       placeholder: ' ',
     },
   };
+
   return (
     <form onSubmit={handleSubmit(submitForm)}>
-      {Object.values(data).map((e, i) => {
+      {Object.values(OPTION).map((e, i) => {
         return (
           <SiginupInput
             key={i}
@@ -101,7 +113,7 @@ const SigninForm = () => {
       <BorderButton
         width={'100%'}
         height={'2.2rem'}
-        fontSize={theme.fontSize.fontSizeM}
+        fontSize={`var(--fontSizeM)`}
         type="submit"
         text={'Sign up'}
       />
