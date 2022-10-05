@@ -22,7 +22,6 @@ public class BookResponseDto {
     private String bookSubTitle;
     private String bookImageUrl;
     @JsonIgnore
-
     private Member member;
     @JsonIgnore
     private List<Diary> diary;

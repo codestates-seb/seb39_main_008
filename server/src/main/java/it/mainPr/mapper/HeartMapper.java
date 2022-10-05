@@ -21,31 +21,31 @@ public interface HeartMapper {
 
     default Heart heartPostDtoToHeart(DiaryService diaryService, MemberService memberService, HeartPostDto heartPostDto) {
 
-//        Member member = memberService.getLoginMember(); // request http 헤더의 토큰에 해당하는 유저 불러옴
+        Member member = memberService.getLoginMember(); // request http 헤더의 토큰에 해당하는 유저 불러옴
         Diary diary = diaryService.findVerifiedDiary(heartPostDto.getDiaryId()); //유저가 하트누른 가게 불러오기
         Heart heart = new Heart();
 
         heart.setDiary(diary);
-//        heart.setMember(member);
+        heart.setMember(member);
 
         return heart;
 
     }
 //
 //
-//    default Heart heartPatchDtoToHeart(DiaryService diaryService, MemberService memberService, HeartPatchDto heartPatchDto) {
-//
-//        Member member = memberService.getLoginMember(); // request http 헤더의 토큰에 해당하는 유저 불러옴
-//        Diary diary = diaryService.findVerifiedDiary(heartPatchDto.getDiaryId()); //유저가 하트누른 가게 불러오기
-//        Heart heart = new Heart();
-//
-//        heart.setHeartStatus(heartPatchDto.getHeartStatus());
-//        heart.setDiary(diary);
-//        heart.setMember(member);
-//
-//
-//        return heart;
-//    }
+    default Heart heartPatchDtoToHeart(DiaryService diaryService, MemberService memberService, HeartPatchDto heartPatchDto) {
+
+        Member member = memberService.getLoginMember(); // request http 헤더의 토큰에 해당하는 유저 불러옴
+        Diary diary = diaryService.findVerifiedDiary(heartPatchDto.getDiaryId()); //유저가 하트누른 가게 불러오기
+        Heart heart = new Heart();
+
+        heart.setHeartStatus(heartPatchDto.getHeartStatus());
+        heart.setDiary(diary);
+        heart.setMember(member);
+
+
+        return heart;
+    }
 
     default HeartResponseDto heartToHeartResponseDto(DiaryService diaryService, HeartService heartService, DiaryMapper diaryMapper, MemberMapper memberMapper, Heart heart) {
         HeartResponseDto heartResponseDto = new HeartResponseDto();
@@ -54,8 +54,8 @@ public interface HeartMapper {
         heartResponseDto.setModifiedAt(heart.getModifiedAt());
         heartResponseDto.setCreatedAt(heart.getCreatedAt());
 
-//        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryListToResponseDtoList;
-//        heartResponseDto.setStore(storeResponseDto);
+        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryListToResponseDtoList(List<Diary> diaries);
+        heartResponseDto.setDiary(diaryResponseDto);
 
         MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(heart.getMember());
         heartResponseDto.setMember(memberResponseDto);

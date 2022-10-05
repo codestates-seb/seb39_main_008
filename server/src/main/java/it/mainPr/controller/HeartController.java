@@ -55,19 +55,19 @@ public class HeartController {
     /**
      * Diary 하트등록 취소 API
      * **/
-//    @PatchMapping("/api/v1/heart/cancel")
-//    public ResponseEntity patchHeart(@Valid @RequestBody HeartPatchDto heartPatchDto){
-//
-//        Heart heart = mapper.heartPatchDtoToHeart(diaryService,memberService,heartPatchDto);
-//
-//        Heart updatedHeart = heartService.updateHeart(heart);
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(mapper.heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,updatedHeart)),
-//                HttpStatus.OK
-//        );
-//
-//    }
+    @PatchMapping("/api/v1/heart/cancel")
+    public ResponseEntity patchHeart(@Valid @RequestBody HeartPatchDto heartPatchDto){
+
+        Heart heart = mapper.heartPatchDtoToHeart(diaryService,memberService,heartPatchDto);
+
+        Heart updatedHeart = heartService.updateHeart(heart);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,updatedHeart)),
+                HttpStatus.OK
+        );
+
+    }
 
     /**
      * 하트 누른 가게 목록리스트 가져오기API

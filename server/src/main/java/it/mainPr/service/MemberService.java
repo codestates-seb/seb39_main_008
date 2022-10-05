@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import it.mainPr.auth.jwt.JwtTokenizer;
-import it.mainPr.auth.userDetails.MemberDetails;
-import it.mainPr.auth.userDetails.MemberDetailsService;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
 import it.mainPr.auth.utils.SecurityUtils;
 import it.mainPr.dto.memberDto.MemberPatchDto;
@@ -159,22 +157,12 @@ public class MemberService {
             throw new BusinessLogicalException(ExceptionCode.MEMBER_EXISTS);
     }
 
-
-    @Transactional(readOnly = true)
     public Member getLoginMember(){ //로그인된 유저가 옳바른 지 확인하고 정보 가져옴
-        return findMember(getMemberByToken());
+        return findVerifiedMember(SecurityUtils.getCurrentMemberEmail());
     }
-//
-    @Transactional(readOnly = true)
+
     private Member findMember(Member member){// 아래 getUserByToken 쓸거임
         return findVerifiedMember(member.getMemberId());
     }
 
-    @Transactional(readOnly = true)
-    public Member getMemberByToken(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        MemberDetails memberDetails = (MemberDetails) principal;
-
-        return memberDetails.getMember();
-    }
 }
