@@ -6,14 +6,14 @@ import Navbar from '../components/common/Navbar';
 
 const Background = styled.div`
   margin: 0;
-  background-color: ${({ theme }) => theme.colors.custom2};
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const Container = styled.div`
   margin: 0 auto;
   max-width: 1200px;
   display: flex;
-  background-color: ${({ theme }) => theme.colors.custom3};
+  background-color: ${({ theme }) => theme.colors.container};
 
   @media screen and (max-width: 991.98px) {
     flex-direction: column;
@@ -41,14 +41,15 @@ const Content = styled.section`
 `;
 
 const Aside = styled.aside`
-  background-color: ${({ theme }) => theme.colors.custom1};
+  background-color: ${({ theme }) => theme.colors.sidebar};
+
   @media screen and (max-width: 991.98px) {
     display: none;
   }
 `;
 
 const NavContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.custom1};
+  background-color: ${({ theme }) => theme.colors.sidebar};
   display: none;
 
   @media screen and (max-width: 991.98px) {
@@ -57,6 +58,7 @@ const NavContainer = styled.div`
     top: 0;
   }
 `;
+
 function Layout({ hasCommon = true, children }) {
   const [headerData, setHeaderData] = useState({});
 

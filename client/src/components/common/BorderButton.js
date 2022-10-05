@@ -2,48 +2,28 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.colors.main};
+  height: ${(props) => props.height || 'auto'};
   width: ${(props) => props.width || 'auto'};
   color: ${({ theme }) => theme.colors.text1};
   font-size: ${(props) => props.fontSize || `var(--fontSizeS)`};
+  border: 1.2px solid ${({ theme }) => theme.colors.text4};
+  border-radius: var(--borderRadiusS);
+  background-color: ${({ theme }) => theme.colors.main};
+  padding: 2px;
   margin: 0px;
-  padding: 0;
-  border: none;
-
-  &:after {
-    display: block;
-    content: '';
-    border-bottom: solid 1.2px ${({ theme }) => theme.colors.text3};
-    transform: scaleX(0);
-    transition: transform 300ms ease-in-out;
-  }
-
-  &:hover:after {
-    transform: scaleX(0.97);
-  }
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     color: ${({ theme }) => theme.colors.text1};
-  }
-
-  .container {
-    height: ${(props) => props.height || 'auto'};
-    border: 1.2px solid ${({ theme }) => theme.colors.text4};
-    padding: 2px;
-    border-radius: var(--borderRadiusS);
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .container:hover {
     border: 1.2px solid transparent;
     transition: 0.5s ease-out;
     background-color: ${({ theme }) => theme.colors.text4};
   }
 
-  .container:not(:hover) {
+  &:not(:hover) {
     transition: 0.5s ease-out;
   }
 
@@ -68,10 +48,8 @@ const BorderButton = ({ text, onClick, ...props }) => {
       fontSize={props.fontSize}
       type={props.type || 'button'}
     >
-      <div className="container">
-        {props.icon && <div className="icon">{props.icon}</div>}
-        <p className="text">{text}</p>
-      </div>
+      {props.icon && <div className="icon">{props.icon}</div>}
+      <p className="text">{text}</p>
     </Button>
   );
 };

@@ -1,9 +1,10 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { path } from './pages/router';
 import { ThemeProvider } from 'styled-components';
-import { light } from './assets/styles/theme';
+import { useTheme } from './hooks/useTheme';
 import { GlobalStyle } from './assets/styles/GlobalStyle';
+import { light, night } from './assets/styles/theme';
 import Loading from './components/common/Loading';
 import { getFromLocalStorage } from './lib/localStorage';
 const Layout = React.lazy(() => import('./pages/Layout'));
@@ -23,17 +24,18 @@ const People = React.lazy(() => import('./pages/People'));
 const EditDiary = React.lazy(() => import('./pages/EditDiary'));
 const EditBook = React.lazy(() => import('./pages/EditBook'));
 const Theme = React.lazy(() => import('./pages/Theme'));
+
 function App() {
-  const [themeMode, setThemeMode] = useState('light');
-  console.log(themeMode);
-  const theme = light;
+  const [themeMode, setMode] = useTheme();
+  const [theme, setTheme] = useState(light);
+  const customTheme = getFromLocalStorage('custom');
+
   useEffect(() => {
-    const res = getFromLocalStorage('customTheme');
-    setThemeMode(res);
-    console.log(res);
-  });
-  // const theme = themeMode === 'light' ? light : customTheme;
-  //로컬에서 가져온 값이 있으면 그걸 쓰고, 없으면 디폴트로한다.?
+    if (themeMode === 'night') setTheme(night);
+    if (themeMode === 'light') setTheme(light);
+    if (themeMode === 'custom') setTheme(customTheme);
+  }, [themeMode]);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -154,7 +156,7 @@ function App() {
             path={path.theme}
             element={
               <Layout>
-                <Theme />
+                <Theme theme={theme} setTheme={setTheme} setMode={setMode} />
               </Layout>
             }
           ></Route>

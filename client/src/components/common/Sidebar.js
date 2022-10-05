@@ -18,7 +18,8 @@ const Wraper = styled.div`
   * {
     font-size: var(--fontSizeM);
   }
-  background-color: ${({ theme }) => theme.colors.custom1};
+
+  background-color: ${({ theme }) => theme.colors.sidebar};
   z-index: 1000;
   display: flex;
   padding: var(--spaceM);

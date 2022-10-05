@@ -9,7 +9,7 @@ const Container = styled.article`
   cursor: pointer;
   overflow: hidden;
   padding: var(--spaceS);
-  background-color: ${({ theme }) => theme.colors.custom4};
+  background-color: ${({ theme }) => theme.colors.contentCard};
   box-shadow: var(--shadowM);
   border-radius: var(--borderRadiusM);
 
@@ -93,10 +93,7 @@ const ContentCard = ({ data, isDiary, onClick }) => {
                 </Text>
               </>
             )}
-            <Label>
-              {/* {isDiary ? data.category : data.public ? '전체공개' : '비공개'} */}
-              {'전체공개'}
-            </Label>
+            <Label>{'전체공개'}</Label>
           </Labels>
           <Date date={data.createdAt} />
         </Details>
