@@ -113,7 +113,7 @@ const Navbar = () => {
       !sidebarRef.current.contains(e.target) &&
       !toggleRef.current.contains(e.target)
     ) {
-      setSidebar(false);
+      setSidebar(!sidebar);
     }
   };
 

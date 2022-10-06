@@ -7,7 +7,7 @@ const FilterModalContainer = styled.div`
   top: 30px;
   padding: var(--spaceM);
   background: #fff;
-  box-shadow: ${({ theme }) => theme.boxShadow.shadowXS};
+  box-shadow: var(--shadowXS);
   border-radius: var(--borderRadiusM);
   font-size: var(--fontSizeS);
   color: ${({ theme }) => theme.colors.text4};
