@@ -24,7 +24,6 @@ const Content = styled.section`
   overflow: hidden;
   margin-left: ${(props) => (props.hasCommon ? `var(--spaceM)` : '0px')};
   width: 100%;
-  height: 100vh;
   max-width: ${(props) => (props.hasCommon ? '977px' : '1200px')};
   padding: ${(props) => (props.hasCommon ? `var(--spaceL)` : '0px')};
 

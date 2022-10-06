@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { path } from './pages/router';
 import { ThemeProvider } from 'styled-components';
 import { useTheme } from './hooks/useTheme';
@@ -8,7 +8,6 @@ import { light, night } from './assets/styles/theme';
 import Loading from './components/common/Loading';
 import { getFromLocalStorage } from './lib/localStorage';
 const Layout = React.lazy(() => import('./pages/Layout'));
-const Root = React.lazy(() => import('./pages/Root'));
 const Error = React.lazy(() => import('./pages/Error'));
 const Landing = React.lazy(() => import('./pages/Landing'));
 const Signup = React.lazy(() => import('./pages/Signup'));
@@ -28,7 +27,14 @@ const Theme = React.lazy(() => import('./pages/Theme'));
 function App() {
   const [themeMode, setMode] = useTheme();
   const [theme, setTheme] = useState(light);
+  const [isvisitor, setIsvisitor] = useState(false);
   const customTheme = getFromLocalStorage('custom');
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const isvisitor = getFromLocalStorage('/main');
+    setIsvisitor(isvisitor);
+  }, [pathname]);
 
   useEffect(() => {
     if (themeMode === 'night') setTheme(night);
@@ -77,14 +83,15 @@ function App() {
           <Route
             path={path.root}
             element={
-              <Root>
-                {/* <Layout>
+              isvisitor ? (
+                <Layout>
                   <Main />
-                </Layout> */}
+                </Layout>
+              ) : (
                 <Layout hasCommon={false}>
                   <Landing />
                 </Layout>
-              </Root>
+              )
             }
           ></Route>
           <Route

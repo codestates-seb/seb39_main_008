@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { getDiaries, getMembers } from '../lib/axios';
 import styled from 'styled-components';
 import UserCard from '../components/common/UserCard';
+import { getFromLocalStorage, setToLocalStorage } from '../lib/localStorage';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MainContainer = styled.div`
   & > div:last-child {
@@ -75,6 +77,21 @@ const Main = ({ setHeaderData }) => {
   const [data, setData] = useState([]);
   const [currentTitle, setCurrentTitle] = useState('최신글');
   const [popularPeople, setPopularPeople] = useState([]);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (pathname === '/main') {
+      const isvisitor = getFromLocalStorage('/main');
+      if (isvisitor) navigate('/');
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname === '/main') {
+      setToLocalStorage('/main', true);
+    }
+  }, [pathname]);
 
   useEffect(async () => {
     setHeaderData({
