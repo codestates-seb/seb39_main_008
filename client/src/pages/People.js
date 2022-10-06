@@ -4,7 +4,7 @@ import UserCard from '../components/common/UserCard';
 import { getMembers } from '../lib/axios';
 import PeopleFilter from '../components/People/PeopleFilter';
 import LoadingUnit from '../components/common/LoadingUnit';
-import useInfinityScroll from '../lib/useInfinityScroll';
+import useInfinityScroll from '../hooks/useInfinityScroll';
 
 const PeopleContainer = styled.div`
   width: 100%;
