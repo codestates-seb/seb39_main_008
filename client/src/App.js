@@ -67,12 +67,20 @@ function App() {
             }
           ></Route>
           <Route
+            path={path.main}
+            element={
+              <Layout>
+                <Main />
+              </Layout>
+            }
+          ></Route>
+          <Route
             path={path.root}
             element={
               <Root>
-                <Layout>
+                {/* <Layout>
                   <Main />
-                </Layout>
+                </Layout> */}
                 <Layout hasCommon={false}>
                   <Landing />
                 </Layout>

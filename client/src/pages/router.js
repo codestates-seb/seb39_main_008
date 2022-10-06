@@ -1,5 +1,6 @@
 export const path = {
   root: `/`,
+  main: '/main',
   signUp: `/signup`,
   logIn: `/login`,
   book: `/book/:bookId`,
