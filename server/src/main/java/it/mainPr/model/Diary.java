@@ -31,7 +31,6 @@ public class Diary extends BaseTime {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    @JsonIgnore
     private Member member;
 
 
@@ -42,15 +41,12 @@ public class Diary extends BaseTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
-    @JsonIgnore
     private Book book;
 
     @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Heart> heart;
 
     @Builder

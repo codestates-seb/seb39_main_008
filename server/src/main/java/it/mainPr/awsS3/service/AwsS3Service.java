@@ -37,13 +37,13 @@ public class AwsS3Service {
     @Value("${cloud.aws.region.static}")
     private String region;
 
-    public List<String> uploadFile(long memberId, List<MultipartFile> multipartFiles) {
+    public List<String> uploadFile(List<MultipartFile> multipartFiles) {
 
         List<String> fileUrls = new ArrayList<>();
 
         for(MultipartFile multipartFile:multipartFiles){
             validateFileExists(multipartFile); // 첨부된 파일 중 null인지 확인
-            String fileName = CommonUtils.buildFileName(memberId,multipartFile.getOriginalFilename());
+            String fileName = CommonUtils.buildFileName(multipartFile.getOriginalFilename());
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentType(multipartFile.getContentType());
 
@@ -54,7 +54,6 @@ public class AwsS3Service {
             } catch (IOException e) {
                 throw new BusinessLogicalException(ExceptionCode.FILE_UPLOAD_FAILED);
             }
-
         }
 
         return fileUrls;

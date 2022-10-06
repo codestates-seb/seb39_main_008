@@ -14,16 +14,18 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "MEMBER")
 public class Member extends BaseTime {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long memberId;
     private String email;
-    @JsonIgnore
     private String password;
     private String name;
     private String nickname;
     private String information;
+
+    private String Role;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "STATUS")
@@ -36,31 +38,13 @@ public class Member extends BaseTime {
     private List<Book> book;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Diary> diary;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Heart> heart;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> comment;
-
-
-    @Builder
-    public Member(long memberId, String email, String password, String name, String nickname, String information, String imgUrl) {
-        this.memberId = memberId;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.nickname = nickname;
-        this.information = information;
-        this.imgUrl = imgUrl;
-    }
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles = new ArrayList<>();
 
 
     public enum MemberStatus {

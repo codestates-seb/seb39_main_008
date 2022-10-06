@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-@Repository
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
     Page<Diary> findByMemberAndDiaryStatus(Pageable pageable, Member member, Diary.DiaryStatus diaryStatus);

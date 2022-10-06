@@ -17,10 +17,16 @@ import java.util.Date;
 import java.util.Map;
 
 @Component
+@Getter
 public class JwtTokenizer {
+
     @Getter
     @Value("${jwt.secret-key}")
     private String secretKey;
+
+    @Getter
+//    @Value("${jwt.key.refresh_secret}")
+    private String refreshSecretKey;
 
     @Getter
     @Value("${jwt.access-token-expiration-minutes}")

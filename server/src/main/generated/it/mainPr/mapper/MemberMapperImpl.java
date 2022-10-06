@@ -4,14 +4,19 @@ import it.mainPr.dto.memberDto.MemberPatchDto;
 import it.mainPr.dto.memberDto.MemberPostDto;
 import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.dto.memberDto.MemberResponseDto.MemberResponseDtoBuilder;
+import it.mainPr.model.Book;
+import it.mainPr.model.Comment;
+import it.mainPr.model.Diary;
+import it.mainPr.model.Heart;
 import it.mainPr.model.Member;
-import it.mainPr.model.Member.MemberBuilder;
+import it.mainPr.model.Member.MemberStatus;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-06T23:44:32+0900",
+    date = "2022-10-07T01:03:00+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.3 (Amazon.com Inc.)"
 )
 @Component
@@ -23,14 +28,29 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
-        MemberBuilder member = Member.builder();
+        String email = null;
+        String password = null;
+        String name = null;
+        String nickname = null;
 
-        member.email( post.getEmail() );
-        member.password( post.getPassword() );
-        member.name( post.getName() );
-        member.nickname( post.getNickname() );
+        email = post.getEmail();
+        password = post.getPassword();
+        name = post.getName();
+        nickname = post.getNickname();
 
-        return member.build();
+        Long memberId = null;
+        String information = null;
+        String role = null;
+        MemberStatus memberStatus = null;
+        String imgUrl = null;
+        List<Book> book = null;
+        List<Diary> diary = null;
+        List<Heart> heart = null;
+        List<Comment> comment = null;
+
+        Member member = new Member( memberId, email, password, name, nickname, information, role, memberStatus, imgUrl, book, diary, heart, comment );
+
+        return member;
     }
 
     @Override
@@ -57,11 +77,26 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
-        MemberBuilder member = Member.builder();
+        String information = null;
+        String imgUrl = null;
 
-        member.information( patch.getInformation() );
-        member.imgUrl( patch.getImgUrl() );
+        information = patch.getInformation();
+        imgUrl = patch.getImgUrl();
 
-        return member.build();
+        Long memberId = null;
+        String email = null;
+        String password = null;
+        String name = null;
+        String nickname = null;
+        String role = null;
+        MemberStatus memberStatus = null;
+        List<Book> book = null;
+        List<Diary> diary = null;
+        List<Heart> heart = null;
+        List<Comment> comment = null;
+
+        Member member = new Member( memberId, email, password, name, nickname, information, role, memberStatus, imgUrl, book, diary, heart, comment );
+
+        return member;
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     Page<Comment> findByDiaryAndCommentStatus(Pageable pageable, Diary diary, Comment.CommentStatus commentStatus);

@@ -8,8 +8,13 @@ import it.mainPr.auth.handler.MemberAuthenticationFailureHandler;
 import it.mainPr.auth.handler.MemberAuthenticationSuccessHandler;
 import it.mainPr.auth.jwt.JwtTokenizer;
 import it.mainPr.auth.utils.CustomAuthorityUtils;
+import it.mainPr.repository.MemberRepository;
+import it.mainPr.service.MemberService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,15 +34,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
+@AllArgsConstructor
+@Slf4j
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
-    public SecurityConfig(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -58,14 +62,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                        .antMatchers(HttpMethod.POST,"/diaries/**","/comment/**","/heart/**").access("hasRole('ROLE_MEMBER')")
-                        .antMatchers(HttpMethod.PATCH,"/members/**","/diaries/**","/comment/**","/heart/**").access("hasRole('ROLE_MEMBER')")
-                        .antMatchers(HttpMethod.DELETE,"/members/**","/comment/**").access("hasRole('ROLE_MEMBER')")
+                        .antMatchers(HttpMethod.POST,"/diaries/**","/comment/**","/heart/**","/books/").access("hasRole('ROLE_MEMBER')")
+                        .antMatchers(HttpMethod.PATCH,"/members/**","/diaries/**","/comment/**","/heart/**","/books/").access("hasRole('ROLE_MEMBER')")
+                        .antMatchers(HttpMethod.DELETE,"/members/**","/comment/**","/books/").access("hasRole('ROLE_MEMBER')")
                         .anyRequest().permitAll());
-
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .antMatchers("/api/v1/auth/signin", "/api/v1/auth/signup", "/h2").permitAll()
-//                        .anyRequest().hasRole("USER"));
 
         return http.build();
     }
@@ -78,9 +78,10 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
+        configuration.setAllowCredentials(true); // 서버 응답할때 제이슨을 자바스크립트에서 처리할수있게 할지 결정
         configuration.addAllowedOriginPattern("*");
         configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
 
@@ -95,12 +96,12 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, memberService, memberRepository);
             jwtAuthenticationFilter.setFilterProcessesUrl("/api/v1/auth/signin");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, memberRepository);
 
 
             builder

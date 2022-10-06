@@ -36,13 +36,21 @@ public class DiaryService {
 
 
     public Diary createdDiary(Diary diary) {
-        verifyExistDiary(diary.getMember(), diary.getBook());
+
+        verifyExistDiary(diary.getMember(), diary.getBook().getBookId());
 
         return diaryRepository.save(diary);
     }
 
-    private void verifyExistDiary(Member member, Book book) {
-        Optional<Diary> diary = diaryRepository.findByMemberAndBookAndDiaryStatus(member, book, Diary.DiaryStatus.DIARY_EXIST);
+    private void verifyExistDiary(Member member, long bookId) {
+        String memberEmail = SecurityUtils.getCurrentMemberEmail();
+        memberService.findVerifiedMember(memberEmail);
+
+        Book book = bookRepository.findById(bookId).orElseThrow(() ->
+                new BusinessLogicalException(ExceptionCode.BOOK_NOT_FOUND));
+
+        Optional<Diary> diary = diaryRepository.findByMemberAndBookAndDiaryStatus(
+                member, book, Diary.DiaryStatus.DIARY_EXIST);
 
     }
 
