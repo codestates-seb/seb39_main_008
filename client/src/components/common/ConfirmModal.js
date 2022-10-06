@@ -1,11 +1,4 @@
 import styled from 'styled-components';
-import {
-  boxShadow,
-  colors,
-  space,
-  fontSize,
-  borderRadius,
-} from '../../assets/styles/theme';
 import Logo from './Logo';
 
 const Container = styled.div`
@@ -14,19 +7,20 @@ const Container = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${colors.dimGrey};
+  background-color: ${({ theme }) => theme.colors.dimGrey};
   z-index: 1000;
 `;
 
 const Wraper = styled.div`
   * {
-    font-size: ${fontSize.fontSizeL};
+    font-size: var(--fontSizeL);
     box-sizing: border-box;
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
-  padding: ${space.spaceL};
-  padding-top: ${space.spaceS};
-  box-shadow: ${boxShadow.shadowM};
+
+  padding: var(--spaceL);
+  padding-top: var(--spaceS);
+  box-shadow: var(--shadowM);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -37,30 +31,33 @@ const Wraper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  border-radius: ${borderRadius.borderRadiusM};
+  border-radius: var(--borderRadiusM);
   width: 466px;
   height: 249px;
 
   .target {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
+
   button {
     width: 124px;
     height: 42px;
-    color: ${colors.white};
-    border-radius: ${borderRadius.borderRadiusS};
-    box-shadow: ${boxShadow.shadowM};
+    color: ${({ theme }) => theme.colors.text1};
+    border-radius: var(--borderRadiusS);
+    box-shadow: var(--shadowM);
   }
   .btns {
     padding: 0 40px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+
     .true {
-      background: ${colors.green};
+      background: ${({ theme }) => theme.colors.green};
     }
+
     .false {
-      background: ${colors.red};
+      background: ${({ theme }) => theme.colors.red};
     }
   }
 `;

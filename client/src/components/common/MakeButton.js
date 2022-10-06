@@ -1,39 +1,38 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import {
-  colors,
-  boxShadow,
-  borderRadius,
-  fontSize,
-  space,
-  layout,
-} from '../../assets/styles/theme';
 import { BiBookAdd } from 'react-icons/bi';
 import { FiPenTool } from 'react-icons/fi';
 const Container = styled.div`
   & > svg {
-    color: ${colors.text4};
-    margin-bottom: ${space.spaceM};
+    color: ${({ theme }) => theme.colors.text4};
+    margin-bottom: var(--spaceM);
   }
+
   &:hover {
     & > svg {
-      color: ${colors.text3};
+      color: ${({ theme }) => theme.colors.text1};
     }
   }
+
   & > p {
-    color: ${colors.text2};
-    font-size: ${fontSize.fontSizeLL};
+    color: ${({ theme }) => theme.colors.text1};
+    font-size: var(--fontSizeLL);
   }
-  background-color: ${colors.grey};
-  box-shadow: ${boxShadow.shadowM};
-  border-radius: ${borderRadius.borderRadiusM};
-  ${layout.flexCenterColumn};
+
+  background-color: ${({ theme }) => theme.colors.dimGrey};
+  box-shadow: var(--shadowM);
+  border-radius: var(--borderRadiusM);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 `;
 
 const MakeButton = ({ type }) => {
   const navigate = useNavigate();
-  const buttonType = {
+
+  const BUTTONOPTION = {
     book: {
       icon: <BiBookAdd size={100} />,
       text: <p>일기장 만들기</p>,
@@ -49,7 +48,8 @@ const MakeButton = ({ type }) => {
       },
     },
   };
-  const { icon, text, onClick } = buttonType[type];
+
+  const { icon, text, onClick } = BUTTONOPTION[type];
   return (
     <Container onClick={onClick}>
       {icon}

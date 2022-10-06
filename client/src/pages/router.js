@@ -11,4 +11,5 @@ export const path = {
   writeDiary: `/writediary`,
   userpage: `/user/:memberId`,
   people: `/people`,
+  theme: '/theme',
 };

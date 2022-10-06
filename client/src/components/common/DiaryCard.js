@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { colors, space } from '../../assets/styles/theme';
 
 const DiaryCardContainer = styled.div`
   background-image: url(${(props) => props.image});
@@ -14,8 +13,9 @@ const DiaryCardContainer = styled.div`
   text-align: center;
   position: relative;
   z-index: 2;
+
   cursor: pointer;
-  padding: ${space.spaceS};
+  padding: var(--spaceS);
 
   > div {
   }
@@ -36,7 +36,7 @@ const DiaryCardContainer = styled.div`
 
   > p {
     opacity: 0;
-    color: ${colors.white};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 

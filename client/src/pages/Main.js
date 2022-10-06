@@ -2,23 +2,22 @@ import ContentCard from '../components/common/ContentCard';
 import { useEffect, useState } from 'react';
 import { getDiaries, getMembers } from '../lib/axios';
 import styled from 'styled-components';
-import { space, fontSize } from '../assets/styles/theme';
 import UserCard from '../components/common/UserCard';
 
 const MainContainer = styled.div`
   & > div:last-child {
-    padding: ${space.spaceM};
+    padding: var(--spaceM);
   }
 `;
 
 const PopularPeopleContainer = styled.div`
   max-width: 835px;
-  margin: 0 ${space.spaceM};
+  margin: 0 var(--spaceM);
 
   > div {
-    padding: ${space.spaceL} ${space.spaceS};
-    padding-top: ${space.spaceM};
-    margin-bottom: ${space.spaceM};
+    padding: var(--spaceL) var(--spaceS);
+    padding-top: var(--spaceM);
+    margin-bottom: var(--spaceM);
     gap: 20px;
     display: flex;
     flex-wrap: no-wrap;
@@ -31,7 +30,7 @@ export const ContentCardGridContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-auto-columns: minmax(350px, 407px);
   grid-auto-rows: 286px;
-  grid-gap: ${space.spaceM};
+  grid-gap: var(--spaceM);
 `;
 
 const TitleFilterBox = styled.div`
@@ -39,13 +38,14 @@ const TitleFilterBox = styled.div`
   justify-content: space-between;
 
   > div {
-    padding: 0 ${space.spaceM};
+    padding: 0 var(--spaceM);
   }
 `;
 
 const SubTitle = styled.p`
-  font-size: ${fontSize.fontSizeL};
-  padding: 0 ${space.spaceM};
+  font-size: var(--fontSizeL);
+  padding: 0 var(--spaceM);
+  color: ${({ theme }) => theme.colors.text2};
 `;
 
 const Main = ({ setHeaderData }) => {

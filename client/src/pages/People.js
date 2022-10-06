@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import UserCard from '../components/common/UserCard';
-import { space } from '../assets/styles/theme';
 import { getMembers } from '../lib/axios';
 import PeopleFilter from '../components/People/PeopleFilter';
 import LoadingUnit from '../components/common/LoadingUnit';
@@ -10,15 +9,13 @@ import useInfinityScroll from '../lib/useInfinityScroll';
 const PeopleContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
-  position: relative;
-  z-index: -1;
 
   > div:first-child {
     display: grid;
-    column-gap: ${space.spaceM};
-    row-gap: ${space.spaceL};
+    column-gap: var(--spaceM);
+    row-gap: var(--spaceL);
     grid-template-columns: repeat(auto-fill, minmax(150px, auto));
-    padding: 0 ${space.spaceM};
+    padding: 0 var(--spaceM);
   }
 
   > div > div {
@@ -29,7 +26,8 @@ const PeopleContainer = styled.div`
 const NoticeContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: ${space.spaceL};
+  margin-top: var(--spaceL);
+  color: ${({ theme }) => theme.colors.text1};
 `;
 
 const People = ({ setHeaderData }) => {

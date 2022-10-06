@@ -1,27 +1,19 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import {
-  boxShadow,
-  borderRadius,
-  space,
-  fontSize,
-  colors,
-} from '../../assets/styles/theme';
-
 const FilterModalContainer = styled.div`
   position: absolute;
   z-index: 1;
   top: 30px;
-  padding: ${space.spaceM};
+  padding: var(--spaceM);
   background: #fff;
-  box-shadow: ${boxShadow.shadowXS};
-  border-radius: ${borderRadius.borderRadiusM};
-  font-size: ${fontSize.fontSizeS};
-  color: ${colors.text4};
+  box-shadow: ${({ theme }) => theme.boxShadow.shadowXS};
+  border-radius: var(--borderRadiusM);
+  font-size: var(--fontSizeS);
+  color: ${({ theme }) => theme.colors.text4};
 
   > div {
-    margin-bottom: ${space.spaceS};
+    margin-bottom: var(--spaceS);
   }
 
   > div:last-child {
@@ -29,19 +21,19 @@ const FilterModalContainer = styled.div`
   }
 
   > div:last-child > div > button {
-    color: ${colors.text4};
+    color: ${({ theme }) => theme.colors.text4};
   }
 
   > div:last-child > div > button:hover {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   > div > div.title {
     display: block;
     width: 100%;
-    font-size: ${fontSize.fontSizeM};
-    margin-bottom: ${space.spaceS};
-    color: ${colors.text2};
+    font-size: var(--fontSizeM);
+    margin-bottom: var(--spaceS);
+    color: ${({ theme }) => theme.colors.text2};
   }
 
   > div > div {
@@ -57,7 +49,7 @@ const FilterModalContainer = styled.div`
   }
 
   > div > div label:hover {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text2};
   }
 `;
 

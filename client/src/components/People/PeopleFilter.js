@@ -1,21 +1,21 @@
 import styled from 'styled-components';
-import { space, fontSize, colors } from '../../assets/styles/theme';
 import FilterModal from './FilterModal';
 
 const PeopleFilterContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-right: calc(${space.spaceL} + ${space.spaceM});
+  padding-right: var(--spaceM);
+  margin-bottom: var(--spaceL);
   position: relative;
 
   > button {
-    color: ${colors.text4};
-    font-size: ${fontSize.fontSizeS};
-    padding-left: ${space.spaceS};
+    color: ${({ theme }) => theme.colors.text4};
+    font-size: var(--fontSizeS);
+    padding-left: var(--spaceS);
   }
 
   > button.active {
-    color: ${colors.text2};
+    color: ${({ theme }) => theme.colors.text1};
   }
 `;
 

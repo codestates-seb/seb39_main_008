@@ -5,7 +5,9 @@ import { getDiary } from '../lib/axios';
 
 const EditDiary = ({ setHeaderData }) => {
   const { diaryId } = useParams();
+
   const [diary, setDiary] = useState(null);
+
   useEffect(async () => {
     setHeaderData({
       title: '기록 수정하기',
@@ -13,7 +15,8 @@ const EditDiary = ({ setHeaderData }) => {
     });
     const res = await getDiary(diaryId);
     setDiary(res.data);
-  }, []);
+  }, [diaryId]);
+
   return <>{diary && <WriteOrEditDiaryForm isEdit={true} data={diary} />}</>;
 };
 
