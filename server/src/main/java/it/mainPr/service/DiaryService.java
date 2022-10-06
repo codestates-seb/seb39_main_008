@@ -1,8 +1,11 @@
 package it.mainPr.service;
 
+import it.mainPr.auth.utils.SecurityUtils;
+import it.mainPr.dto.diaryDto.DiariesDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
 import it.mainPr.mapper.DiaryMapper;
+import it.mainPr.model.Book;
 import it.mainPr.model.Diary;
 import it.mainPr.model.DiaryImage;
 import it.mainPr.model.Member;
@@ -28,30 +31,23 @@ public class DiaryService {
     private final MemberService memberService;
     private final BookRepository bookRepository;
 
-    @Transactional
-    public Diary createdDiary(Diary diary) {
+//    public Diary createdDiary(DiariesDto.PostDto postDto, long bookId) {
 //        String memberEmail = SecurityUtils.getCurrentMemberEmail();
 //        Member member = memberService.findVerifiedMember(memberEmail);
 //
 //        Book book = bookRepository.findById(bookId).orElseThrow(() ->
 //                 new BusinessLogicalException(ExceptionCode.BOOK_NOT_FOUND));
 //
+//        Diary diary = diaryMapper.postDtoToDiary(postDto);
 //        diary.setMember(member);
 //        diary.setBook(book);
+//        diaryRepository.save(diary);
+//        return diaryMapper.diaryToResponseDto(diary);
+//    }
+
+    public Diary createdDiary(Diary diary) {
         return diaryRepository.save(diary);
     }
-
-//    @Transactional
-//    public Diary createdDiary(Diary diary, long bookId) {
-//        String memberEmail = SecurityUtils.getCurrentMemberEmail();
-//        Member member = memberService.findVerifiedMember(memberEmail);
-//
-//        Book book = bookRepository.findById(bookId).orElseThrow(() ->
-//                new BusinessLogicalException(ExceptionCode.BOOK_NOT_FOUND));
-//
-//        findVerifiedDiary(diary.getDiaryId());
-//        return diaryRepository.save(diary);
-//    }
 
 
     public Member findDiaryMember(long diaryId) {
@@ -72,6 +68,11 @@ public class DiaryService {
         }
 
         return findDiary;
+    }
+
+    public Member findMemberAtDiary(long diaryId){
+        Diary findDiary = findVerifiedDiary(diaryId);
+        return findDiary.getMember();
     }
 
     public Page<Diary> findDiaries(MemberService memberService, int page, int size) { // 해당 유저가 쓴 글 페이지네이션 최신순 구현

@@ -8,9 +8,7 @@ import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.model.Diary;
 import it.mainPr.model.Heart;
 import it.mainPr.model.Member;
-import it.mainPr.service.DiaryService;
-import it.mainPr.service.HeartService;
-import it.mainPr.service.MemberService;
+import it.mainPr.service.*;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -31,8 +29,29 @@ public interface HeartMapper {
         return heart;
 
     }
-//
-//
+
+    default HeartResponseDto heartToHeartResponseDto(
+            CommentService commentService, HeartService heartService, CommentMapper commentMapper,
+            DiaryMapper diaryMapper, MemberMapper memberMapper, DiaryImageService diaryImageService,
+            Heart heart) {
+
+        HeartResponseDto heartResponseDto = new HeartResponseDto();
+        heartResponseDto.setHeartId(heart.getHeartId());
+        heartResponseDto.setHeartStatus(heart.getHeartStatus());
+        heartResponseDto.setModifiedAt(heart.getModifiedAt());
+        heartResponseDto.setCreatedAt(heart.getCreatedAt());
+
+        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryToDiaryResponseDto(
+                commentService, heartService, commentMapper, memberMapper,
+                diaryImageService, heart.getDiary());
+        heartResponseDto.setDiary(diaryResponseDto);
+
+        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(heart.getMember());
+        heartResponseDto.setMember(memberResponseDto);
+
+        return heartResponseDto;
+    }
+
     default Heart heartPatchDtoToHeart(DiaryService diaryService, MemberService memberService, HeartPatchDto heartPatchDto) {
 
         Member member = memberService.getLoginMember(); // request http 헤더의 토큰에 해당하는 유저 불러옴
@@ -47,26 +66,14 @@ public interface HeartMapper {
         return heart;
     }
 
-//    default HeartResponseDto heartToHeartResponseDto(DiaryService diaryService, HeartService heartService, DiaryMapper diaryMapper, MemberMapper memberMapper, Heart heart) {
-//        HeartResponseDto heartResponseDto = new HeartResponseDto();
-//        heartResponseDto.setHeartId(heart.getHeartId());
-//        heartResponseDto.setHeartStatus(heart.getHeartStatus());
-//        heartResponseDto.setModifiedAt(heart.getModifiedAt());
-//        heartResponseDto.setCreatedAt(heart.getCreatedAt());
-//
-//        DiariesDto.DiaryResponseDto diaryResponseDto = diaryMapper.diaryToDiaryResponseDto(diaryService, heartService, diaryMapper, memberMapper, heart.getDiary());
-//        heartResponseDto.setDiary(diaryResponseDto);
-//
-//        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(heart.getMember());
-//        heartResponseDto.setMember(memberResponseDto);
-//
-//
-//
-//        return heartResponseDto;
-//    }
+    default List<HeartResponseDto> heartToHeartResponseDtos(
+            CommentService commentService, HeartService heartService, CommentMapper commentMapper,
+            DiaryMapper diaryMapper, MemberMapper memberMapper, DiaryImageService diaryImageService,
+            List<Heart> hearts) {
+        return hearts.stream().map(heart -> heartToHeartResponseDto(
+                        commentService, heartService, commentMapper, diaryMapper, memberMapper, diaryImageService, heart))
+                .collect(Collectors.toList());
+    }
 
-//    default List<HeartResponseDto> heartsToHeartResponseDtos(DiaryService diaryService, HeartService heartService,DiaryMapper diaryMapper,MemberMapper memberMapper,List<Heart> hearts) {
-//        return hearts.stream().map(heart -> heartToHeartResponseDto(diaryService,heartService,diaryMapper,memberMapper,heart))
-//                .collect(Collectors.toList());
-//    };
+
 }

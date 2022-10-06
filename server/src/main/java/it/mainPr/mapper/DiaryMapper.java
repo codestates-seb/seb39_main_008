@@ -1,10 +1,8 @@
 package it.mainPr.mapper;
 
-import it.mainPr.dto.commentDto.CommentResponseDto;
 import it.mainPr.dto.diaryDto.DiariesDto;
 import it.mainPr.dto.diaryDto.DiaryImageDto;
 import it.mainPr.dto.diaryDto.DiaryImageResponseDto;
-import it.mainPr.dto.global.MultiResponseDto;
 import it.mainPr.dto.memberDto.MemberResponseDto;
 import it.mainPr.exception.BusinessLogicalException;
 import it.mainPr.exception.ExceptionCode;
@@ -12,17 +10,20 @@ import it.mainPr.model.*;
 import it.mainPr.service.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring")
 public interface DiaryMapper {
+
+//    Diary postDtoToDiary(DiariesDto.PostDto postDto);
+//    DiariesDto.DiaryResponseDto diaryToResponseDto(Diary diary);
+
+
 
     default Diary diaryPostDtoToDiary(MemberService memberService, DiariesDto.PostDto postDto) {
         Diary diary = new Diary();
-
 
         // 하나의 diary에 1장 or 여러 장의 image를 올릴 수도 있고, image 업로드 없이 diary를 등록할 수도 있다.
         if(postDto.getDiaryImgUrl() == null) {
@@ -149,6 +150,8 @@ public interface DiaryMapper {
                     return diaryImageResponseDto;
                 }).collect(Collectors.toList());
     }
+
+
 
 //    default DiaryAndCommentResponseDto diaryToDiaryAndCommentResponseDto(
 //            CommentService commentService, HeartService heartService, CommentMapper commentMapper,

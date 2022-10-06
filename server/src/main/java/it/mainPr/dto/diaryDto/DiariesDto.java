@@ -18,6 +18,10 @@ import java.util.List;
 public class DiariesDto {
 
     @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class PostDto {
         @NotBlank
         private String diary_title;
@@ -25,11 +29,9 @@ public class DiariesDto {
         @NotBlank
         private String content;
         private List<DiaryImageDto> diaryImgUrl;
-
-//        @NotBlank
-        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" +
-                "|(^여행기록$)|(^자유$)",message = "카테고리 중에 선택해주세요")
-        private String category;
+//        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" +
+//                "|(^여행기록$)|(^자유$)",message = "카테고리 중에 선택해주세요")
+//        private String category;
         private Member member;
         private Integer total_heart;
         private Integer total_follow;
@@ -42,8 +44,8 @@ public class DiariesDto {
         private String diary_title;
         private String diary_subtitle;
         private String content;
-        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" + "|(^여행기록$)|(^자유$)", message = "카테고리 중에 선택해주세요")
-        private String category;
+//        @Pattern(regexp = "(^일상 공유$)|(^공감과 치유$)|(^문화 생활$)" + "|(^여행기록$)|(^자유$)", message = "카테고리 중에 선택해주세요")
+//        private String category;
         private Diary.DiaryStatus diaryStatus;
         private String information;
         private List<DiaryImageDto> diaryImgUrl;

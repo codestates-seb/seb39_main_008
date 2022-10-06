@@ -36,13 +36,14 @@ import java.util.List;
 
     // mapper 활용
     @PostMapping("/api/v1/diaries")
-    public ResponseEntity createdDiary(@Valid @RequestBody DiariesDto.PostDto postDto) {
-//                                       @RequestParam(name = "book_id") long bookId
+    public ResponseEntity createdDiary( //@RequestParam(name = "book_id") long bookId,
+                                       @Valid @RequestBody DiariesDto.PostDto postDto) {
 
-        Diary diary = diaryService.createdDiary(diaryMapper.diaryPostDtoToDiary(memberService, postDto));
+        Diary diary = diaryService.createdDiary(
+                diaryMapper.diaryPostDtoToDiary(memberService, postDto));
 
-        return new ResponseEntity<>(new SingleResponseDto<>(diaryMapper.diaryToDiaryResponseDto(commentService, heartService, commentMapper, memberMapper, diaryImageService, diary)),
-                HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(diaryMapper.diaryToDiaryResponseDto(
+                commentService, heartService, commentMapper, memberMapper, diaryImageService, diary)), HttpStatus.CREATED);
     }
 
     @PatchMapping("/api/v1/diaries/{diary_id}")
@@ -106,7 +107,7 @@ import java.util.List;
 //                HttpStatus.OK);
 //    }
 
-    @GetMapping("/diary")
+    @GetMapping("/api/v1/diaries")
     public ResponseEntity getAllDiaries(@Positive @RequestParam("page") int page,
                                         @Positive @RequestParam("size") int size,
                                         @RequestParam("sort") String sort) {
@@ -124,7 +125,7 @@ import java.util.List;
     /**
      * 유저 자신이 쓴 글 리스트 가져오기 API
      * **/
-    @GetMapping("/api/v1/diary/mine")
+    @GetMapping("/api/v1/diaries/mine")
     public ResponseEntity getDiaries(@Positive @RequestParam("page") int page,
                                      @Positive @RequestParam("size") int size){
 

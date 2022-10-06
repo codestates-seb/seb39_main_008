@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class HeartResponseDto {
      private long heartId;
      private LocalDateTime createdAt;

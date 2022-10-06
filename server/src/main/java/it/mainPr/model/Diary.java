@@ -19,19 +19,17 @@ public class Diary extends BaseTime {
     @Column(name = "diary_id")
     private Long diaryId;
 
-    @Column(nullable = false)
     private String diary_title;
-    @Column(nullable = false)
     private String diary_subtitle;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<DiaryImage> diaryImgUrl;
 
-    @Column(nullable = false)
-    private String category;
+//    @Column(nullable = false)
+//    private String category;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
