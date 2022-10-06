@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { light, night } from '../assets/styles/theme';
 import { getFromLocalStorage, setToLocalStorage } from '../lib/localStorage';
 export const useTheme = () => {
   const isBrowserDarkMode =
