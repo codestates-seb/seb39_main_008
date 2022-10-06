@@ -27,9 +27,7 @@ public class Diary extends BaseTime {
 
     @OneToMany(mappedBy = "diary", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<DiaryImage> diaryImgUrl;
-
-//    @Column(nullable = false)
-//    private String category;
+    
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -101,18 +99,10 @@ public class Diary extends BaseTime {
         comments.add(comment);
     }
 
-//    @Getter
-//    @AllArgsConstructor
-//    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-//    public enum Category {
-//        CATEGORY_0("일상공유"), CATEGORY_1("공감과치유");
-//
-//        private String description;
-//    }
 
     public enum DiaryStatus {
-        DIARY_EXIST("존재하는 장소"),
-        DIARY_NOT_EXIST("존재하지 않는 장소");
+        DIARY_EXIST("존재하는 일기장"),
+        DIARY_NOT_EXIST("존재하지 않는 일기장");
 
         @Getter
         private String status;

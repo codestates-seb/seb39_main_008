@@ -41,9 +41,11 @@ public class CommentController {
     @PostMapping("/api/v1/comments")
     public ResponseEntity postComment(@Positive @RequestParam("diary_id") long diaryId,
                                       @Valid @RequestBody CommentPostDto commentPostDto) {
-        Comment comment = commentService.createComment(commentMapper.commentPostDtoComment(diaryService, memberService, diaryId, commentPostDto));
+        Comment comment = commentService.createComment(commentMapper.commentPostDtoComment(
+                diaryService, memberService, diaryId, commentPostDto));
 
-        return new ResponseEntity<>(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(memberMapper, comment)),HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(
+                commentMapper.commentToCommentResponseDto(memberMapper, comment)),HttpStatus.CREATED);
     }
 
     @PatchMapping("/api/v1/comments/{comment_id}")
@@ -59,9 +61,11 @@ public class CommentController {
     public ResponseEntity deleteComment(@PathVariable("comment_id") @Positive @NotNull long commentId,
                                         @Valid @RequestBody CommentPatchDto commentPatchDto) {
         //실제 삭제가 아닌 commentStatus를 COMMENT_NOT_EXIST로 변경
-        Comment comment = commentMapper.commentPatchDtoToComment(commentService, memberService, commentId, commentPatchDto);
+        Comment comment = commentMapper.commentPatchDtoToComment(
+                commentService, memberService, commentId, commentPatchDto);
         Comment deleteComment = commentService.deleteComment(comment);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(memberMapper, comment)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(
+                commentMapper.commentToCommentResponseDto(memberMapper, comment)), HttpStatus.OK);
     }
 }

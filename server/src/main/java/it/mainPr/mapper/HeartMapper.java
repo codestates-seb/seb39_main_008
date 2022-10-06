@@ -46,7 +46,7 @@ public interface HeartMapper {
                 diaryImageService, heart.getDiary());
         heartResponseDto.setDiary(diaryResponseDto);
 
-        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(heart.getMember());
+        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponseDto(heart.getMember());
         heartResponseDto.setMember(memberResponseDto);
 
         return heartResponseDto;

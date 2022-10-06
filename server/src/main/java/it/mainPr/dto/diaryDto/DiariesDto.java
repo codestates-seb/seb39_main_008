@@ -18,10 +18,6 @@ import java.util.List;
 public class DiariesDto {
 
     @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
     public static class PostDto {
         @NotBlank
         private String diary_title;
@@ -60,15 +56,13 @@ public class DiariesDto {
         private String content;
         private List<DiaryImageResponseDto> diaryImgUrl;
         private Diary.DiaryStatus diaryStatus;
-        private String total_hearts;
-        private String total_comments;
+//        private int total_hearts;
+//        private int total_comments;
         private MemberResponseDto member;
         private List<CommentResponseDto> comments;
-        private List<HeartResponseDto> hearts;
         private String category;
-        private List<BookResponseDto> books;
         private List<Long> heartMemberId;
-
+        private long bookId;
     }
 
 }

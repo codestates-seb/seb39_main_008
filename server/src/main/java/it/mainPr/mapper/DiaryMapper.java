@@ -1,5 +1,6 @@
 package it.mainPr.mapper;
 
+import it.mainPr.dto.commentDto.CommentResponseDto;
 import it.mainPr.dto.diaryDto.DiariesDto;
 import it.mainPr.dto.diaryDto.DiaryImageDto;
 import it.mainPr.dto.diaryDto.DiaryImageResponseDto;
@@ -11,6 +12,7 @@ import it.mainPr.service.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +23,14 @@ public interface DiaryMapper {
 //    DiariesDto.DiaryResponseDto diaryToResponseDto(Diary diary);
 
 
-
-    default Diary diaryPostDtoToDiary(MemberService memberService, DiariesDto.PostDto postDto) {
+    default Diary diaryPostDtoToDiary(BookService bookService, MemberService memberService, long bookId, DiariesDto.PostDto postDto) {
         Diary diary = new Diary();
+
+        Book book = bookService.findVerifiedBook(bookId);
+        Member member = memberService.getLoginMember();
+
+        System.out.println("로그인 유저:" + member.getMemberId());
+        System.out.println("북 소유자:" + book.getMember().getMemberId());
 
         // 하나의 diary에 1장 or 여러 장의 image를 올릴 수도 있고, image 업로드 없이 diary를 등록할 수도 있다.
         if(postDto.getDiaryImgUrl() == null) {
@@ -79,7 +86,7 @@ public interface DiaryMapper {
         return diary;
     }
     default List<DiaryImage> diaryImageDtosToDiaryImage(List<DiaryImageDto> diaryImageDtos, Diary diary) {
-        //
+
         return diaryImageDtos.stream().map(diaryImageDto -> {
             DiaryImage diaryImage = new DiaryImage();
             diaryImage.addDiary(diary);
@@ -88,7 +95,8 @@ public interface DiaryMapper {
         }).collect(Collectors.toList());
     }
 
-    default DiariesDto.DiaryResponseDto diaryToDiaryResponseDto(CommentService commentService,
+    default DiariesDto.DiaryResponseDto diaryToDiaryResponseDto(
+                                                                CommentService commentService,
                                                                 HeartService heartService,
                                                                 CommentMapper commentMapper,
                                                                 MemberMapper memberMapper,
@@ -101,9 +109,10 @@ public interface DiaryMapper {
         diaryResponseDto.setDiaryId(diary.getDiaryId());
         diaryResponseDto.setDiaryStatus(diary.getDiaryStatus());
         diaryResponseDto.setContent(diary.getContent());
+        diaryResponseDto.setBookId(diary.getBook().getBookId());
 
         // diary 작성자 추가
-        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(diary.getMember());
+        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponseDto(diary.getMember());
         diaryResponseDto.setMember(memberResponseDto);
 
         // diaryImage 추가. 단, 이미지가 없으면 본문(body)만 response로 전달되어야 함.
@@ -111,9 +120,9 @@ public interface DiaryMapper {
                 diaryImageService.findVerifiedDiaryImages(diary)));
 
         // 댓글 추가
-//        List<CommentResponseDto> commentResponseDtos
-//                = commentMapper.commentToExistCommentResponseDtos(commentService, memberMapper, diary.getComments());
-//        diaryResponseDto.setComments(commentResponseDtos);
+        List<CommentResponseDto> commentResponseDtos
+                = commentMapper.commentsToExistCommentResponseDtos(commentService, memberMapper, diary.getComments());
+        diaryResponseDto.setComments(commentResponseDtos);
 
         // 좋아요
         List<Heart> hearts = heartService.findExistHeartsByDiary(diary);
@@ -151,41 +160,39 @@ public interface DiaryMapper {
                 }).collect(Collectors.toList());
     }
 
+    default List<DiariesDto.DiaryResponseDto> diariesToDiaryResponse(MemberMapper memberMapper, List<Diary> diaries) {
+        //모든리뷰만 가지고 DiaryResponseDtos반환
+        return diaries.stream().filter(diary -> diary != null).map(diary -> diaryToDiaryResponse(memberMapper, diary)).
+                collect(Collectors.toList());
+    }
+
+    default List<DiariesDto.DiaryResponseDto> diariesToExistDiaryResponseDtos(DiaryService diaryService, MemberMapper memberMapper,List<Diary> diaries){
+        //리뷰중에 존재하는 리뷰(REVIEW_EXIST 상태)만 가지고 DiaryResponseDtos반환
+
+        if(diaries == null){
+            System.out.println("일기가 status 상태가 DIARY_EXIST/DIARY_NOT_EXIST인지 상관없이 DB에 존재하지 않습니다");
+            return new ArrayList<>();
+        }else{
+            diaries = diaryService.findExistDiaries(diaries); // diarys인자중 status가 REVIEW_EXIST인 것만 반환
+            return diaries.stream().filter(diary -> diary != null).map(diary -> diaryToDiaryResponse(memberMapper, diary)).collect(Collectors.toList());
+        }
+    }
 
 
-//    default DiaryAndCommentResponseDto diaryToDiaryAndCommentResponseDto(
-//            CommentService commentService, HeartService heartService, CommentMapper commentMapper,
-//            MemberMapper memberMapper, DiaryImageService diaryImageService,
-//            Diary diary, Integer commentPage, Integer commentSize, String commentSort) {
-//
-//        DiaryAndCommentResponseDto diaryAndCommentResponseDto = new DiaryAndCommentResponseDto();
-//        diaryAndCommentResponseDto.setDiaryId(diary.getDiaryId());
-//        diaryAndCommentResponseDto.setCreatedAt(diary.getCreatedAt());
-//        diaryAndCommentResponseDto.setUpdatedAt(diary.getUpdatedAt());
-//        diaryAndCommentResponseDto.setDiaryStatus(diary.getDiaryStatus());
-//        diaryAndCommentResponseDto.setBody(diary.getBody());
-//
-//        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponse(diary.getMember());
-//        diaryAndCommentResponseDto.setMember(memberResponseDto);
-//
-//        diaryAndCommentResponseDto.setDiaryImages(diaryImagesToDiaryImageResponseDtos( // diary(게시글)에 대한 이미지 속성 추가
-//                diaryImageService.findVerifiedDiaryImages(diary) // 해당 게시글 속 이미지 중, status가 THREAD_IMAGE_EXIST만 반환
-//        ));
-//
-//        Page<Comment> pageComments = commentService.findExistCommentsToPaginationAndSort(
-//                diary, commentPage, commentSize, commentSort); //diary의 reply중 status가 true인 것만 페이지네이션 정렬해서 반환
-//        List<Comment> comments = pageComments.getContent();
-//        System.out.println(pageComments.getContent());
-//        diaryAndCommentResponseDto.setComments(new MultiResponseDto<>(
-//                commentMapper.commentsToCommentResponseDtos(memberMapper, comments), pageComments
-//        ));
-//
-//        List<Heart> hearts = heartService.findExistHeartsByDiary(diary); // 해당 diary의 likes중에 Status가 LIKES_EXIST인 것만 반환
-//        List<Long> HeartUserId = hearts.
-//                stream().map(like -> like.getMember().getMemberId()).collect(Collectors.toList());
-//        diaryAndCommentResponseDto.setHeartMemberId(hearMemberId);
-//
-//        return diaryAndCommentResponseDto;
-//    }
+    default DiariesDto.DiaryResponseDto diaryToDiaryResponse(MemberMapper memberMapper, Diary diary) {
 
+        DiariesDto.DiaryResponseDto diaryResponse = new DiariesDto.DiaryResponseDto();
+        diaryResponse.setDiaryId(diary.getDiaryId());
+        diaryResponse.setDiary_title(diary.getDiary_title());
+        diaryResponse.setDiary_subtitle(diary.getDiary_subtitle());
+        diaryResponse.setContent(diary.getContent());
+        diaryResponse.setDiaryStatus(diary.getDiaryStatus());
+        diaryResponse.setBookId(diary.getBook().getBookId());
+
+        MemberResponseDto memberResponseDto = memberMapper.memberToMemberResponseDto(diary.getMember());
+        diaryResponse.setMember(memberResponseDto);
+
+
+        return diaryResponse;
+    }
 }

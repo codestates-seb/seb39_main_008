@@ -1,7 +1,10 @@
 package it.mainPr.dto.memberDto;
 
+import it.mainPr.model.Heart;
 import it.mainPr.model.Member;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +16,7 @@ public class MemberResponseDto {
     private String nickname;
     private String information;
     private String imgUrl;
+    private Member.MemberStatus memberStatus;
 
     @Builder
     public MemberResponseDto(Long memberId, String email, String name, String nickname, String information, String imgUrl) {

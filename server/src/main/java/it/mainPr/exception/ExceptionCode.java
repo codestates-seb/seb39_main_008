@@ -9,6 +9,7 @@ public enum ExceptionCode {
     BOOK_NOT_FOUND(404, "Book not found"),
     UNDEFINED(99, "Undefined"),
     HEART_EXIST(409,"Heart exists"),
+    BOOK_EXIST(409, "Book exists"),
     HEART_NOT_FOUND(404,"Heart not found"),
     ACCESS_DENIED_MEMBER(401,"Access Denied"),
     PHOTO_NOT_FOUND(404, "photo not found"),

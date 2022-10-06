@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -17,6 +18,8 @@ public class BookPostDto {
 
     private String bookImageUrl;
     private Member member;
+
+    private List<BookImageDto> bookImages;
 
     @Builder
     public BookPostDto(String bookTitle, String bookSubTitle, String bookImageUrl) {

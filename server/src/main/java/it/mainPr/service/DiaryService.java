@@ -16,10 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,22 +34,16 @@ public class DiaryService {
     private final MemberService memberService;
     private final BookRepository bookRepository;
 
-//    public Diary createdDiary(DiariesDto.PostDto postDto, long bookId) {
-//        String memberEmail = SecurityUtils.getCurrentMemberEmail();
-//        Member member = memberService.findVerifiedMember(memberEmail);
-//
-//        Book book = bookRepository.findById(bookId).orElseThrow(() ->
-//                 new BusinessLogicalException(ExceptionCode.BOOK_NOT_FOUND));
-//
-//        Diary diary = diaryMapper.postDtoToDiary(postDto);
-//        diary.setMember(member);
-//        diary.setBook(book);
-//        diaryRepository.save(diary);
-//        return diaryMapper.diaryToResponseDto(diary);
-//    }
 
     public Diary createdDiary(Diary diary) {
+        verifyExistDiary(diary.getMember(), diary.getBook());
+
         return diaryRepository.save(diary);
+    }
+
+    private void verifyExistDiary(Member member, Book book) {
+        Optional<Diary> diary = diaryRepository.findByMemberAndBookAndDiaryStatus(member, book, Diary.DiaryStatus.DIARY_EXIST);
+
     }
 
 
@@ -84,13 +81,19 @@ public class DiaryService {
     }
 
     @Transactional
-    public Diary deleteDiary(Diary diary) {
-        Diary findDiary = findVerifiedDiary(diary.getDiaryId()); // diary가 DB에 없으면 예외처리.
+    public void deleteDiary(Long diaryId, Authentication authentication) {
+        Diary diary = diaryRepository.findById(diaryId).orElseThrow(() ->
+                new BusinessLogicalException(ExceptionCode.DIARY_NOT_FOUND));
 
-        // diaryId로 diary를 불러와서 diaryStatus를'존재하지 않음'상태로 변경
-        findDiary.setDiaryStatus(Diary.DiaryStatus.DIARY_NOT_EXIST);
+        checkPermission(diary, authentication);
+        diaryRepository.deleteById(diaryId);
+    }
 
-        return findDiary;
+    public void checkPermission(Diary diary, Authentication authentication) {
+        Member member = (Member) authentication.getPrincipal();
+        if(diary.getMember().getMemberId() != member.getMemberId()) {
+            throw new BusinessLogicalException(ExceptionCode.NO_AUTHORIZED);
+        }
     }
 
     @Transactional
@@ -156,62 +159,16 @@ public class DiaryService {
         }
     }
 
+    public Page<Diary> findExistDiariesToPaginationAndSort(Book book, Integer diaryPage,Integer diarySize,String diarySort) {
+        Page<Diary> findDiaries = diaryRepository.findByBookAndDiaryStatus(
+                PageRequest.of(diaryPage-1,diarySize, Sort.by(diarySort).descending()),
+                book, Diary.DiaryStatus.DIARY_EXIST
+        );
+        return findDiaries;
+    }
 
-
-
-//    public Page<Diary> findDiaries(int page, int size, String sort, String category) {
-//
-//        List<Diary> diaries = diaryRepository.findByCategoryAndDiaryStatus(
-//                category,
-//                Diary.DiaryStatus.DIARY_EXIST);
-//
-//        Comparator<Diary> comparator;
-//        if(sort.equals("createdAt")) {//최신순 정렬
-//            comparator = new Comparator<Diary>() {
-//                @Override
-//                public int compare(Diary o1, Diary o2) {
-//                    return o1.getCreatedAt().isBefore(o2.getCreatedAt()) ? 1 : -1;
-//                }
-//            };
-//        } else if(sort.equals("commentCount")) {//댓글수 순 정렬
-//            comparator = new Comparator<Diary>() {
-//                @Override
-//                public int compare(Diary o1, Diary o2) {
-//
-//                    Integer count1 = o1.getComments().stream().filter(comment -> comment.getCommentStatus() == Comment.CommentStatus.COMMENT_EXIST).
-//                            collect(Collectors.toList()).size();
-//                    Integer count2 = o2.getComments().stream().filter(comment -> comment.getCommentStatus() == Comment.CommentStatus.COMMENT_EXIST).
-//                            collect(Collectors.toList()).size();
-//
-//                    return (count1 < count2) ? 1 : -1;
-//                }
-//            };
-//        } else if(sort.equals("heatCount")) {//댓글수 순 정렬
-//            comparator = new Comparator<Diary>() {
-//                @Override
-//                public int compare(Diary o1, Diary o2) {
-//
-//                    Integer count1 = o1.getHeart().stream().filter(heart -> heart.getHeartStatus() == Heart.HeartStatus.HEART_EXIST).
-//                            collect(Collectors.toList()).size();
-//                    Integer count2 = o2.getHeart().stream().filter(heart -> heart.getHeartStatus() == Heart.HeartStatus.HEART_EXIST).
-//                            collect(Collectors.toList()).size();
-//
-//                    return (count1 < count2) ? 1 : -1;
-//                }
-//            };
-//        } else { //sort의 쿼리스트링 파라미터가 올바른 값이 아님
-//                throw new BusinessLogicalException(ExceptionCode.SORT_NOT_FOUND);
-//            }
-//            Collections.sort(diaries, comparator);
-//
-//
-//            PageRequest pageRequest =PageRequest.of(page,size);
-//            int start = (int)pageRequest.getOffset();
-//            int end = Math.min((start + pageRequest.getPageSize()), diaries.size());
-//            Page<Diary> pagingDiaries = new PageImpl<>(diaries.subList(start, end), pageRequest, diaries.size());
-//
-//            return pagingDiaries;
-//
-//        }
-
+    public List<Diary> findExistDiaries(List<Diary> diaries){
+        return diaries.stream().map(diary -> diaryRepository.findByDiaryIdAndDiaryStatus(
+                diary.getDiaryId(),Diary.DiaryStatus.DIARY_EXIST)).collect(Collectors.toList());
+    }
 }
