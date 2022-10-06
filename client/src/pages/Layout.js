@@ -21,9 +21,10 @@ const Container = styled.div`
 `;
 
 const Content = styled.section`
-  overflow-x: hidden;
+  overflow: hidden;
   margin-left: ${(props) => (props.hasCommon ? `var(--spaceM)` : '0px')};
   width: 100%;
+  height: 100vh;
   max-width: ${(props) => (props.hasCommon ? '977px' : '1200px')};
   padding: ${(props) => (props.hasCommon ? `var(--spaceL)` : '0px')};
 
@@ -32,11 +33,11 @@ const Content = styled.section`
   }
 
   @media screen and (min-width: 576px) and (max-width: 991.98px) {
-    padding: var(--spaceM);
+    padding: ${(props) => (props.hasCommon ? `var(--spaceM)` : '0px')};
   }
-
   @media screen and (max-width: 576px) {
-    padding: calc(var(--spaceS) + 6px);
+    padding: ${(props) =>
+      props.hasCommon ? `calc(var(--spaceS) + 6px)` : '0px'};
   }
 `;
 

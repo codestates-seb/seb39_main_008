@@ -28,7 +28,6 @@ const BookList = ({ setHeaderData }) => {
 
   return (
     <ContentCardGridContainer>
-      <MakeButton type={'book'} />
       {bookListData &&
         bookListData.map((el, idx) => (
           <ContentCard
@@ -49,6 +48,7 @@ const BookList = ({ setHeaderData }) => {
             }}
           />
         ))}
+      <MakeButton type={'book'} />
     </ContentCardGridContainer>
   );
 };

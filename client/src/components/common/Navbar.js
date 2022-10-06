@@ -10,7 +10,7 @@ const NavContainer = styled.div`
   display: none;
   width: 100%;
   padding: calc(var(--spaceS) / 3) var(--spaceS);
-  border-bottom: 1px solid ${({ theme }) => theme.border};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   align-items: center;
 
   @media screen and (max-width: 991.98px) {

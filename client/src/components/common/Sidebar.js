@@ -49,6 +49,16 @@ const Wraper = styled.div`
       display: none;
     }
   }
+  @media screen and (max-width: 991.98px) {
+    * {
+      font-size: var(--fontSizeS);
+      > svg {
+        width: var(--fontSizeM);
+      }
+    }
+    width: 140px;
+    min-width: 140px;
+  }
 `;
 
 const UserBox = styled.div`
@@ -89,6 +99,17 @@ const UserBox = styled.div`
   @media screen and (max-width: 991.98px) {
     margin-top: 0px;
   }
+
+  @media screen and (max-width: 576px) {
+    > img:nth-child(1) {
+      width: 100px;
+      height: 100px;
+    }
+
+    & > button {
+      margin-top: var(--spaceS);
+    }
+  }
 `;
 const List = styled.div`
   margin-top: var(--spaceL);
@@ -110,6 +131,9 @@ const List = styled.div`
     & > svg {
       color: ${({ theme }) => theme.colors.text1};
     }
+  }
+  @media screen and (max-width: 576px) {
+    margin-top: var(--spaceM);
   }
 `;
 

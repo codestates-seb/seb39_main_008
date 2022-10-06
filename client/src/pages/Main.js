@@ -8,12 +8,23 @@ const MainContainer = styled.div`
   & > div:last-child {
     padding: var(--spaceM);
   }
+
+  @media screen and (max-width: 576px) {
+    & > div:last-child {
+      padding: var(--spaceS);
+    }
+  }
 `;
 
 const PopularPeopleContainer = styled.div`
   max-width: 835px;
   margin: 0 var(--spaceM);
-
+  @media screen and (max-width: 576px) {
+    margin: 0;
+    > div {
+      padding: var(--spaceS) 0;
+    }
+  }
   > div {
     padding: var(--spaceL) var(--spaceS);
     padding-top: var(--spaceM);
@@ -31,6 +42,13 @@ export const ContentCardGridContainer = styled.div`
   grid-auto-columns: minmax(350px, 407px);
   grid-auto-rows: 286px;
   grid-gap: var(--spaceM);
+
+  @media screen and (max-width: 576px) {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-auto-columns: minmax(320px, 407px);
+    grid-auto-rows: auto;
+    grid-gap: var(--spaceL);
+  }
 `;
 
 const TitleFilterBox = styled.div`
@@ -46,6 +64,11 @@ const SubTitle = styled.p`
   font-size: var(--fontSizeL);
   padding: 0 var(--spaceM);
   color: ${({ theme }) => theme.colors.text2};
+
+  @media screen and (max-width: 576px) {
+    font-size: var(--fontSizeM);
+    padding: 0 var(--spaceS);
+  }
 `;
 
 const Main = ({ setHeaderData }) => {

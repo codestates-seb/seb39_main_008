@@ -45,6 +45,7 @@ const Labels = styled.div`
 `;
 
 const Label = styled.span`
+  white-space: nowrap;
   margin-left: auto;
   align-self: flex-end;
   background-color: ${({ theme }) => theme.colors.black};

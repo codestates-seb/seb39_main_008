@@ -27,6 +27,18 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media screen and (max-width: 576px) {
+    height: 250px;
+    & > svg {
+      width: 60px;
+      margin: 0px;
+    }
+    & > p {
+      color: ${({ theme }) => theme.colors.text1};
+      font-size: var(--fontSizeL);
+    }
+  }
 `;
 
 const MakeButton = ({ type }) => {
@@ -50,6 +62,7 @@ const MakeButton = ({ type }) => {
   };
 
   const { icon, text, onClick } = BUTTONOPTION[type];
+
   return (
     <Container onClick={onClick}>
       {icon}
