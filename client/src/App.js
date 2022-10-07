@@ -88,7 +88,6 @@ function App() {
                   <Main />
                 </Layout>
               ) : (
-
                 <Layout hasCommon={false}>
                   <Landing />
                 </Layout>
