@@ -21,6 +21,14 @@ const PeopleContainer = styled.div`
   > div > div {
     justify-self: center;
   }
+  @media screen and (max-width: 576px) {
+    > div:first-child {
+      display: grid;
+      column-gap: var(--spaceS);
+      row-gap: var(--spaceL);
+      padding: 0 var(--spaceS);
+    }
+  }
 `;
 
 const NoticeContainer = styled.div`

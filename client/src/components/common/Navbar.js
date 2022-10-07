@@ -2,15 +2,15 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import Avatar from './Avatar';
 import { useRef, useState, useEffect } from 'react';
-import { RiUserSettingsLine } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
+// import { RiUserSettingsLine } from 'react-icons/ri';
+// import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 const NavContainer = styled.div`
   display: none;
   width: 100%;
   padding: calc(var(--spaceS) / 3) var(--spaceS);
-  border-bottom: 1px solid ${({ theme }) => theme.border};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   align-items: center;
 
   @media screen and (max-width: 991.98px) {
@@ -100,7 +100,7 @@ const Toggle = styled.div`
   }
 `;
 const Navbar = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [sidebar, setSidebar] = useState(false);
 
@@ -125,14 +125,18 @@ const Navbar = () => {
   });
 
   const USERDATA = {
-    name: '김코딩',
-    profileURL:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    nickname: 'codingjoa',
-    icon: <RiUserSettingsLine size={20} />,
-    onClick: () => {
-      navigate('/user/1');
-    },
+    id: 1,
+    email: 'dsinnie0@geocities.jp',
+    password: 'sYVpE41iTW',
+    name: 'Dud Sinnie',
+    nickname: 'Sinnie',
+    infomation: 'Guaifenesin',
+    total_follower: 20,
+    total_following: 35,
+    image:
+      'https://cdn.pixabay.com/photo/2018/02/20/20/52/people-3168830_960_720.jpg',
+    isFollow: true,
+    created_at: '2022-09-15 09:26:06',
   };
 
   return (
@@ -156,7 +160,7 @@ const Navbar = () => {
           isShadow={true}
           width="40px"
           height="40px"
-          imageURL={USERDATA.profileURL}
+          imageURL={USERDATA.image}
           borderRadius={`var(--borderRadiusL)`}
         />
       </NavContainer>

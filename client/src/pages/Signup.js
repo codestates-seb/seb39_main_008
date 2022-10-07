@@ -4,29 +4,34 @@ import SignupForm from '../components/SignupForm';
 
 const Signup = () => {
   return (
-    <Container>
-      <ImageBox>
-        <HeaderBox>
-          <p>Welcome to&nbsp;</p>
-          <p>the DUSKHOUR</p>
-        </HeaderBox>
-      </ImageBox>
-      <FormBox>
-        <p>Sign up</p>
-        <SignupForm />
-      </FormBox>
-    </Container>
+    <CenterLayout>
+      <Container>
+        <ImageBox>
+          <HeaderBox>
+            <p>Welcome to&nbsp;</p>
+            <p>the DUSKHOUR</p>
+          </HeaderBox>
+        </ImageBox>
+        <FormBox>
+          <p>Sign up</p>
+          <SignupForm />
+        </FormBox>
+      </Container>
+    </CenterLayout>
   );
 };
 
 export default Signup;
+export const CenterLayout = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Container = styled.div`
   box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 50rem;
   height: 37rem;
   margin: auto;
@@ -71,17 +76,18 @@ export const HeaderBox = styled.div`
 
     & > p {
       font-size: var(--fontSizeL);
+      color: red;
     }
   }
 `;
 export const ImageBox = styled.div`
-  width: 25rem;
+  width: 50%;
   background: url(${signinImg}) no-repeat center;
 
   @media screen and (max-width: 576px) {
     min-width: 400px;
     width: 100%;
-    height: 10%;
+    height: 20%;
   }
 `;
 

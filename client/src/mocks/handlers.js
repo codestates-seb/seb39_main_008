@@ -130,19 +130,20 @@ export const handlers = [
     const { book_id } = req.params;
     let filteredData = diarylist.filter((e) => e.book_id === Number(book_id));
     let filterdMemberData = filteredData.map((e) => e.member_id);
-    filterdMemberData = memberData.filter((e) =>
-      filterdMemberData.includes(e.id)
-    );
+    filterdMemberData = memberData.filter((e) => {
+      if (filterdMemberData.includes(e.id)) return true;
+      else return false;
+    });
 
-    const resData = filteredData.reduce((acc, cur, i) => {
+    const resData = filteredData.reduce((acc, cur) => {
       const temp = {
         diariesid: cur.id,
         memberid: cur.member_id,
         bookimage: cur.image,
         title: cur.title,
         createdAt: cur.created_at,
-        nickname: filterdMemberData[i].nickname,
-        profile: filterdMemberData[i].image,
+        nickname: filterdMemberData[0].nickname,
+        profile: filterdMemberData[0].image,
       };
       return [...acc, { ...temp }];
     }, []);
