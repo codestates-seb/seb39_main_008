@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { setToLocalStorage } from '../lib/localStorage';
 
+
 const Container = styled.div`
   text-align: center;
 `;
@@ -83,7 +84,9 @@ const GuideBox = styled.div`
 const Text = styled.p`
   padding: var(--spaceL);
   font-size: var(--fontSizeL);
+
   color: ${({ theme }) => theme.colors.text1};
+
   @media screen and (max-width: 576px) {
     font-size: var(--fontSizeM);
   }
@@ -103,8 +106,8 @@ const Landing = () => {
   });
 
   return (
-    <>
-      <Container>
+  
+     <Container>
         <Box1>
           <Logo width="30%" />
           <MockupWraper>
@@ -169,7 +172,8 @@ const Landing = () => {
           </GuideWraper>
         </Box1>
       </Container>
-    </>
+   
+
   );
 };
 
