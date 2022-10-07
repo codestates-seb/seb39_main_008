@@ -129,7 +129,7 @@ export const addBook = async (data) => {
 export const getBook = async (book_id) => {
   try {
     const res = await axios.get(`${url}/api/v1/books/${book_id}`);
-    return res.data;
+    return res;
   } catch (err) {
     console.log('getBookList', err);
   }

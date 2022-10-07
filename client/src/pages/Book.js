@@ -17,10 +17,10 @@ const Book = ({ setHeaderData }) => {
 
   useEffect(async () => {
     const res = await getBook(id);
-    setData(res.data);
+    setData(res.data.data);
     setHeaderData({
-      title: `${res.data[0].nickname}의 일기장 일기장 제목`,
-      description: '북생성일 부터 공개, 비공개로 작성된 기록들이 담겨있습니다',
+      title: `${res.data.data[0].nickname}의 일기장입니다`,
+      description: '2022년 9월 11일 부터 공개로 작성된 기록들이 담겨있습니다',
     });
   }, [id]);
 
@@ -34,21 +34,8 @@ const Book = ({ setHeaderData }) => {
             <ContentCard
               className="item"
               // API 연동 후 변경
-              // data={bookListData}
-              data={{
-                title: el.title,
-                createdAt: el.createdAt,
-                profile: el.profile,
-                isFollow: true, //안옴
-                totalComment: 1000, //안옴
-                totalLike: 10000, //안옴
-                category: 1,
-                diaryimage:
-                  'https://images.unsplash.com/photo-1542577731-55541be363d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-                nickname: el.nickname,
-                memberId: el.memberid,
-                diaryId: el.diariesid,
-              }}
+              // data={data}
+              data={el}
               key={idx}
               isDiary={true}
               onClick={() => {

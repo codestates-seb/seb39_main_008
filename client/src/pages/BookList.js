@@ -11,10 +11,18 @@ const BookList = ({ setHeaderData }) => {
   const navigate = useNavigate();
 
   const USERDATA = {
-    name: '김코딩',
-    profileURL:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    nickname: 'codingjoa',
+    id: 1,
+    email: 'dsinnie0@geocities.jp',
+    password: 'sYVpE41iTW',
+    name: 'Dud Sinnie',
+    nickname: 'Sinnie',
+    infomation: 'Guaifenesin',
+    total_follower: 20,
+    total_following: 35,
+    image:
+      'https://cdn.pixabay.com/photo/2018/02/20/20/52/people-3168830_960_720.jpg',
+    isFollow: true,
+    created_at: '2022-09-15 09:26:06',
   };
 
   useEffect(async () => {
@@ -28,13 +36,14 @@ const BookList = ({ setHeaderData }) => {
 
   return (
     <ContentCardGridContainer>
+      <MakeButton type={'book'} />
       {bookListData &&
         bookListData.map((el, idx) => (
           <ContentCard
             isDiary={false}
-            key={el.bookId || idx}
+            key={el.id || idx}
             onClick={() => {
-              navigate(`/book/${el.bookId}`);
+              navigate(`/book/${el.id}`);
             }}
             className="item"
             // API 연동 후 변경
@@ -48,7 +57,6 @@ const BookList = ({ setHeaderData }) => {
             }}
           />
         ))}
-      <MakeButton type={'book'} />
     </ContentCardGridContainer>
   );
 };

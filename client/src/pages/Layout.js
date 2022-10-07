@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.section`
-  overflow: hidden;
+  overflow-x: hidden;
   margin-left: ${(props) => (props.hasCommon ? `var(--spaceM)` : '0px')};
   width: 100%;
   max-width: ${(props) => (props.hasCommon ? '977px' : '1200px')};

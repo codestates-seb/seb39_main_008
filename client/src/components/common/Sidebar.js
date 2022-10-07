@@ -49,7 +49,7 @@ const Wraper = styled.div`
       display: none;
     }
   }
-  @media screen and (max-width: 991.98px) {
+  @media screen and (max-width: 576px) {
     * {
       font-size: var(--fontSizeS);
       > svg {
@@ -189,19 +189,20 @@ const Sidebar = ({ hasSidebar }) => {
         navigate('/people');
       },
     },
-    logout: {
-      text: '로그아웃',
-      icon: <FiLogOut size={20} />,
-      className: 'auto',
-      onClick: () => {
-        setConfirm(!confirm);
-      },
-    },
     setTheme: {
       text: '테마설정',
+      className: 'auto',
       icon: <IoColorPaletteOutline size={20} />,
       onClick: () => {
         navigate('/theme');
+      },
+    },
+    logout: {
+      text: '로그아웃',
+      icon: <FiLogOut size={20} />,
+
+      onClick: () => {
+        setConfirm(!confirm);
       },
     },
   };
@@ -209,14 +210,18 @@ const Sidebar = ({ hasSidebar }) => {
   const list = Object.values(LISTDATA);
 
   const USERDATA = {
-    name: '김코딩',
-    profileURL:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    nickname: 'codingjoa',
-    icon: <RiUserSettingsLine size={20} />,
-    onClick: () => {
-      navigate('/user/1');
-    },
+    id: 1,
+    email: 'dsinnie0@geocities.jp',
+    password: 'sYVpE41iTW',
+    name: 'Dud Sinnie',
+    nickname: 'Sinnie',
+    infomation: 'Guaifenesin',
+    total_follower: 20,
+    total_following: 35,
+    image:
+      'https://cdn.pixabay.com/photo/2018/02/20/20/52/people-3168830_960_720.jpg',
+    isFollow: true,
+    created_at: '2022-09-15 09:26:06',
   };
 
   return (
@@ -235,15 +240,19 @@ const Sidebar = ({ hasSidebar }) => {
           <Avatar
             isShadow={true}
             height="197px"
-            imageURL={USERDATA.profileURL}
+            imageURL={USERDATA.image}
             borderRadius={`var(--borderRadiusL)`}
           />
-          <button onClick={USERDATA.onClick}>
+          <button
+            onClick={() => {
+              navigate(`/user/${USERDATA.id}`);
+            }}
+          >
             <div>
               <p>{USERDATA.name}</p>
               <p>{USERDATA.nickname}</p>
             </div>
-            {USERDATA.icon}
+            <RiUserSettingsLine size={20} />
           </button>
         </UserBox>
         {list.map((el, idx) => {
