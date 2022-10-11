@@ -69,7 +69,9 @@ const BookAndDiaries = styled.div`
   background-size: contain;
   background-position: center center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-
+  > div:nth-child(2) {
+    color: ${({ theme }) => theme.colors.text1};
+  }
   > div:last-child {
     display: flex;
     gap: var(--spaceM);
@@ -98,7 +100,7 @@ const Userpage = ({ setHeaderData }) => {
   }, [memberId]);
   return (
     <UserpageContainer>
-      {console.log(diaries)}
+      {/* {console.log(diaries)} */}
       <UserInfoContainer>
         <AvatarContainer>
           <Avatar
