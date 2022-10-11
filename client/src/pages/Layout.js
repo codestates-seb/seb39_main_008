@@ -17,6 +17,7 @@ const Container = styled.div`
 
   @media screen and (max-width: 991.98px) {
     flex-direction: column;
+    height: 100vh;
   }
 `;
 
@@ -34,6 +35,7 @@ const Content = styled.section`
   @media screen and (min-width: 576px) and (max-width: 991.98px) {
     padding: ${(props) => (props.hasCommon ? `var(--spaceM)` : '0px')};
   }
+
   @media screen and (max-width: 576px) {
     padding: ${(props) =>
       props.hasCommon ? `calc(var(--spaceS) + 6px)` : '0px'};
@@ -42,6 +44,7 @@ const Content = styled.section`
 
 const Aside = styled.aside`
   background-color: ${({ theme }) => theme.colors.sidebar};
+  z-index: 10;
 
   @media screen and (max-width: 991.98px) {
     display: none;
@@ -49,6 +52,7 @@ const Aside = styled.aside`
 `;
 
 const NavContainer = styled.div`
+  z-index: 10;
   background-color: ${({ theme }) => theme.colors.sidebar};
   display: none;
 
@@ -67,12 +71,12 @@ function Layout({ hasCommon = true, children }) {
       <Container>
         {hasCommon && (
           <>
-            <Aside>
-              <Sidebar />
-            </Aside>
             <NavContainer>
               <Navbar />
             </NavContainer>
+            <Aside>
+              <Sidebar />
+            </Aside>
           </>
         )}
         <Content hasCommon={hasCommon}>
