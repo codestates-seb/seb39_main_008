@@ -8,7 +8,7 @@ const Container = styled.div`
   right: 0;
   bottom: 0;
   background-color: ${({ theme }) => theme.colors.dimGrey};
-  z-index: 1000;
+  z-index: 5;
 `;
 
 const Wraper = styled.div`
@@ -21,7 +21,7 @@ const Wraper = styled.div`
   padding: var(--spaceL);
   padding-top: var(--spaceS);
   box-shadow: var(--shadowM);
-  z-index: 1000;
+  /* z-index: 5; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,7 +30,7 @@ const Wraper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: ${({ theme }) => theme.colors.main};
   border-radius: var(--borderRadiusM);
   width: 466px;
   height: 249px;
