@@ -20,7 +20,6 @@ const Wraper = styled.div`
   }
 
   background-color: ${({ theme }) => theme.colors.sidebar};
-  z-index: 1000;
   display: flex;
   padding: var(--spaceM);
   width: 223px;
