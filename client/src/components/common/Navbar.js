@@ -118,9 +118,10 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (sidebar) window.addEventListener('click', handleClickOutSide);
+    if (sidebar) window.addEventListener('click', handleClickOutSide, true);
+
     return () => {
-      window.removeEventListener('click', handleClickOutSide);
+      window.removeEventListener('click', handleClickOutSide, true);
     };
   });
 

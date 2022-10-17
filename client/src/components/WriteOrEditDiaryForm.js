@@ -362,7 +362,6 @@ export const Bottom = styled.div`
       color: ${({ theme }) => theme.colors.text1};
     }
     border-top: 1px solid ${({ theme }) => theme.colors.border};
-    z-index: 2000;
     padding: var(--spaceM) var(--spaceS);
     color: ${({ theme }) => theme.colors.text2};
     min-height: 20rem;
@@ -371,6 +370,9 @@ export const Bottom = styled.div`
   .ql-editor {
     font-size: var(--fontSizeM);
     padding: 0px;
+  }
+  .quill > .ql-container > .ql-editor.ql-blank::before {
+    color: ${({ theme }) => theme.colors.text1};
   }
 
   .rightbox {

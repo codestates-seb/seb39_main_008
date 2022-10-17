@@ -8,7 +8,7 @@ import Comment from '../components/Diary/Comment';
 import styled from 'styled-components';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 
-const TEMPCONTENT = `<h2><span style="background-color: rgb(255, 255, 2…ll">용할 수 있도록 한다'라는 사명을 가지고 사업을 하고 있다.</span></h2>`;
+const TEMPCONTENT = `<h1>Lorem ipsum odor amet, consectetuer adipiscing elit.<span class="ql-size-small"> </span></h1><p><br></p><h1 class="ql-indent-1"><span class="ql-size-small" style="color: rgb(0, 97, 0);">Convallis ridiculus convallis mauris curae et lacinia amet. </span></h1><ol><li class="ql-indent-1"><span class="ql-size-small">Justo venenatis eget nec cras imperdiet faucibus massa justo. </span></li><li class="ql-indent-1"><span class="ql-size-small">Vivamus euismod condimentum risus per tempor viverra inceptos consequat. Primis augue consequat massa purus ullamcorper sit. </span></li></ol><p><br></p><h3><span class="ql-size-small">Commodo turpis ultrices eros, ultricies pretium himenaeos.</span></h3><h3><span class="ql-size-small"> Nibh id imperdiet litora bibendum egestas posuere. Curae proin congue neque urna euismod morbi. </span></h3><h3><span class="ql-size-small">Auctor commodo inceptos aliquet netus id.</span></h3>`;
 
 const Diary = ({ setHeaderData }) => {
   const [diary, setDiary] = useState(null);
@@ -25,7 +25,7 @@ const Diary = ({ setHeaderData }) => {
   useEffect(async () => {
     // const diaryAndComment = await Promise.all([getDiary(id),getComment(id)]);
     const res = await getDiary(diaryId);
-    console.log(res.data);
+    // console.log(res.data);
     setDiary(res.data);
   }, []);
 

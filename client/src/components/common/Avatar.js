@@ -7,6 +7,7 @@ const ProfileURL = styled.img`
   object-fit: cover;
   box-shadow: ${(props) => (props.isShadow ? `var(--shadowXS)` : 'none')};
   background-color: ${({ theme }) => theme.colors.userCard};
+  /* z-index: -5; */
 `;
 
 const Avatar = ({ imageURL, isShadow = false, ...props }) => {
